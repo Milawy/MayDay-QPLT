@@ -23,17 +23,20 @@ body{
     background-color: #3c3f41;
     color: #e5e5e5;
     text-align: center;
-    vertical-align: center;
     font-size: 200%;
     border-style: none;
-    border-radius: 10%;
+    padding-top: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
 }
 
 #side-bar-button:hover{
-    transition-duration: 250ms;
+    /*transition-duration: 250ms;
     background-color: #313335;
     border-color: white;
-    border-width: 1px;
+    border-width: 1px;*/
+    cursor: pointer;
 }
 
 #side-bar{
@@ -49,33 +52,45 @@ body{
 #side-bar-button-close{
     background-color: #313335;
     color: #e5e5e5;
+    text-align: center;
+    font-size: 200%;
     height: 5%;
     border-style: solid;
     border-color: #313335;
+    padding-top: 5%;
 }
 
 #side-bar-button-close:hover{
-    transition-duration: 250ms;
+    /*transition-duration: 250ms;
     background-color: #3c3f41;
     border-color: white;
-    border-width: 1px;
+    border-width: 1px;*/
+    cursor: pointer;
+}
+
+hr{
+    width: 95%;
+    margin-top: 10%;
+    margin-bottom: 10%;
 }
 
 #tabs > h1{
-    padding-bottom: 10%;
+    padding-bottom: 5%;
 }
 
 #tabs > div{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #313335;
     padding-top: 5%;
     padding-bottom: 5%;
-    margin-bottom: 5%;
 }
 
 #tabs > div:hover{
     transition-duration: 250ms;
     background-color: #3c3f41;
-    border-style: solid;
-    border-width: 1px;
+    border-color: #e5e5e5;
+    cursor: pointer;
 }
 
 #container-1{
