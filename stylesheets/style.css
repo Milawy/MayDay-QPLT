@@ -17,28 +17,6 @@ body{
     width: 75%;
 }
 
-#side-bar-button {
-    display: none;
-    float: left;
-    background-color: #3c3f41;
-    color: #e5e5e5;
-    text-align: center;
-    font-size: 200%;
-    border-style: none;
-    padding-top: 0;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-right: 10px;
-}
-
-#side-bar-button:hover{
-    /*transition-duration: 250ms;
-    background-color: #313335;
-    border-color: white;
-    border-width: 1px;*/
-    cursor: pointer;
-}
-
 #side-bar{
     display: flex;
     flex-direction: column;
@@ -48,25 +26,6 @@ body{
     height: 100%;
     width: 25%;
     margin-right: 5%;
-}
-
-#side-bar-button-close{
-    background-color: #313335;
-    color: #e5e5e5;
-    text-align: center;
-    font-size: 200%;
-    height: 5%;
-    border-style: solid;
-    border-color: #313335;
-    padding-top: 5%;
-}
-
-#side-bar-button-close:hover{
-    /*transition-duration: 250ms;
-    background-color: #3c3f41;
-    border-color: white;
-    border-width: 1px;*/
-    cursor: pointer;
 }
 
 hr{
