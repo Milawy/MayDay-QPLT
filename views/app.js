@@ -26,12 +26,12 @@ let defaultMode = "dark";
 let newMode;
 
 function createModeButton(){
+    newMode = getMode();
     let sideBar = document.getElementById("side-bar");
     let button = document.createElement("button");
     button.setAttribute("id", "mode-button");
     button.setAttribute("onclick", "swapMode(newMode)");
     sideBar.appendChild(button);
-    newMode = getMode();
     setMode(newMode);
 }
 
@@ -63,8 +63,14 @@ function getMode(){
 }
 
 function swapMode(newMode){
-    if(newMode === "light"){darkMode()}
-    else if(newMode === "dark"){lightMode()}
+    if(newMode === "light"){
+        defaultMode = newMode;
+        darkMode()
+    }
+    else if(newMode === "dark"){
+        defaultMode = newMode;
+        lightMode()
+    }
     else{alert("Swap Mode Error")}
 }
 
