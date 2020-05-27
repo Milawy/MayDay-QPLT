@@ -18,7 +18,7 @@ body{
 }
 
 #side-bar-button {
-    display: flex;
+    display: none;
     float: left;
     background-color: #3c3f41;
     color: #e5e5e5;
@@ -40,7 +40,8 @@ body{
 }
 
 #side-bar{
-    display: none;
+    display: flex;
+    flex-direction: column;
     background-color: #313335;
     float: left;
     text-align: center;
