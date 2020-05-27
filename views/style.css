@@ -24,8 +24,26 @@ body{
     float: left;
     text-align: center;
     height: 100%;
-    width: 25%;
+    width: 20%;
     margin-right: 5%;
+}
+
+button:focus {
+    outline:0;
+}
+
+#mode-button{
+    background-color: #313335;
+    color: white;
+    border-style: none;
+    font-size: 150%;
+    width: 20%;
+    height: 5%;
+    margin: auto auto 10% auto;
+}
+
+#mode-button:hover{
+    cursor: pointer;
 }
 
 hr{
