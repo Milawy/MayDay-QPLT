@@ -23,55 +23,44 @@ function openTransport() {
 /// LIGHT/DARK MODE ///
 
 let defaultMode = "dark";
-let newMode;
 
-function createModeButton(){
-    newMode = getMode();
-    let sideBar = document.getElementById("side-bar");
-    let button = document.createElement("button");
-    button.setAttribute("id", "mode-button");
-    button.setAttribute("onclick", "swapMode(newMode)");
-    sideBar.appendChild(button);
-    setMode(newMode);
+
+function toggleMode() {
+    if(localStorage.getItem("CSSMode") === "dark"){
+        lightMode();
+    }
+    else{
+        if(localStorage.getItem("CSSMode") === "light"){
+            darkMode();
+        }
+    }
 }
 
 function lightMode(){
-    newMode = "light";
-    document.querySelector("link").setAttribute("href", "style-light-mode.css")
+    document.querySelector("link").setAttribute("href", "style-light-mode.css");
     document.getElementById("mode-button").innerHTML="&#9790;";
-    document.getElementById("mode-button").onclick = darkMode;
-    return newMode;
+    document.getElementById("mode-button").onclick = toggleMode;
+    localStorage.setItem("CSSMode", "light");
 }
 
-function darkMode(){
-    newMode = "dark";
-    document.querySelector("link").setAttribute("href", "style.css")
-    document.getElementById("mode-button").innerHTML="&#9788;";
-    document.getElementById("mode-button").onclick = lightMode;
-    return newMode;
+function darkMode() {
+    document.querySelector("link").setAttribute("href", "style.css");
+    document.getElementById("mode-button").innerHTML = "&#9788;";
+    document.getElementById("mode-button").onclick = toggleMode;
+    localStorage.setItem("CSSMode", "dark");
 }
 
-function setMode(){
-    if(defaultMode === "light"){lightMode()}
-    else if(defaultMode === "dark"){darkMode()}
-    else{alert("Mode Error")}
-}
-
-function getMode(){
-    if(newMode === "light" || newMode === "dark"){return newMode}
-    else{return defaultMode}
-}
-
-function swapMode(newMode){
-    if(newMode === "light"){
-        defaultMode = newMode;
-        darkMode()
+function setMode(mode){
+    if(mode === "light"){
+        lightMode();
     }
-    else if(newMode === "dark"){
-        defaultMode = newMode;
-        lightMode()
+    else if(mode === "dark"){
+        darkMode();
     }
-    else{alert("Swap Mode Error")}
+    else{
+        setMode(defaultMode);
+        localStorage.setItem("CSSMode", defaultMode);
+    }
 }
 
-window.addEventListener("load", createModeButton);
+window.addEventListener("load", setMode(localStorage.getItem("CSSMode")));
