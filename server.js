@@ -6,4 +6,4 @@ app.use(express.static(__dirname + '/views'));
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
-app.get('/', (req, res) => res.redirect('./home.html'));
+app.get('/', (req, res) => res.redirect('./login.html'));

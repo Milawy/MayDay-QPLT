@@ -10,6 +10,8 @@ body{
     height: 98%;
 }
 
+/* MAIN CSS PART */
+
 #main{
     margin-left: 10%;
     margin-right: 10%;
@@ -91,3 +93,6 @@ hr{
     border-width: 1px;
     border-radius: 5%;
 }
+
+/* FORMS CSS PART */
+
