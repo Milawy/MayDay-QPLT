@@ -24,7 +24,6 @@ function openTransport() {
 
 let defaultMode = "dark";
 
-
 function toggleMode() {
     if(localStorage.getItem("CSSMode") === "dark"){
         lightMode();

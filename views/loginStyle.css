@@ -21,6 +21,7 @@ body{
     margin: 0 0 40px;
     padding: 0;
     text-align: center;
+    font-size: 3em;
 }
 
 .login-form .form-input{
@@ -50,11 +51,16 @@ body{
     color: white;
     border: none;
     cursor: pointer;
-    text-transform: uppercase;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
 }
 
 .login-form .form-input input[type="submit"]:hover{
-    background-color: black;
+    transition-duration: 250ms;
+    background-color: #d5d5d5;
+    color: #3c3f41;
+    cursor: pointer;
 }
 
 .login-form .forget-password{
@@ -62,4 +68,5 @@ body{
     margin-top: 30px;
     color: white;
     font-weight: bold;
+    width: 50%;
 }
