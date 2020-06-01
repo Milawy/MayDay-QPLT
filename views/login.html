@@ -8,20 +8,25 @@
 </head>
 <body data-vide-bg="mp4: ../resources/loginBg">
 
-    <div class="login-form">
-        <h2>Sign in</h2>
-        <div class="form-input">
-            <input type="text" name="" placeholder="Username">
+    <form action="home.html">
+        <div class="login-form">
+            <h2>Sign in</h2>
+            <div class="form-input">
+                <label>
+                    <input type="text" name="" placeholder="Username" onfocus="this.placeholder=''" onblur="this.placeholder='Username'" required>
+                </label>
+            </div>
+            <div class="form-input">
+                <label>
+                    <input type="password" name="" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'" required>
+                </label>
+            </div>
+            <div class="form-input">
+                <input type="submit" name="" value="Login">
+            </div>
+            <a href="#" class="forget-password">Forget Password</a>
         </div>
-        <div class="form-input">
-            <input type="password" name="" placeholder="Password">
-        </div>
-        <div class="form-input">
-            <input type="submit" name="" value="Login">
-        </div>
-        <a href="#" class="forget-password">Forget Password</a>
-    </div>
-
+    </form>
     <!-- Video background scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="jquery.vide.js"></script>

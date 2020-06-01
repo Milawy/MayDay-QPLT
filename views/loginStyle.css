@@ -29,19 +29,25 @@ body{
 }
 
 .login-form .form-input input{
+    color: white;
     outline: none;
     height: 40px;
     padding: 10px;
     box-sizing: border-box;
     width: 100%;
-    border: 1px solid #3c3f41;
+    border: 1px solid #d5d5d5;
     background-color: transparent;
     font-size: 18px;
 }
 
+::placeholder{
+    color: white;
+    opacity: 0.5;
+}
+
 .login-form .form-input input[type="submit"]{
     background-color: #3c3f41;
-    color: #fff;
+    color: white;
     border: none;
     cursor: pointer;
     text-transform: uppercase;
