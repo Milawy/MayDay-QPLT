@@ -8,9 +8,19 @@
 </head>
 <body data-vide-bg="mp4: ../resources/loginBg" data-vide-options="playbackRate:0.3">
 
-    <form action="home.html">
+    <form action="login.html">
         <div class="login-form">
-            <h2>Log in</h2>
+            <h2>Sign up</h2>
+            <div class="form-input">
+                <label>
+                    <input type="text" name="" placeholder="First name" onfocus="this.placeholder=''" onblur="this.placeholder='First name'" required>
+                </label>
+            </div>
+            <div class="form-input">
+                <label>
+                    <input type="text" name="" placeholder="Last name" onfocus="this.placeholder=''" onblur="this.placeholder='Last name'" required>
+                </label>
+            </div>
             <div class="form-input">
                 <label>
                     <input type="text" name="" placeholder="Username" onfocus="this.placeholder=''" onblur="this.placeholder='Username'" required>
@@ -22,12 +32,16 @@
                 </label>
             </div>
             <div class="form-input">
+                <label>
+                    <input type="date" name="" required>
+                </label>
+            </div>
+            <div class="form-input">
                 <input type="submit" name="" value="Submit">
             </div>
-            <a href="#" class="forget-password">Forget Password ?</a>
             <hr>
             <div class="form-input">
-                <input type="button" name="" value="Sign up" onclick="window.location.href='create-account.html';">
+                <input type="button" name="" value="Log in" onclick="window.location.href='login.html';">
             </div>
         </div>
     </form>
