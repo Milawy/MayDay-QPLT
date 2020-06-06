@@ -12,14 +12,68 @@ body{
     padding: 0;
 }
 
+/* LIGHT MODE */
+
+.light-body{
+    background-color: #e5e5e5;
+    color: #3c3f41;
+}
+
+.light-body .side-bar{
+    background-color: #d5d5d5;
+}
+
+.light-body .profile-bar{
+    background-color: #d5d5d5;
+}
+
+.light-body .mode-button{
+    background-color: #d5d5d5;
+    color: black;
+}
+
+.light-body .tabs > div{
+    border: solid 1px #d5d5d5;
+}
+
+.light-body .tabs > div:hover{
+    background-color: #e5e5e5;
+    border-color: #3c3f41;
+}
+
 /* MAIN CSS PART */
 
-#main{
+.main{
     height: 100%;
     width: 100%;
 }
 
-#side-bar{
+.profile-bar{
+    display: flex;
+    flex-direction: column;
+    background-color: #313335;
+    padding: 0 100px;
+    height: 100%;
+    width: 50%;
+}
+
+.profile-bar > h1{
+    text-align: center;
+    margin: 5% 0;
+}
+
+.profile-bar > div{
+    margin: 5px 0;
+}
+
+.profile-bar > img{
+    width: 300px;
+    height: 300px;
+    border-radius: 100%;
+    margin-top: 50px;
+}
+
+.side-bar{
     display: flex;
     flex-direction: column;
     background-color: #313335;
@@ -34,7 +88,7 @@ button:focus {
     outline: 0;
 }
 
-#mode-button{
+.mode-button{
     transition-duration: 250ms;
     background-color: #313335;
     color: white;
@@ -46,7 +100,18 @@ button:focus {
     margin: auto auto 10% auto;
 }
 
-#mode-button:hover{
+.mode-button:hover{
+    cursor: pointer;
+}
+
+.tabs img{
+    margin: 25px 0 0 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+
+.tabs img:hover{
     cursor: pointer;
 }
 
@@ -55,33 +120,73 @@ hr{
     margin: 10% auto;
 }
 
-#tabs > h1{
+.tabs > h1{
     padding: 5% 0;
 }
 
-#tabs > div{
+.tabs > div{
     border: solid 1px #313335;
     padding: 5% 0;
 }
 
-#tabs > div:hover{
+.tabs > div:hover{
     transition-duration: 250ms;
     background-color: #3c3f41;
     border-color: #e5e5e5;
     cursor: pointer;
 }
 
-#container-1{
+.container-1{
     display: flex;
     flex-direction: column;
     height: 20%;
     padding: 5px;
 }
 
-#container-1 > div{
+.container-1 > div{
     flex: auto;
     text-align: center;
     padding: 5% 0;
     margin-bottom: 5%;
     border: solid 1px;
+}
+
+.social-buttons{
+    display: flex;
+    flex-direction: column;
+    float: right;
+    margin-right: 5px;
+}
+
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+
+.fa-instagram {
+    background: #125688;
+    color: white;
+}
+
+.fa-reddit {
+    background: #ff5700;
+    color: white;
 }

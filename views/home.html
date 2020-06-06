@@ -4,15 +4,16 @@
 
     <title>MayDay QPLT</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 <body>
 
-<div id="main">
+<div class="main">
 
-    <div id="side-bar">
-        <div id="tabs">
-            <h1>TABS</h1>
+    <div class="side-bar">
+        <div class="tabs">
+            <img src="../resources/profil-linkedin.jpg" onclick="window.location.href='profile.html';" alt="">
             <hr>
             <div onclick="openHome()">HOME</div>
             <div onclick="openWeather()">WEATHER</div>
@@ -21,12 +22,20 @@
             <div onclick="openTransport()">PUBLIC TRANSPORT</div>
         </div>
         <hr>
-        <button id="mode-button" onclick="toggleMode()"></button>
+        <button class="mode-button" onclick="toggleMode()"></button>
     </div>
 
-    <div id="container-1">
+    <div class="container-1">
         <div>Can put your main infos here</div>
     </div>
+
+    <div class="social-buttons">
+        <a href="https://www.facebook.com/" class="fa fa-facebook"></a>
+        <a href="https://twitter.com/home" class="fa fa-twitter"></a>
+        <a href="https://www.instagram.com/" class="fa fa-instagram"></a>
+        <a href="https://www.reddit.com/" class="fa fa-reddit"></a>
+    </div>
+
 </div>
 
 <script src="app.js"></script>

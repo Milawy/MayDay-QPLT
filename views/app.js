@@ -20,6 +20,14 @@ function openTransport() {
     window.location.href = "transport.html";
 }
 
+/// PROFILE CHANGE ///
+
+Nom = 2;
+
+function inputName() {
+
+}
+
 /// LIGHT/DARK MODE ///
 
 let defaultMode = "dark";
@@ -36,16 +44,16 @@ function toggleMode() {
 }
 
 function lightMode(){
-    document.querySelector("link").setAttribute("href", "style-light-mode.css");
-    document.getElementById("mode-button").innerHTML="&#9790;";
-    document.getElementById("mode-button").onclick = toggleMode;
+    document.querySelector("body").classList.add("light-mode");
+    document.getElementsByClassName("mode-button").innerHTML = "&#9790;";
+    document.getElementsByClassName("mode-button").onclick = toggleMode;
     localStorage.setItem("CSSMode", "light");
 }
 
 function darkMode() {
-    document.querySelector("link").setAttribute("href", "style.css");
-    document.getElementById("mode-button").innerHTML = "&#9788;";
-    document.getElementById("mode-button").onclick = toggleMode;
+    document.querySelector("body").classList.remove("light-mode");
+    document.getElementsByClassName("mode-button").innerHTML = "&#9788;";
+    document.getElementsByClassName("mode-button").onclick = toggleMode;
     localStorage.setItem("CSSMode", "dark");
 }
 
