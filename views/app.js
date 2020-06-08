@@ -30,7 +30,7 @@ function inputName() {
 
 /// LIGHT/DARK MODE ///
 
-let defaultMode = "dark";
+let defaultMode = "light";
 
 function toggleMode() {
     if(localStorage.getItem("CSSMode") === "dark"){

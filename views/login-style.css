@@ -56,7 +56,11 @@ body{
     background-repeat: no-repeat;
 }
 
-.login-form .form-input input[type=date]:invalid{
+.login-form .form-input input[type="date"]:hover{
+    cursor: text;
+}
+
+.login-form .form-input input[type="date"]:invalid{
     color: #666;
 }
 
