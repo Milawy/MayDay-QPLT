@@ -22,8 +22,6 @@ function openTransport() {
 
 /// PROFILE CHANGE ///
 
-Nom = 2;
-
 function inputName() {
 
 }
