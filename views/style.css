@@ -27,7 +27,7 @@ body{
     background-color: #d5d5d5;
 }
 
-.light-body .mode-button{
+.light-body #mode-button{
     background-color: #d5d5d5;
     color: black;
 }
@@ -88,7 +88,7 @@ button:focus {
     outline: 0;
 }
 
-.mode-button{
+#mode-button{
     transition-duration: 250ms;
     background-color: #313335;
     color: white;
@@ -100,7 +100,7 @@ button:focus {
     margin: auto auto 10% auto;
 }
 
-.mode-button:hover{
+#mode-button:hover{
     cursor: pointer;
 }
 

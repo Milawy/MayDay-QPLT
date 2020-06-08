@@ -45,13 +45,13 @@ function toggleMode() {
 
 function lightMode(){
     document.querySelector("body").setAttribute('class', 'light-body');
-    document.getElementsByClassName("mode-button").innerHTML = "&#9790;";
+    document.getElementById("mode-button").innerHTML = "&#9790;";
     localStorage.setItem("CSSMode", "light");
 }
 
 function darkMode() {
     document.querySelector("body").setAttribute('class', '');
-    document.getElementsByClassName("mode-button").innerHTML = "&#9788;";
+    document.getElementById("mode-button").innerHTML = "&#9788;";
     localStorage.setItem("CSSMode", "dark");
 }
 

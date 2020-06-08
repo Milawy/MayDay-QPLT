@@ -1,4 +1,6 @@
 body{
+    background-color: #a5a5a5;
+    color: black;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -7,7 +9,7 @@ body{
 }
 
 .login-form{
-    color: white;
+    color: black;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -30,19 +32,19 @@ body{
 }
 
 .login-form .form-input input{
-    color: white;
+    background-color: transparent;
+    color: black;
     outline: none;
     height: 40px;
     padding: 10px;
     box-sizing: border-box;
     width: 100%;
-    border: 1px solid #d5d5d5;
-    background-color: transparent;
+    border: 1px solid black;
     font-size: 18px;
 }
 
 ::placeholder{
-    color: white;
+    color: black;
     opacity: 0.5;
 }
 
@@ -55,7 +57,7 @@ body{
 }
 
 .login-form .form-input input[type=date]:invalid{
-    color: #999;
+    color: #666;
 }
 
 .login-form .form-input input[type="date"]::-webkit-inner-spin-button {
@@ -67,8 +69,8 @@ body{
 }
 
 .login-form .form-input input[type="submit"]{
-    color: white;
-    border: solid 1px white;
+    color: black;
+    border: solid 1px black;
     cursor: pointer;
     width: 60%;
     margin: 0 20%;
@@ -82,8 +84,8 @@ body{
 }
 
 .login-form .form-input input[type="button"]{
-    color: white;
-    border: solid 1px white;
+    color: black;
+    border: solid 1px black;
     cursor: pointer;
     width: 60%;
     margin: 0 20%;
@@ -99,7 +101,7 @@ body{
 .login-form .forget-password{
     display: block;
     margin-top: 30px;
-    color: white;
+    color: black;
     font-weight: bold;
     width: 50%;
 }
