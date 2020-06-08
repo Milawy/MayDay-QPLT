@@ -18,8 +18,9 @@
             </div>
             <div class="form-input">
                 <label>
-                    <input type="password" name="" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'" required>
+                    <input id="password" type="password" name="" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'" required>
                 </label>
+                <div id="password-eye" onclick="showHide()"></div>
             </div>
             <div class="form-input">
                 <input type="submit" name="" value="Submit">
@@ -32,6 +33,7 @@
         </div>
     </form>
 
+    <script src="login-functions.js"></script>
     <!-- Video background scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="jquery.vide.js"></script>

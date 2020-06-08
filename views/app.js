@@ -44,16 +44,14 @@ function toggleMode() {
 }
 
 function lightMode(){
-    document.querySelector("body").classList.add("light-mode");
+    document.querySelector("body").setAttribute('class', 'light-body');
     document.getElementsByClassName("mode-button").innerHTML = "&#9790;";
-    document.getElementsByClassName("mode-button").onclick = toggleMode;
     localStorage.setItem("CSSMode", "light");
 }
 
 function darkMode() {
-    document.querySelector("body").classList.remove("light-mode");
+    document.querySelector("body").setAttribute('class', '');
     document.getElementsByClassName("mode-button").innerHTML = "&#9788;";
-    document.getElementsByClassName("mode-button").onclick = toggleMode;
     localStorage.setItem("CSSMode", "dark");
 }
 
