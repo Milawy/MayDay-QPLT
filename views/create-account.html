@@ -8,8 +8,7 @@
 </head>
 <body>
 
-<form action="login.html">
-    <div class="login-form">
+<form id="login-form" action="login.html">
         <h2>Sign up</h2>
         <div class="form-input">
             <label>
@@ -23,14 +22,15 @@
         </div>
         <div class="form-input">
             <label>
-                <input type="text" name="" placeholder="Username" onfocus="this.placeholder=''" onblur="this.placeholder='Username'" required>
+                <input id="email" type="text" name="" placeholder="Email" onfocus="this.placeholder=''" onblur="this.placeholder='Email'" required>
             </label>
+            <span id="checkEmail" onkeypress="checkEmail()"></span>
         </div>
         <div class="form-input">
             <label>
                 <input id="password" type="password" name="" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'" required>
             </label>
-            <div id="password-eye" onclick="showHide()"></div>
+            <span id="password-eye" onclick="showHide()"></span>
         </div>
         <div class="form-input">
             <label>
@@ -44,7 +44,6 @@
         <div class="form-input">
             <input type="button" name="" value="Log in" onclick="window.location.href='login.html';">
         </div>
-    </div>
 </form>
 
 <script src="login-functions.js"></script>

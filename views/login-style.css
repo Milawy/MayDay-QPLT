@@ -1,6 +1,6 @@
 body{
-    background-color: #a5a5a5;
-    color: black;
+    background-color: #3c3f41;
+    color: white;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -8,8 +8,8 @@ body{
     font-family: sans-serif;
 }
 
-.login-form{
-    color: black;
+#login-form{
+    color: white;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -19,93 +19,93 @@ body{
     opacity: 1;
 }
 
-.login-form h2{
+#login-form h2{
     margin: 0 0 40px;
     padding: 0;
     text-align: center;
     font-size: 3em;
 }
 
-.login-form .form-input{
+#login-form .form-input{
     position: relative;
     margin: 20px 0;
 }
 
-.login-form .form-input input{
+#login-form .form-input input{
     background-color: transparent;
-    color: black;
+    color: white;
     outline: none;
     height: 40px;
     padding: 10px;
     box-sizing: border-box;
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid white;
     font-size: 18px;
 }
 
 ::placeholder{
-    color: black;
+    color: white;
     opacity: 0.5;
 }
 
-.login-form .form-input input[type="date"]{
+#login-form .form-input input[type="date"]{
     background-color: transparent;
-    background-image: url(../resources/calendarIcon.png);
-    background-position: 97%;
+    background-image: url(../resources/calendarIconL.png);
+    background-position: 96.5%;
     background-size: 10%;
     background-repeat: no-repeat;
 }
 
-.login-form .form-input input[type="date"]:hover{
+#login-form .form-input input[type="date"]:hover{
     cursor: text;
 }
 
-.login-form .form-input input[type="date"]:invalid{
-    color: #666;
+#login-form .form-input input[type="date"]:invalid{
+    color: #999;
 }
 
-.login-form .form-input input[type="date"]::-webkit-inner-spin-button {
+#login-form .form-input input[type="date"]::-webkit-inner-spin-button {
     display: none;
 }
 
-.login-form .form-input input[type="date"]::-webkit-calendar-picker-indicator {
+#login-form .form-input input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0;
 }
 
-.login-form .form-input input[type="submit"]{
-    color: black;
-    border: solid 1px black;
+#login-form .form-input input[type="submit"]{
+    color: white;
+    border: solid 1px white;
     cursor: pointer;
     width: 60%;
     margin: 0 20%;
 }
 
-.login-form .form-input input[type="submit"]:hover{
+#login-form .form-input input[type="submit"]:hover{
     transition-duration: 250ms;
-    background-color: #d5d5d5;
-    color: #3c3f41;
+    background-color: #313335;
+    color: #d5d5d5;
     cursor: pointer;
 }
 
-.login-form .form-input input[type="button"]{
-    color: black;
-    border: solid 1px black;
+#login-form .form-input input[type="button"]{
+    color: white;
+    border: solid 1px white;
     cursor: pointer;
     width: 60%;
     margin: 0 20%;
 }
 
-.login-form .form-input input[type="button"]:hover{
+#login-form .form-input input[type="button"]:hover{
     transition-duration: 250ms;
-    background-color: #d5d5d5;
-    color: #3c3f41;
+    background-color: #313335;
+    color: #d5d5d5;
     cursor: pointer;
 }
 
-.login-form .forget-password{
+#login-form .forget-password{
     display: block;
     margin-top: 30px;
-    color: black;
+    color: white;
     font-weight: bold;
     width: 50%;
 }
@@ -114,18 +114,24 @@ hr{
     margin: 40px 0;
 }
 
+/* CHECK EMAIL */
+
+
+
+/* SHOW/HIDE PASSWORD */
+
 #password-eye{
     position: absolute;
     top: 5px;
     right: 10px;
     width: 30px;
     height: 30px;
-    background-image: url("../resources/showPassword.png");
+    background-image: url("../resources/showPasswordL.png");
     background-size: cover;
     cursor: pointer;
 }
 
 #password-eye.hide{
-    background-image: url("../resources/hidePassword.png");
+    background-image: url("../resources/hidePasswordL.png");
     background-size: cover;
 }

@@ -8,28 +8,27 @@
 </head>
 <body>
 
-<form action="home.html">
-    <div class="login-form">
-        <h2>Log in</h2>
-        <div class="form-input">
-            <label>
-                <input type="text" name="" placeholder="Username" onfocus="this.placeholder=''" onblur="this.placeholder='Username'" required>
-            </label>
-        </div>
-        <div class="form-input">
-            <label>
-                <input id="password" type="password" name="" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'" required>
-            </label>
-            <div id="password-eye" onclick="showHide()"></div>
-        </div>
-        <div class="form-input">
-            <input type="submit" name="" value="Submit">
-        </div>
-        <a href="#" class="forget-password">Forget Password ?</a>
-        <hr>
-        <div class="form-input">
-            <input type="button" name="" value="Sign up" onclick="window.location.href='create-account.html';">
-        </div>
+<form id="login-form" action="home.html">
+    <h2>Log in</h2>
+    <div class="form-input">
+        <label>
+            <input id="email" type="text" name="" placeholder="Email" onfocus="this.placeholder=''" onblur="this.placeholder='Email'" required>
+        </label>
+        <span id="checkEmail" onkeypress="checkEmail()"></span>
+    </div>
+    <div class="form-input">
+        <label>
+            <input id="password" type="password" name="" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'" required>
+        </label>
+        <span id="password-eye" onclick="showHide()"></span>
+    </div>
+    <div class="form-input">
+        <input type="submit" name="" value="Submit">
+    </div>
+    <a href="#" class="forget-password">Forget Password ?</a>
+    <hr>
+    <div class="form-input">
+        <input type="button" name="" value="Sign up" onclick="window.location.href='create-account.html';">
     </div>
 </form>
 
