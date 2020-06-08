@@ -13,7 +13,7 @@ function showHide(){
 }
 
 function checkEmail(){
-    //const form = document.getElementById("login-form");
+    const form = document.getElementById("login-form");
     const email = document.getElementById("email").value;
     const checkEmail = document.getElementById("checkEmail");
     const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
