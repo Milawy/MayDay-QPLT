@@ -7,7 +7,7 @@ Installation :
 npm init
 ```
 ```
-npm install express 
+npm install
 ```
 
 Running the server : 
