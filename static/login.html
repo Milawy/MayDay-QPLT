@@ -6,9 +6,32 @@
     <link rel="stylesheet" href="login-style.css">
 
 </head>
-<body onload="generateLogin()">
+<body>
 
-    <script src="app.js"></script>
+<form id="login-form" action="home.html">
+    <h2>Log in</h2>
+    <div class="form-input">
+        <label>
+            <input id="email" type="text" name="" placeholder="Email" onchange="checkEmail()" required>
+        </label>
+        <span id="check-email"></span>
+    </div>
+    <div class="form-input">
+        <label>
+            <input id="password" type="password" name="" placeholder="Password" required>
+        </label>
+        <span id="password-eye" onclick="showHide()"></span>
+    </div>
+    <div class="form-input">
+        <input type="submit" name="" value="Submit">
+    </div>
+    <a href="#" class="forget-password">Forget Password ?</a>
+    <hr>
+    <div class="form-input">
+        <input type="button" name="" value="Sign up" onclick="window.location.href='sign-up.html';">
+    </div>
+</form>
 
+<script src="app.js"></script>
 </body>
 </html>
