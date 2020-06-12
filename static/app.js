@@ -271,6 +271,42 @@ function openTransport() {
     window.location.href = "transport.html";
 }
 
+/// FORM FUNCTIONS ///
+
+function showHide(){
+    const password = document.getElementById('password');
+    const eye = document.getElementById('password-eye');
+
+    if(password.type === 'password'){
+        password.setAttribute('type', 'text');
+        eye.classList.add('hide');
+    }
+    else{
+        password.setAttribute('type', 'password');
+        eye.classList.remove('hide');
+    }
+}
+
+function checkEmail(){
+    const form = document.getElementById("login-form");
+    const email = document.getElementById("email").value;
+    const checkEmail = document.getElementById("check-email");
+    const pattern = "^[^ ]+@[^ ]+\\.[a-z]{2,3}$";
+
+    if(email.match(pattern)){
+        form.classList.add("valid");
+        form.classList.remove("invalid");
+        checkEmail.innerHTML="Valid Email";
+        checkEmail.style.color="#00ff00";
+    }
+    else{
+        form.classList.remove("valid");
+        form.classList.add("invalid");
+        checkEmail.innerHTML="Invalid Email";
+        checkEmail.style.color="#ff0000";
+    }
+}
+
 /// PROFILE CHANGE ///
 
 function inputName() {
