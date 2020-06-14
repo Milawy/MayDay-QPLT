@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-<body>
+<body onload="loadInfos()">
 
 <div class="main">
 
@@ -25,9 +25,7 @@
         <button id="mode-button" onclick="toggleMode()"></button>
     </div>
 
-    <div class="container-1">
-        <div>Graphs / Map</div>
-    </div>
+    <div id="container-1"></div>
 
     <div class="social-buttons">
         <a href="https://www.facebook.com/" class="fa fa-facebook"></a>

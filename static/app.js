@@ -20,6 +20,36 @@ function openTransport() {
     window.location.href = "transport.html";
 }
 
+/// LOAD DIFFERENT PAGES INFOS ///
+
+function loadInfos(){
+    const path = window.location.pathname;
+    const page = path.split("/").pop();
+    let infoDiv = document.createElement('div');
+    let infoContainer = document.getElementById('container-1');
+
+    if(page === "home.html"){
+        infoContainer.appendChild(infoDiv);
+        infoDiv.innerHTML="Can put your main infos here";
+    }
+    else if(page === "weather.html"){
+        infoContainer.appendChild(infoDiv);
+        infoDiv.innerHTML="Sun / Rain / Cloud / Temperature";
+    }
+    else if(page === "covid.html"){
+        infoContainer.appendChild(infoDiv);
+        infoDiv.innerHTML="Graphs / Map";
+    }
+    else if(page === "trends.html"){
+        infoContainer.appendChild(infoDiv);
+        infoDiv.innerHTML="Important and viral news of the day";
+    }
+    else if(page === "transport.html"){
+        infoContainer.appendChild(infoDiv);
+        infoDiv.innerHTML="Bicycles / Taxis / Buses / Trains / Planes";
+    }
+}
+
 /// FORM FUNCTIONS ///
 
 function showHide(){
