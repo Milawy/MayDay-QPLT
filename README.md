@@ -13,4 +13,6 @@ npm install
 Running the server : 
 ```
 node server.js
+ou
+npm run start
 ```
