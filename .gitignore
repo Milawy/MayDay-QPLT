@@ -1,9 +1,0 @@
-#NodeJS and npm
-/node_modules/
-/package.json
-
-
-# IDE
-.idea
-.vscode
-.vs
