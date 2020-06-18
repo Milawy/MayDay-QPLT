@@ -74,6 +74,7 @@ app.get('/sign-up', (request,response) => {
 });
 
 app.get('/home', verifSignIn, (request,response) => {
+    var imageBinaire;
     var signe = "";
     var messageVlille = "";
     var stationFav = "";
@@ -120,8 +121,8 @@ app.get('/home', verifSignIn, (request,response) => {
                             resultatCheckNouvelles(db, function() {
                                 findDataNouvelles(db, function() {
                                     client.close();
-                                    response.render('pages/home', {id: request.session.user.id, astro: astro,
-                                        texteAstro: texteAstro, message: messageVlille, stationFav: stationFav,
+                                    response.render('pages/home', {id: request.session.user.id, img: imageBinaire,
+                                        astro: astro, texteAstro: texteAstro, message: messageVlille, stationFav: stationFav,
                                         titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
                                         description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
                                         auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
@@ -332,6 +333,7 @@ app.get('/home', verifSignIn, (request,response) => {
 });
 
 app.get('/weather', verifSignIn, (request, response) => {
+    var imageBinaire;
     var ville = "";
     var majMeteo = false;
     var meteo_data = "";
@@ -357,7 +359,7 @@ app.get('/weather', verifSignIn, (request, response) => {
                 resultatCheckMeteo(db, function() {
                     findDataMeteo(db,function() {
                         client.close();
-                        response.render('pages/weather', {ville:ville, temperature:temperature, vitesse_vent: vitesse_vent, precipitation: precipitation, humidite: humidite, couverture_nuageuse: couverture_nuageuse,
+                        response.render('pages/weather', {img: imageBinaire, ville:ville, temperature:temperature, vitesse_vent: vitesse_vent, precipitation: precipitation, humidite: humidite, couverture_nuageuse: couverture_nuageuse,
                             ressenti: ressenti, index_UV: index_UV, visibilite: visibilite, infos_date: infos_date })
                     });
                 });
@@ -546,6 +548,7 @@ app.get('/covid', verifSignIn, (request, response) => {
 });
 
 app.get('/trends', verifSignIn, (request, response) => {
+    var imageBinaire;
     var titre0 = "";
     var titre1 = "";
     var titre2 = "";
@@ -578,7 +581,7 @@ app.get('/trends', verifSignIn, (request, response) => {
                 resultatCheckNouvelles(db, function() {
                     findDataNouvelles(db, function() {
                         client.close();
-                        response.render('pages/trends', {titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
+                        response.render('pages/trends', {img: imageBinaire, titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
                             description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
                             auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
                             URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4});
@@ -719,7 +722,7 @@ app.get('/profile', verifSignIn, (request, response) => {
 
         findVar(db, function() {
             client.close();
-            response.render('pages/profile', {id: request.session.user.id, img: imageBinaire, message: messageVlille,});
+            response.render('pages/profile', {id: request.session.user.id, img: imageBinaire});
         });
     });
 
