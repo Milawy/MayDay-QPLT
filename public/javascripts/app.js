@@ -88,12 +88,6 @@ function checkEmail(){
     }
 }
 
-/// PROFILE CHANGE ///
-
-function inputName() {
-
-}
-
 /// LIGHT/DARK MODE ///
 
 let defaultMode = "light";

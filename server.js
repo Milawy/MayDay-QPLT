@@ -540,7 +540,6 @@ app.post('/connexion', (request,response) => {
 
     response.redirect('/login');
 
-
 });
 
 app.post('/sign-up', (request, response) => {
