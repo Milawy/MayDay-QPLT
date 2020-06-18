@@ -3,11 +3,11 @@
 <head>
 
     <title>MayDay QPLT</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="public/stylesheets/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-<body>
+<body onload="loadInfos()">
 
 <div class="main">
 
@@ -25,13 +25,13 @@
         <button id="mode-button" onclick="toggleMode()"></button>
     </div>
 
-    <div class="profile-bar">
-        <h1>PROFILE</h1>
-        <div onclick="inputName()">Name :</div>
-        <div onclick="">Surname :</div>
-        <div onclick="">Age :</div>
-        <div onclick="">Birthday :</div>
-        <img src="./resources/defaultProfilePic.png" onclick="window.location.href='profile.html';" alt="">
+    <div id="container-1"></div>
+
+    <div class="social-buttons">
+        <a href="https://www.facebook.com/" class="fa fa-facebook"></a>
+        <a href="https://twitter.com/home" class="fa fa-twitter"></a>
+        <a href="https://www.instagram.com/" class="fa fa-instagram"></a>
+        <a href="https://www.reddit.com/" class="fa fa-reddit"></a>
     </div>
 
 </div>

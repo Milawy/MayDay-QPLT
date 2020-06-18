@@ -3,21 +3,16 @@
 <head>
 
     <title>MayDay QPLT</title>
-    <link rel="stylesheet" href="login-style.css">
+    <link rel="stylesheet" href="stylesheets/login-style.css">
 
 </head>
 <body>
 
-<form id="login-form" action="login.html">
+<form id="login-form" action="/connexion" method="post">
         <h2>Sign up</h2>
         <div class="form-input">
             <label>
-                <input type="text" name="" placeholder="First name" required>
-            </label>
-        </div>
-        <div class="form-input">
-            <label>
-                <input type="text" name="" placeholder="Last name" required>
+                <input id="input_id" type="text" name="input_id" placeholder="Username" required>
             </label>
         </div>
         <div class="form-input">
@@ -28,12 +23,12 @@
         </div>
         <div class="form-input">
             <label>
-                <input id="password" type="password" name="" placeholder="Password" required>
+                <input id="input_mdp" type="password" name="" placeholder="Password" required>
             </label>
             <span id="password-eye" onclick="showHide()"></span>
         </div>
         <div class="form-input">
-            <label>
+            <label id="birthday-label"> Birthday :
                 <input type="date" name="" required>
             </label>
         </div>
@@ -42,10 +37,11 @@
         </div>
         <hr>
         <div class="form-input">
-            <input type="button" name="" value="Log in" onclick="window.location.href='login.html';">
+            <input type="button" name="" value="Log in" onclick="window.location.href='login';">
         </div>
 </form>
 
-<script src="app.js"></script>
+<script src="javascripts/app.js"></script>
+
 </body>
 </html>

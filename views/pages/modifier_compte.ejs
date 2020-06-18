@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Votre compte </title>
+</head>
+
+<body>
+	<h1>Personnaliser et modifier votre compte</h1>
+
+	<form action="/modifier_compte" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="image_upload">Sélectionner une image de profil (PNG, JPG)</label>
+            <input type="file" id="fichier" name="fichier" accept=".jpg, .jpeg, .png">
+        </div>
+        
+        <div>
+            <input type="submit" id="bouton" value="Valider">
+        </div>
+    </form>
+
+    <% if (locals.result1) { %>
+        <p><%= result1 %></p>
+    <% } %>
+
+     <br>
+     <form action="/nomStation" method="post">
+        <label for="nomStation">Votre nom de station favorite (Veuillez entrer le nom exacte ex: Massena, Jardin Vauban)</label> :
+        <input type="text" id="input_nomStation" name="input_nomStation" value="" required>
+        <input type="submit" id="bouton" value="Valider">
+     </form>
+
+    <% if (locals.result2) { %>
+            <p><%= result2 %></p>
+    <% } %>
+
+</br><a href="/Accueil_User">Page d'accueil</a>
+
+</body>
+
+</html>

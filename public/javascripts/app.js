@@ -1,23 +1,25 @@
+
+
 /// LOAD HTML PAGES ///
 
 function openHome() {
-    window.location.href = "home.html";
+    window.location.href = "home.ejs";
 }
 
 function openWeather() {
-    window.location.href = "weather.html";
+    window.location.href = "weather.ejs";
 }
 
 function openCovid() {
-    window.location.href = "covid.html";
+    window.location.href = "covid.ejs";
 }
 
 function openTrends() {
-    window.location.href = "trends.html";
+    window.location.href = "trends.ejs";
 }
 
 function openTransport() {
-    window.location.href = "transport.html";
+    window.location.href = "transport.ejs";
 }
 
 /// LOAD DIFFERENT PAGES INFOS ///
@@ -28,23 +30,23 @@ function loadInfos(){
     let infoDiv = document.createElement('div');
     let infoContainer = document.getElementById('container-1');
 
-    if(page === "home.html"){
+    if(page === "home.ejs"){
         infoContainer.appendChild(infoDiv);
         infoDiv.innerHTML="Can put your main infos here";
     }
-    else if(page === "weather.html"){
+    else if(page === "weather.ejs"){
         infoContainer.appendChild(infoDiv);
         infoDiv.innerHTML="Sun / Rain / Cloud / Temperature";
     }
-    else if(page === "covid.html"){
+    else if(page === "covid.ejs"){
         infoContainer.appendChild(infoDiv);
         infoDiv.innerHTML="Graphs / Map";
     }
-    else if(page === "trends.html"){
+    else if(page === "trends.ejs"){
         infoContainer.appendChild(infoDiv);
         infoDiv.innerHTML="Important and viral news of the day";
     }
-    else if(page === "transport.html"){
+    else if(page === "transport.ejs"){
         infoContainer.appendChild(infoDiv);
         infoDiv.innerHTML="Bicycles / Taxis / Buses / Trains / Planes";
     }
@@ -53,7 +55,7 @@ function loadInfos(){
 /// FORM FUNCTIONS ///
 
 function showHide(){
-    const password = document.getElementById('password');
+    const password = document.getElementById('input_mdp');
     const eye = document.getElementById('password-eye');
 
     if(password.type === 'password'){
@@ -133,3 +135,10 @@ function setMode(mode){
 }
 
 window.addEventListener("load", setMode(localStorage.getItem("CSSMode")));
+
+
+
+
+
+
+

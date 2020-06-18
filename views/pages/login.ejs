@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="FR">
+<head>
+
+    <title>MayDay QPLT</title>
+    <link rel="stylesheet" href="stylesheets/login-style.css">
+
+</head>
+<body>
+
+<form id="login-form" action="/connexion1" method="post">
+    <h2>Login</h2>
+    <div class="form-input">
+        <label>
+            <input type="text" id="input_id" name="input_id" placeholder="Username" pattern="[A-Za-z0-9\-]+" title="Votre identifiant est composé uniquement de lettres et de chiffres" required>
+        </label>
+        <span id="check-email"></span>
+    </div>
+    <div class="form-input">
+        <label>
+            <input type="password" id="input_mdp" name="input_mdp" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Votre mot de passe contient un moins une majuscule, une minuscule, un chiffre et à au moins 8 caractères" required>
+        </label>
+        <span id="password-eye" onclick="showHide()"></span>
+    </div>
+    <div class="form-input">
+        <input type="submit" name="" value="Submit">
+    </div>
+    <a href="#" class="forget-password">Forget Password ?</a>
+    <hr>
+    <div class="form-input">
+        <input type="button" name="" value="Sign up" onclick="window.location.href='/sign-up';">
+    </div>
+</form>
+
+<% if (locals.erreur) { %>
+    <%= erreur %>
+<% } %>
+
+<script src="javascripts/app.js"></script>
+
+</body>
+</html>

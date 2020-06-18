@@ -46,33 +46,32 @@ app.use(session({
 app.use('/Accueil_User', function(erreur, request, response,next){
     console.log(erreur);
     //l'utilisateur doit être connecté ! Redirection à Connexion
-    request.redirect('/connexion');
+    request.redirect('/login');
 });
 app.use(fileUpload());
+app.use(express.static(__dirname + "/public"));
 
 var Users = [];
-
 
 //Nos routes
 //Nos Get
 app.get('/', (request,response) => {
 
-    response.render('pages/index');
+    response.render('pages/login');
 
 });
 
-app.get('/connexion', (request,response) => {
+app.get('/login', (request,response) => {
 
-    response.render("pages/connexion");
-
-});
-
-app.get('/page_creation_compte', (request,response) => {
-
-    response.render('pages/page_creation_compte');
+    response.render("pages/login");
 
 });
 
+app.get('/sign-up', (request,response) => {
+
+    response.render('pages/sign-up');
+
+});
 
 app.get('/Accueil_User', verifSignIn, (request,response) => {
 
@@ -148,7 +147,6 @@ app.get('/Accueil_User', verifSignIn, (request,response) => {
                                                 description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
                                                  auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
                                                   URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4, img: imageBinaire, message: messageVlille, stationFav: stationFav});
-
                                         });
                                     });
                                 });
@@ -201,9 +199,9 @@ app.get('/Accueil_User', verifSignIn, (request,response) => {
             var date_a_comparer = docs[0].date_mise_a_jour;
             console.log(dateAjd);
             console.log(date_a_comparer);
-            if (dateAjd.localeCompare(date_a_comparer) == 1) {
-                console.log("Je suis dans la boucle if");
+            if (dateAjd.localeCompare(date_a_comparer) === 1) {
                 majHoroscope = true;
+                console.log("Je suis dans la boucle if");
                 callback(majHoroscope);
             }
             else{
@@ -275,7 +273,7 @@ app.get('/Accueil_User', verifSignIn, (request,response) => {
 
     const resultatCheckHoroscope = function(db,callback) {
         console.log(majHoroscope + " Je suis dans resultatCheckHoroscope");
-        if (majHoroscope == true) {
+        if (majHoroscope === true) {
             console.log("Je suis dans le if de resultatCheckHoroscope");
             updateHoroscope(db,function() {
                 callback(majHoroscope);
@@ -289,13 +287,13 @@ app.get('/Accueil_User', verifSignIn, (request,response) => {
 
     const resultatCheckMeteo = function(db,callback) {
         console.log("Je suis dans resultatCheckMeteo");
-        if (ajouterMeteo == true){
+        if (ajouterMeteo === true){
             insertMeteo(db,function() {
                 callback(ajouterMeteo);
             });
         }
         else {
-            if (majMeteo == true){
+            if (majMeteo === true){
                 console.log("Je suis dans le if de resultatCheckMeteo");
                 updateMeteo(db, function() {
                     callback(majMeteo);
@@ -310,7 +308,7 @@ app.get('/Accueil_User', verifSignIn, (request,response) => {
 
     const resultatCheckNouvelles = function(db,callback) {
         console.log(majNouvelles + " Je suis dans resultatCheckNouvelles");
-        if (majNouvelles == true) {
+        if (majNouvelles === true) {
             console.log("Je suis dans le if de resultatCheckNouvelles");
             updateNouvelles(db,function() {
                 callback(majNouvelles);
@@ -319,7 +317,6 @@ app.get('/Accueil_User', verifSignIn, (request,response) => {
         else {
             callback(majNouvelles);
         }
-
     }
 
     const insertMeteo = function(db, callback) {
@@ -456,7 +453,7 @@ app.get('/Accueil_User', verifSignIn, (request,response) => {
     };
 
     const findDataMeteo = function(db,callback) {
-        if(ajoutMeteo == true){
+        if(ajoutMeteo === true){
             callback();
         }
         else{
@@ -511,10 +508,6 @@ app.get('/Accueil_User', verifSignIn, (request,response) => {
             //response.render('pages/Accueil_User', {id: request.session.user.id, astro: docs[0].signe, texteAstro: docs[0].texte});
         });
     };
-
-
-
-
 });
 
 app.get('/modifier_compte', verifSignIn, (request, response) => {
@@ -532,31 +525,32 @@ app.get('/deconnexion', (request,response) => {
 
     });
 
-
-    response.redirect('/connexion');
+    response.redirect('/login');
 
 });
 
 //Nos Post
-app.post('/creer_compte', (request,response) => {
+app.post('/sign-up', (request,response) => {
 
-    response.redirect('/page_creation_compte');
-
-});
-
-app.post('/page_connexion', (request,response) => {
-
-    response.redirect('/connexion');
+    response.redirect('/sign-up');
 
 });
 
-app.post('/page_creation_compte', (request, response) => {
+app.post('/connexion', (request,response) => {
 
+    response.redirect('/login');
+
+
+});
+
+app.post('/sign-up', (request, response) => {
+
+    let astro;
     Users.filter(function(user) {
 
         if (user.id === request.body.input_id){
 
-            response.render('pages/page_creation_compte', {message: "Cette identifiant existe déjà ! Connectez-vous ou choisissez un autre identifiant."});
+            response.render('pages/sign-up', {message: "Cette identifiant existe déjà ! Connectez-vous ou choisissez un autre identifiant."});
 
         }
 
@@ -595,42 +589,42 @@ app.post('/page_creation_compte', (request, response) => {
     }
 
     //Prenom en charge tout de suite son signe astrologique
-    var date_tronquee = request.body.input_date_naissance.substring(5,9);
-    if (date_tronquee.localeCompare("01-19") == 1 && date_tronquee.localeCompare("02-19") == -1) {
-        var astro = "Aquarius";
+    const date_tronquee = request.body.input_date_naissance.substring(5, 9);
+    if (date_tronquee.localeCompare("01-19") === 1 && date_tronquee.localeCompare("02-19") === -1) {
+        astro = "Aquarius";
     }
-    if (date_tronquee.localeCompare("02-18") == 1 && date_tronquee.localeCompare("03-21") == -1) {
-        var astro = "Pisces";
+    if (date_tronquee.localeCompare("02-18") === 1 && date_tronquee.localeCompare("03-21") === -1) {
+        astro = "Pisces";
     }
-    if (date_tronquee.localeCompare("03-20") == 1 && date_tronquee.localeCompare("04-20") == -1) {
-        var astro = "Aries";
+    if (date_tronquee.localeCompare("03-20") === 1 && date_tronquee.localeCompare("04-20") === -1) {
+        astro = "Aries";
     }
-    if (date_tronquee.localeCompare("04-19") == 1 && date_tronquee.localeCompare("05-21") == -1) {
-        var astro = "Taurus";
+    if (date_tronquee.localeCompare("04-19") === 1 && date_tronquee.localeCompare("05-21") === -1) {
+        astro = "Taurus";
     }
-    if (date_tronquee.localeCompare("05-20") == 1 && date_tronquee.localeCompare("06-22") == -1) {
-        var astro = "Gemini";
+    if (date_tronquee.localeCompare("05-20") === 1 && date_tronquee.localeCompare("06-22") === -1) {
+        astro = "Gemini";
     }
-    if (date_tronquee.localeCompare("06-21") == 1 && date_tronquee.localeCompare("07-23") == -1) {
-        var astro = "Cancer";
+    if (date_tronquee.localeCompare("06-21") === 1 && date_tronquee.localeCompare("07-23") === -1) {
+        astro = "Cancer";
     }
-    if (date_tronquee.localeCompare("07-22") == 1 && date_tronquee.localeCompare("08-23") == -1) {
-        var astro = "Leo";
+    if (date_tronquee.localeCompare("07-22") === 1 && date_tronquee.localeCompare("08-23") === -1) {
+        astro = "Leo";
     }
-    if (date_tronquee.localeCompare("08-22") == 1 && date_tronquee.localeCompare("09-23") == -1) {
-        var astro = "Virgo";
+    if (date_tronquee.localeCompare("08-22") === 1 && date_tronquee.localeCompare("09-23") === -1) {
+        astro = "Virgo";
     }
-    if (date_tronquee.localeCompare("09-22") == 1 && date_tronquee.localeCompare("10-24") == -1) {
-        var astro = "Libra";
+    if (date_tronquee.localeCompare("09-22") === 1 && date_tronquee.localeCompare("10-24") === -1) {
+        astro = "Libra";
     }
-    if (date_tronquee.localeCompare("10-23") == 1 && date_tronquee.localeCompare("11-22") == -1) {
-        var astro = "Scorpio";
+    if (date_tronquee.localeCompare("10-23") === 1 && date_tronquee.localeCompare("11-22") === -1) {
+        astro = "Scorpio";
     }
-    if (date_tronquee.localeCompare("11-21") == 1 && date_tronquee.localeCompare("12-22") == -1) {
-        var astro = "Sagittarius";
+    if (date_tronquee.localeCompare("11-21") === 1 && date_tronquee.localeCompare("12-22") === -1) {
+        astro = "Sagittarius";
     }
-    if (date_tronquee.localeCompare("12-21") == 1 && date_tronquee.localeCompare("01-20") == -1) {
-        var astro = "Capricorn";
+    if (date_tronquee.localeCompare("12-21") === 1 && date_tronquee.localeCompare("01-20") === -1) {
+        astro = "Capricorn";
     }
 
     const updateDocument = function(db, callback) {
@@ -646,17 +640,16 @@ app.post('/page_creation_compte', (request, response) => {
       });
     }
 
-    //response.render('pages/page_creation_compte', {succes: 'Félicitation votre compte a été crée avec succès, vous allez être rediriger vers votre page d\'accueil'});
+    //response.render('pages/sign-up', {succes: 'Félicitation votre compte a été crée avec succès, vous allez être rediriger vers votre page d\'accueil'});
     console.log(Users);
     response.redirect('/Accueil_User');
 
 });
 
-
-app.post('/connexion', (request, response) => {
+app.post('/connexion1', (request, response) => {
 
     console.log(Users);
-    var trouver = false;
+    let trouver = false;
     Users.filter(function(user) {
 
         if (user.id === request.body.input_id && user.mdp === request.body.input_mdp){
@@ -668,7 +661,7 @@ app.post('/connexion', (request, response) => {
         }
     });
 
-    if (trouver == false){
+    if (trouver === false){
 
          MongoClient.connect(url, function(err, client) {
             assert.equal(null, err);
@@ -692,8 +685,7 @@ app.post('/connexion', (request, response) => {
                 callback(docs[0]);
                 console.log(docs[0]);
                 if (docs[0]){
-
-                    if (docs[0].mdp == request.body.input_mdp){
+                    if (docs[0].mdp === request.body.input_mdp){
 
                         var User = {id: request.body.input_id, mdp: request.body.input_mdp};
                         Users.push(User);
@@ -702,24 +694,15 @@ app.post('/connexion', (request, response) => {
 
                     }
                     else {
-
-                        response.render('pages/connexion', {erreur: "Identifiant ou mot de passe incorrect"});
-
+                        response.render('pages/login', {erreur: "Identifiant ou mot de passe incorrect"});
                     }
-
                 }
                 else {
-
-                    response.render('pages/connexion', {erreur: "Identifiant ou mot de passe incorrect"});
-
+                    response.render('pages/login', {erreur: "Identifiant ou mot de passe incorrect"});
                 }
-
             });
-
          };
-
     }
-
 });
 
 app.post('/modifier_compte', (request, response, next) => {
@@ -759,7 +742,6 @@ app.post('/modifier_compte', (request, response, next) => {
             }
         });
     }
-
 })
 
 app.post('/nomStation', (request, response) => {
@@ -804,7 +786,7 @@ app.post('/', (request,response1) => {
     input_nomStation = input_nomStation.toUpperCase ();
     console.log(input_nomStation);
 
-    if (input_nomStation == ' '){
+    if (input_nomStation === ' '){
 
         response.render('pages/index', {erreur_nomStation: 'Veuillez entrer un nom de station'});
 
@@ -813,8 +795,8 @@ app.post('/', (request,response1) => {
 
         https.get("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=108&facet=libelle&facet=nom&facet=commune&facet=etat&refine.commune=LILLE", (response2) => {
 
-                var vLille_data='';
-                // A chunk of data has been received.
+            let vLille_data = '';
+            // A chunk of data has been received.
                 response2.on('data', (chunk) => {
                     vLille_data += chunk;
                 });
@@ -824,7 +806,7 @@ app.post('/', (request,response1) => {
 
                     vLille_data = JSON.parse(vLille_data)
                     for (var i=0; i<vLille_data.parameters.rows; i++) {
-                        if (vLille_data.records[i].fields.nom == input_nomStation)	{
+                        if (vLille_data.records[i].fields.nom === input_nomStation)	{
                     	    response1.render('pages/index', {nomStation: vLille_data.records[i].fields.nom.toLowerCase(), etatStation: vLille_data.records[i].fields.etat.toLowerCase(), nbVeloDispo: vLille_data.records[i].fields.nbvelosdispo, nbPlaceDispo: vLille_data.records[i].fields.nbplacesdispo });
                     	}
                     }

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Connexion</title>
+</head>
+
+<body>
+	<h1>Connectez-vous</h1>
+
+	<form action="/connexion" method="post">
+        <p>
+            <label for="identifiant">Identifiant</label> :
+            <input type="text" id="input_id" name="input_id" pattern="[A-Za-z0-9\-]+" title="Votre identifiant est composé uniquement de lettres et de chiffres" required>
+            <label for="mdp">Mot de passe</label> :
+            <input type="password" id="input_mdp" name="input_mdp" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"" title="Votre mot de passe contient un moins une majuscule, une minuscule, un chiffre et à au moins 8 caractères" required>
+            <input type="submit" id="bouton" value="Valider">
+        </p>
+    </form>
+
+<% if (locals.erreur) { %>
+    <%= erreur %>
+<% } %>
+
+<a href="http://localhost:8080/">Page d'accueil</a>
+
+</body>
+
+</html>
