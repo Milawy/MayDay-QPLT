@@ -241,44 +241,6 @@ app.get('/home', verifSignIn, (request,response) => {
         }
     }
 
-    const insertMeteo = function(db, callback) {
-
-        http.get("http://api.weatherstack.com/current?access_key=7a60fdfed3e1fc836ae34126a0a89fc9&query=" + ville, (response2) => {
-            console.log("Je suis dans le httpget météo pour l'ajout d'un document");
-            // A chunk of data has been received.
-            response2.on('data', (chunk) => {
-                meteo_data += chunk;
-            });
-
-            // The whole response has been received. Print out the result.
-            response2.on('end',() => {
-                console.log("J'ai reçu la réponse, plus qu'a la print");
-                meteo_data = JSON.parse(meteo_data);
-                console.log(meteo_data);
-
-                const collection = db.collection('meteo');
-                collection.insertMany([
-                    {"ville": meteo_data.location.name, "pays": meteo_data.location.country, "temperature":meteo_data.current.temperature, "icone": meteo_data.current.weather_icons, "vitesse_vent": meteo_data.current.wind_speed, "precipitation": meteo_data.current.precip, "humidite": meteo_data.current.humidity, "couverture_nuageuse": meteo_data.current.cloudcover, "ressenti": meteo_data.current.feelslike, "index_UV": meteo_data.current.uv_index, "visibilite": meteo_data.current.visibility, "infos_date": meteo_data.location.localtime, "date_mise_a_jour": new Date()}], function(err, result) {
-                    assert.equal(err, null);
-                    assert.equal(1, result.result.n);
-                    assert.equal(1, result.ops.length);
-                    temperature = meteo_data.current.temperature;
-                    vitesse_vent = meteo_data.current.wind_speed;
-                    precipitation = meteo_data.current.precip;
-                    humidite = meteo_data.current.humidity;
-                    couverture_nuageuse = meteo_data.current.cloudcover;
-                    ressenti = meteo_data.current.feelslike;
-                    index_UV = meteo_data.current.uv_index;
-                    visibilite = meteo_data.current.visibility;
-                    infos_date = meteo_data.location.localtime;
-                    console.log("Inserted 1 documents into the collection");
-                    ajoutMeteo = true;
-                    callback(result);
-                });
-            });
-        });
-    }
-
     const updateHoroscope = function(db, callback) {
         console.log("Je suis dans updateHoroscope");
         http.get("http://horoscope-api.herokuapp.com/horoscope/today/" + signe, (response2) => {
@@ -328,7 +290,6 @@ app.get('/home', verifSignIn, (request,response) => {
             });
         });
     };
-
 
     const findDataHoroscope = function(db,callback) {
         const collection = db.collection('horoscope');
@@ -382,7 +343,6 @@ app.get('/weather', verifSignIn, (request, response) => {
     var meteo_data = "";
     var ajouterMeteo = false;
     var ajoutMeteo = false;
-    //Meteo
     var temperature = "";
     var vitesse_vent = "";
     var precipitation = "";
@@ -493,7 +453,6 @@ app.get('/weather', verifSignIn, (request, response) => {
     }
 
     const insertMeteo = function(db, callback) {
-
         http.get("http://api.weatherstack.com/current?access_key=7a60fdfed3e1fc836ae34126a0a89fc9&query=" + ville, (response2) => {
             console.log("Je suis dans le httpget météo pour l'ajout d'un document");
             // A chunk of data has been received.
@@ -636,12 +595,6 @@ app.get('/deconnexion', (request,response) => {
 });
 
 //Nos Post
-app.post('/sign-up', (request,response) => {
-
-    response.redirect('/sign-up');
-
-});
-
 app.post('/connexion', (request,response) => {
 
     response.redirect('/login');
@@ -654,9 +607,7 @@ app.post('/sign-up', (request, response) => {
     Users.filter(function(user) {
 
         if (user.id === request.body.input_id){
-
             response.render('pages/sign-up', {message: "Cette identifiant existe déjà ! Connectez-vous ou choisissez un autre identifiant."});
-
         }
 
     });
@@ -664,19 +615,17 @@ app.post('/sign-up', (request, response) => {
     Users.push(newUser);
     request.session.user = newUser;
 
-
     // Use connect method to connect to the server
     MongoClient.connect(url, function(err, client) {
-      assert.equal(null, err);
-      console.log("Connected successfully to server");
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+        const db = client.db(dbName);
 
-      const db = client.db(dbName);
-
-      insertDocuments(db, function() {
-        updateDocument(db,function() {
-            client.close();
+        insertDocuments(db, function() {
+            updateDocument(db,function() {
+                client.close();
+            });
         });
-      });
     });
 
     //On insère le document du nouvel utilisateur
