@@ -85,6 +85,27 @@ app.get('/home', verifSignIn, (request,response) => {
     //Horoscope
     var astro = "";
     var texteAstro = "";
+    //Nouvelles
+    var titre0 = "";
+    var titre1 = "";
+    var titre2 = "";
+    var titre3 = "";
+    var titre4 = "";
+    var description0 = "";
+    var description1 = "";
+    var description2 = "";
+    var description3 = "";
+    var description4 = "";
+    var auteur0 = "";
+    var auteur1 = "";
+    var auteur2 = "";
+    var auteur3 = "";
+    var auteur4 ="";
+    var URL0 = "";
+    var URL1 = "";
+    var URL2 = "";
+    var URL3 = "";
+    var URL4 = "";
 
     MongoClient.connect(url, function(err, client) {
         assert.equal(null, err);
@@ -96,10 +117,19 @@ app.get('/home', verifSignIn, (request,response) => {
             checkUpdateHoroscope(db, function() {
                 resultatCheckHoroscope(db, function() {
                     findDataHoroscope(db, function() {
-                        client.close();
-                        response.render('pages/home', {id: request.session.user.id, astro: astro,
-                            texteAstro: texteAstro, img: imageBinaire, message: messageVlille,
-                            stationFav: stationFav});
+                        checkUpdateNouvelles(db, function() {
+                            resultatCheckNouvelles(db, function() {
+                                findDataNouvelles(db, function() {
+                                    client.close();
+                                    response.render('pages/home', {id: request.session.user.id, astro: astro,
+                                        texteAstro: texteAstro, img: imageBinaire, message: messageVlille,
+                                        stationFav: stationFav, titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
+                                        description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
+                                        auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
+                                        URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4});
+                                });
+                            });
+                        });
                     });
                 });
             });
@@ -212,6 +242,94 @@ app.get('/home', verifSignIn, (request,response) => {
             callback(docs);
         });
     };
+
+    const checkUpdateNouvelles = function(db, callback) {
+        console.log("Je suis dans checkUpdateNouvelles");
+        const collection = db.collection('nouvelles');
+        collection.find({}).toArray(function(err,docs) {
+            assert.equal(err,null);
+            console.log("Found the following records for checkUpdateNouvelles");
+            //console.log(docs[0]);
+            var dateAjd = new Date();
+            var date_a_comparer = docs[0].date_mise_a_jour;
+            console.log(dateAjd);
+            console.log(date_a_comparer);
+            if ( dateAjd - date_a_comparer > 1000 * 60 * 60 * 2) {    //2 heures
+                console.log("Je suis dans la boucle if");
+                majNouvelles = true;
+                callback(majNouvelles);
+            }
+            else{
+                console.log("Je suis dans la boucle else");
+                majNouvelles = false;
+                callback(majNouvelles);
+            }
+        })
+    };
+
+    const resultatCheckNouvelles = function(db,callback) {
+        console.log(majNouvelles + " Je suis dans resultatCheckNouvelles");
+        if (majNouvelles === true) {
+            console.log("Je suis dans le if de resultatCheckNouvelles");
+            updateNouvelles(db,function() {
+                callback(majNouvelles);
+            });
+        }
+        else {
+            callback(majNouvelles);
+        }
+    };
+
+    const updateNouvelles = function(db, callback) {
+        console.log("Je suis dans updateNouvelles");
+        newsapi.v2.topHeadlines({
+            language: 'fr',
+            country: 'fr'
+        }).then(response2 => {
+            //console.log(response2);
+            const collection = db.collection('nouvelles');
+            // Mettre à jour les nouvelles
+            collection.updateOne({}
+                , { $set: { "status" : response2.status, "totalResults": response2.totalResults, "date_mise_a_jour": new Date(), "articles": response2.articles}}, function(err, result) {
+                    assert.equal(err, null);
+                    assert.equal(1, result.result.n);
+                    console.log("Document nouvelles mis à jour");
+                    callback(result);
+                });
+        });
+    };
+
+    const findDataNouvelles = function(db,callback) {
+        const collection = db.collection('nouvelles');
+        // Find some documents
+        collection.find({}).toArray(function(err, docs) {
+            assert.equal(err, null);
+            console.log("Voici les informations trouvées par findDataNouvelles");
+            console.log(docs[0]);
+            titre0 = docs[0].articles[0].title;
+            titre1 = docs[0].articles[1].title;
+            titre2 = docs[0].articles[2].title;
+            titre3 = docs[0].articles[3].title;
+            titre4 = docs[0].articles[4].title;
+            description0 = docs[0].articles[0].description;
+            description1 = docs[0].articles[1].description;
+            description2 = docs[0].articles[2].description;
+            description3 = docs[0].articles[3].description;
+            description4 = docs[0].articles[4].description;
+            auteur0 = docs[0].articles[0].author;
+            auteur1 = docs[0].articles[1].author;
+            auteur2 = docs[0].articles[2].author;
+            auteur3 = docs[0].articles[3].author;
+            auteur4 = docs[0].articles[4].author;
+            URL0 = docs[0].articles[0].url;
+            URL1 = docs[0].articles[1].url;
+            URL2 = docs[0].articles[2].url;
+            URL3 = docs[0].articles[3].url;
+            URL4 = docs[0].articles[4].url;
+            callback(docs);
+        });
+    };
+
 });
 
 app.get('/weather', verifSignIn, (request, response) => {

@@ -15,17 +15,18 @@
         <div class="tabs">
             <img src="images/defaultProfilePic.png" onclick="window.location.href='profile';" alt="">
             <hr>
+
             <div onclick="openHome()">HOME</div>
             <div onclick="openWeather()">WEATHER</div>
             <div onclick="openCovid()">COVID-19</div>
             <div onclick="openTrends()">TRENDS</div>
             <div onclick="openTransport()">PUBLIC TRANSPORT</div>
         </div>
+
         <hr>
         <button id="mode-button" onclick="toggleMode()"></button>
-    </div>
 
-    <div id="container-1"></div>
+    </div>
 
     <div class="social-buttons">
         <a href="https://www.facebook.com/" class="fa fa-facebook"></a>
@@ -34,25 +35,58 @@
         <a href="https://www.reddit.com/" class="fa fa-reddit"></a>
     </div>
 
-    <div>
-        <h2>Mon application Vlille</h2>
-    </div>
-    <p>Voici les informations recueillies sur les stations <strong>Vlilles</strong> :</p>
+    <div class="container-1">
+        <div class="container-2">
+            <div id="horoscope">
+                <h2> Votre horoscope </h2>
+                <p>Je sais tout, ton signe astrologique est : <%= astro %></p>
+                <p>Voici votre astrologie du jour :</p>
+                <p><%= texteAstro %></p>
+            </div>
 
-    <div>
-        <h2> Votre horoscope </h2>
-        <p>Je sais tout, ton signe astrologique est : <%= astro %></p>
-        <p>Voici votre astrologie du jour :</p>
-        <p><%= texteAstro %></p>
+
+            <div id="nouvelles">
+                <h2>Les nouvelles du moment :</h2><br>
+                <p>
+                    <strong><%= titre0 %></strong><br>
+                    <%= description0 %><br>
+                    Auteur : <%= auteur0 %><br>
+                    Pour en savoir plus : <a href=<%= URL0 %>><%= URL0 %></a>
+                </p><br>
+
+                <p>
+                    <strong><%= titre1 %></strong><br>
+                    <%= description1 %><br>
+                    Auteur : <%= auteur1 %><br>
+                    Pour en savoir plus : <a href=<%= URL1 %>><%= URL1 %></a>
+                </p><br>
+
+                <p>
+                    <strong><%= titre2 %></strong><br>
+                    <%= description2 %><br>
+                    Auteur : <%= auteur2 %><br>
+                    Pour en savoir plus : <a href=<%= URL2 %>><%= URL2 %></a>
+                </p><br>
+            </div>
+        </div>
+        <div>
+            <h2>Mon application Vlille</h2>
+        </div>
+        <p>Voici les informations recueillies sur les stations <strong>Vlilles</strong> :</p>
+
+
+
+
+
+        <div>
+            <a href="/deconnexion">Déconnexion</a>
+        </div>
     </div>
 
-    <div>
-        <a href="/deconnexion">Déconnexion</a>
-    </div>
-    
+
+
 </div>
 
 <script src="javascripts/app.js"></script>
-
 </body>
 </html>
