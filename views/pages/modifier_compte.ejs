@@ -26,8 +26,9 @@
 
      <br>
      <form action="/nomStation" method="post">
-        <label for="nomStation">Votre nom de station favorite (Veuillez entrer le nom exacte ex: Massena, Jardin Vauban)</label> :
-        <input type="text" id="input_nomStation" name="input_nomStation" value="" required>
+        <label for="nomStation">Votre nom de station favorite (Veuillez entrer le nom exacte ex: Massena, Jardin Vauban) :
+            <input type="text" id="input_nomStation" name="input_nomStation" value="" required>
+        </label>
         <input type="submit" id="bouton" value="Valider">
      </form>
 
@@ -35,7 +36,8 @@
             <p><%= result2 %></p>
     <% } %>
 
-</br><a href="/Accueil_User">Page d'accueil</a>
+    <br>
+    <a href="/profile">Page d'accueil</a>
 
 </body>
 

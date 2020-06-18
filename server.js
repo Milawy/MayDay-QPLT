@@ -74,33 +74,17 @@ app.get('/sign-up', (request,response) => {
 });
 
 app.get('/home', verifSignIn, (request,response) => {
-
     var signe = "";
-    var ville = "";
     var imageBinaire;
     var messageVlille = "";
     var stationFav = "";
     var majHoroscope = false;
-    var majMeteo = false;
     var majNouvelles = false;
     var horoscope_data = "";
-    var meteo_data = "";
     var nouvelles_data = "";
-    var ajouterMeteo = false;
-    var ajoutMeteo = false;
     //Horoscope
     var astro = "";
     var texteAstro = "";
-    //Meteo
-    var temperature = "";
-    var vitesse_vent = "";
-    var precipitation = "";
-    var humidite = "";
-    var couverture_nuageuse = "";
-    var ressenti = "";
-    var index_UV = "";
-    var visibilite = "";
-    var infos_date = "";
     //Nouvelles
     var titre0 = "";
     var titre1 = "";
@@ -133,23 +117,15 @@ app.get('/home', verifSignIn, (request,response) => {
         checkUpdateHoroscope(db, function() {
             resultatCheckHoroscope(db, function() {
                 findDataHoroscope(db, function() {
-                    checkUpdateMeteo(db, function() {
-                        resultatCheckMeteo(db, function() {
-                            findDataMeteo(db,function() {
-                                checkUpdateNouvelles(db, function() {
-                                    resultatCheckNouvelles(db, function() {
-                                        findDataNouvelles(db, function() {
-                                            client.close();
-                                            response.render('pages/home', {id: request.session.user.id, astro: astro, texteAstro: texteAstro, ville: ville,
-                                             temperature: temperature, vitesse_vent: vitesse_vent, precipitation: precipitation, humidite: humidite, couverture_nuageuse: couverture_nuageuse,
-                                              ressenti: ressenti, index_UV: index_UV, visibilite: visibilite, infos_date: infos_date,
-                                               titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
-                                                description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
-                                                 auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
-                                                  URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4, img: imageBinaire, message: messageVlille, stationFav: stationFav});
-                                        });
-                                    });
-                                });
+                    checkUpdateNouvelles(db, function() {
+                        resultatCheckNouvelles(db, function() {
+                            findDataNouvelles(db, function() {
+                                client.close();
+                                response.render('pages/home', {id: request.session.user.id, astro: astro, texteAstro: texteAstro,
+                                   titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
+                                    description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
+                                     auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
+                                      URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4, img: imageBinaire, message: messageVlille, stationFav: stationFav});
                             });
                         });
                     });
@@ -157,7 +133,6 @@ app.get('/home', verifSignIn, (request,response) => {
             });
         });
       });
-
     });
 
     const findVar = function(db, callback) {
@@ -213,38 +188,6 @@ app.get('/home', verifSignIn, (request,response) => {
 
     };
 
-    const checkUpdateMeteo = function(db, callback) {
-        console.log("Je suis dans checkUpdateMeteo");
-        const collection = db.collection('meteo');
-        collection.find({ville : ville}).toArray(function(err,docs) {
-            assert.equal(err,null);
-            console.log("Found the following records for checkUpdateMeteo");
-            console.log(docs[0]);
-            if (typeof(docs[0]) == 'undefined'){
-                console.log("Je suis dans le if docs undefined du checkUpdateMeteo");
-                ajouterMeteo = true;
-                callback(ajouterMeteo);
-            }
-            else{
-                var dateAjd = new Date();
-                var date_a_comparer = docs[0].date_mise_a_jour;
-                console.log(dateAjd);
-                console.log(date_a_comparer);
-                if ( dateAjd - date_a_comparer > 10 * 60000) {      //10 minutes
-                    console.log("Je suis dans la boucle if");
-                    majMeteo = true;
-                    callback(majMeteo);
-                }
-                else{
-                    console.log("Je suis dans la boucle else");
-                    majMeteo = false;
-                    callback(majMeteo);
-                }
-            }
-        })
-
-    };
-
     const checkUpdateNouvelles = function(db, callback) {
         console.log("Je suis dans checkUpdateNouvelles");
         const collection = db.collection('nouvelles');
@@ -281,27 +224,6 @@ app.get('/home', verifSignIn, (request,response) => {
         }
         else {
             callback(majHoroscope);
-        }
-
-    }
-
-    const resultatCheckMeteo = function(db,callback) {
-        console.log("Je suis dans resultatCheckMeteo");
-        if (ajouterMeteo === true){
-            insertMeteo(db,function() {
-                callback(ajouterMeteo);
-            });
-        }
-        else {
-            if (majMeteo === true){
-                console.log("Je suis dans le if de resultatCheckMeteo");
-                updateMeteo(db, function() {
-                    callback(majMeteo);
-                });
-            }
-            else{
-                callback(majMeteo);
-            }
         }
 
     }
@@ -388,37 +310,6 @@ app.get('/home', verifSignIn, (request,response) => {
         });
     }
 
-    const updateMeteo = function(db, callback) {
-        console.log("Je suis dans updateMeteo");
-        http.get("http://api.weatherstack.com/current?access_key=7a60fdfed3e1fc836ae34126a0a89fc9&query=" + ville, (response2) => {
-            console.log("Je suis dans le httpget météo pour l'update");
-            // A chunk of data has been received.
-            response2.on('data', (chunk) => {
-                meteo_data += chunk;
-            });
-
-            // The whole response has been received. Print out the result.
-            response2.on('end',() => {
-                console.log("J'ai reçu la réponse, plus qu'a la print");
-                meteo_data = JSON.parse(meteo_data);
-                console.log(meteo_data);
-
-                const collection = db.collection('meteo');
-                // Mettre à jour la meteo pour la ville concernée
-                collection.updateOne({ ville : ville }
-                    , { $set: { "temperature": meteo_data.current.temperature, "icone": meteo_data.current.weather_icons, "vitesse_vent": meteo_data.current.wind_speed, "precipitation": meteo_data.current.precip, "humidite": meteo_data.current.humidity, "couverture_nuageuse": meteo_data.current.cloudcover, "ressenti": meteo_data.current.feelslike, "index_UV": meteo_data.current.uv_index, "visibilite": meteo_data.current.visibility, "infos_date": meteo_data.location.localtime, "date_mise_a_jour": new Date()} }, function(err, result) {
-                    assert.equal(err, null);
-                    assert.equal(1, result.result.n);
-                    console.log("Document météo mis à jour");
-                    callback(result);
-                });
-            });
-
-        }).on("error", (err) => {
-                console.log("Error: " + err.message);
-        });
-    }
-
     const updateNouvelles = function(db, callback) {
         console.log("Je suis dans updateNouvelles");
         newsapi.v2.topHeadlines({
@@ -451,31 +342,6 @@ app.get('/home', verifSignIn, (request,response) => {
             callback(docs);
         });
     };
-
-    const findDataMeteo = function(db,callback) {
-        if(ajoutMeteo === true){
-            callback();
-        }
-        else{
-            const collection = db.collection('meteo');
-            collection.find({ville : ville}).toArray(function(err, docs) {
-                assert.equal(err, null);
-                console.log("Voici les informations trouvées par findDataMeteo");
-                console.log(docs[0]);
-                temperature = docs[0].temperature;
-                vitesse_vent = docs[0].vitesse_vent;
-                precipitation = docs[0].precipitation;
-                humidite = docs[0].humidite;
-                couverture_nuageuse = docs[0].couverture_nuageuse;
-                ressenti = docs[0].ressenti;
-                index_UV = docs[0].index_UV;
-                visibilite = docs[0].visibilite;
-                infos_date = docs[0].infos_date;
-                callback(docs);
-            });
-        }
-
-    }
 
     const findDataNouvelles = function(db,callback) {
         const collection = db.collection('nouvelles');
@@ -511,9 +377,213 @@ app.get('/home', verifSignIn, (request,response) => {
 });
 
 app.get('/weather', verifSignIn, (request, response) => {
+    var ville = "";
+    var majMeteo = false;
+    var meteo_data = "";
+    var ajouterMeteo = false;
+    var ajoutMeteo = false;
+    //Meteo
+    var temperature = "";
+    var vitesse_vent = "";
+    var precipitation = "";
+    var humidite = "";
+    var couverture_nuageuse = "";
+    var ressenti = "";
+    var index_UV = "";
+    var visibilite = "";
+    var infos_date = "";
 
-    response.render('pages/weather');
+    MongoClient.connect(url, function(err, client) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
 
+        const db = client.db(dbName);
+        findVar(db, function() {
+            checkUpdateMeteo(db, function() {
+                resultatCheckMeteo(db, function() {
+                    findDataMeteo(db,function() {
+                        client.close();
+                        response.render('pages/weather', {ville:ville, temperature:temperature, vitesse_vent: vitesse_vent, precipitation: precipitation, humidite: humidite, couverture_nuageuse: couverture_nuageuse,
+                            ressenti: ressenti, index_UV: index_UV, visibilite: visibilite, infos_date: infos_date })
+                    });
+                });
+            });
+        });
+    });
+
+    const findVar = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Find some documents
+        collection.find({id : request.session.user.id}).toArray(function(err, docs) {
+            assert.equal(err, null);
+            console.log("Found the following records for findVar Utilisateurs");
+            console.log(docs[0].astrologie);
+            console.log(docs[0].localisation.Ville)
+            signe = docs[0].astrologie
+            ville = docs[0].localisation.Ville
+            if (typeof(docs[0].photo_profil) != 'undefined'){
+                imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
+                console.log(docs[0].photo_profil.file);
+            }
+            if (typeof(docs[0].station_fav) == 'undefined'){
+                messageVlille = "Pas_de_station_fav";
+            }
+            else{
+                messageVlille = "station_fav_OK";
+                stationFav = docs[0].station_fav;
+            }
+
+            callback(signe);
+
+        });
+    };
+
+    const checkUpdateMeteo = function(db, callback) {
+        console.log("Je suis dans checkUpdateMeteo");
+        const collection = db.collection('meteo');
+        collection.find({ville : ville}).toArray(function(err,docs) {
+            assert.equal(err,null);
+            console.log("Found the following records for checkUpdateMeteo");
+            console.log(docs[0]);
+            if (typeof(docs[0]) == 'undefined'){
+                console.log("Je suis dans le if docs undefined du checkUpdateMeteo");
+                ajouterMeteo = true;
+                callback(ajouterMeteo);
+            }
+            else{
+                var dateAjd = new Date();
+                var date_a_comparer = docs[0].date_mise_a_jour;
+                console.log(dateAjd);
+                console.log(date_a_comparer);
+                if ( dateAjd - date_a_comparer > 10 * 60000) {      //10 minutes
+                    console.log("Je suis dans la boucle if");
+                    majMeteo = true;
+                    callback(majMeteo);
+                }
+                else{
+                    console.log("Je suis dans la boucle else");
+                    majMeteo = false;
+                    callback(majMeteo);
+                }
+            }
+        })
+
+    };
+
+    const resultatCheckMeteo = function(db,callback) {
+        console.log("Je suis dans resultatCheckMeteo");
+        if (ajouterMeteo === true){
+            insertMeteo(db,function() {
+                callback(ajouterMeteo);
+            });
+        }
+        else {
+            if (majMeteo === true){
+                console.log("Je suis dans le if de resultatCheckMeteo");
+                updateMeteo(db, function() {
+                    callback(majMeteo);
+                });
+            }
+            else{
+                callback(majMeteo);
+            }
+        }
+
+    }
+
+    const insertMeteo = function(db, callback) {
+
+        http.get("http://api.weatherstack.com/current?access_key=7a60fdfed3e1fc836ae34126a0a89fc9&query=" + ville, (response2) => {
+            console.log("Je suis dans le httpget météo pour l'ajout d'un document");
+            // A chunk of data has been received.
+            response2.on('data', (chunk) => {
+                meteo_data += chunk;
+            });
+
+            // The whole response has been received. Print out the result.
+            response2.on('end',() => {
+                console.log("J'ai reçu la réponse, plus qu'a la print");
+                meteo_data = JSON.parse(meteo_data);
+                console.log(meteo_data);
+
+                const collection = db.collection('meteo');
+                collection.insertMany([
+                    {"ville": meteo_data.location.name, "pays": meteo_data.location.country, "temperature":meteo_data.current.temperature, "icone": meteo_data.current.weather_icons, "vitesse_vent": meteo_data.current.wind_speed, "precipitation": meteo_data.current.precip, "humidite": meteo_data.current.humidity, "couverture_nuageuse": meteo_data.current.cloudcover, "ressenti": meteo_data.current.feelslike, "index_UV": meteo_data.current.uv_index, "visibilite": meteo_data.current.visibility, "infos_date": meteo_data.location.localtime, "date_mise_a_jour": new Date()}], function(err, result) {
+                    assert.equal(err, null);
+                    assert.equal(1, result.result.n);
+                    assert.equal(1, result.ops.length);
+                    temperature = meteo_data.current.temperature;
+                    vitesse_vent = meteo_data.current.wind_speed;
+                    precipitation = meteo_data.current.precip;
+                    humidite = meteo_data.current.humidity;
+                    couverture_nuageuse = meteo_data.current.cloudcover;
+                    ressenti = meteo_data.current.feelslike;
+                    index_UV = meteo_data.current.uv_index;
+                    visibilite = meteo_data.current.visibility;
+                    infos_date = meteo_data.location.localtime;
+                    console.log("Inserted 1 documents into the collection");
+                    ajoutMeteo = true;
+                    callback(result);
+                });
+            });
+        });
+    }
+
+    const updateMeteo = function(db, callback) {
+        console.log("Je suis dans updateMeteo");
+        http.get("http://api.weatherstack.com/current?access_key=7a60fdfed3e1fc836ae34126a0a89fc9&query=" + ville, (response2) => {
+            console.log("Je suis dans le httpget météo pour l'update");
+            // A chunk of data has been received.
+            response2.on('data', (chunk) => {
+                meteo_data += chunk;
+            });
+
+            // The whole response has been received. Print out the result.
+            response2.on('end',() => {
+                console.log("J'ai reçu la réponse, plus qu'a la print");
+                meteo_data = JSON.parse(meteo_data);
+                console.log(meteo_data);
+
+                const collection = db.collection('meteo');
+                // Mettre à jour la meteo pour la ville concernée
+                collection.updateOne({ ville : ville }
+                    , { $set: { "temperature": meteo_data.current.temperature, "icone": meteo_data.current.weather_icons, "vitesse_vent": meteo_data.current.wind_speed, "precipitation": meteo_data.current.precip, "humidite": meteo_data.current.humidity, "couverture_nuageuse": meteo_data.current.cloudcover, "ressenti": meteo_data.current.feelslike, "index_UV": meteo_data.current.uv_index, "visibilite": meteo_data.current.visibility, "infos_date": meteo_data.location.localtime, "date_mise_a_jour": new Date()} }, function(err, result) {
+                        assert.equal(err, null);
+                        assert.equal(1, result.result.n);
+                        console.log("Document météo mis à jour");
+                        callback(result);
+                    });
+            });
+
+        }).on("error", (err) => {
+            console.log("Error: " + err.message);
+        });
+    }
+
+    const findDataMeteo = function(db,callback) {
+        if(ajoutMeteo === true){
+            callback();
+        }
+        else{
+            const collection = db.collection('meteo');
+            collection.find({ville : ville}).toArray(function(err, docs) {
+                assert.equal(err, null);
+                console.log("Voici les informations trouvées par findDataMeteo");
+                console.log(docs[0]);
+                temperature = docs[0].temperature;
+                vitesse_vent = docs[0].vitesse_vent;
+                precipitation = docs[0].precipitation;
+                humidite = docs[0].humidite;
+                couverture_nuageuse = docs[0].couverture_nuageuse;
+                ressenti = docs[0].ressenti;
+                index_UV = docs[0].index_UV;
+                visibilite = docs[0].visibilite;
+                infos_date = docs[0].infos_date;
+                callback(docs);
+            });
+        }
+    }
 });
 
 app.get('/covid', verifSignIn, (request, response) => {

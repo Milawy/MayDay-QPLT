@@ -1,5 +1,4 @@
 
-
 /// LOAD HTML PAGES ///
 
 function openHome() {
