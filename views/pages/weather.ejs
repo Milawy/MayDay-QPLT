@@ -25,18 +25,7 @@
         <button id="mode-button" onclick="toggleMode()"></button>
     </div>
 
-    <div id="container-1">
-        <div>
-            <h2>La météo chez vous</h2>
-            <p> A <%= ville %> il fait actuellement <%= temperature %> degrés. </p>
-            <p> Le vent souffle à une vitesse de <%= vitesse_vent %> km/h, et la température ressentie est de <%= ressenti %> degrès. </p>
-            <p> Taux de precipitation : <%= precipitation %> mm </p>
-            <p> Taux d'humidité dans l'air : <%= humidite %> % </p>
-            <p> Couverture nuageuse : <%= couverture_nuageuse %> % </p>
-            <p> Index UV : <%= index_UV %> </p>
-            <p> Visibilité : <%= visibilite %> km </p>
-        </div>
-    </div>
+    <div id="container-1"></div>
 
     <div class="social-buttons">
         <a href="https://www.facebook.com/" class="fa fa-facebook"></a>
@@ -44,6 +33,18 @@
         <a href="https://www.instagram.com/" class="fa fa-instagram"></a>
         <a href="https://www.reddit.com/" class="fa fa-reddit"></a>
     </div>
+
+    <div>
+        <h2>La météo chez vous</h2>
+        <p> A <%= ville %> il fait actuellement <%= temperature %> degrés. </p>
+        <p> Le vent souffle à une vitesse de <%= vitesse_vent %> km/h, et la température ressentie est de <%= ressenti %> degrès. </p>
+        <p> Taux de precipitation : <%= precipitation %> mm </p>
+        <p> Taux d'humidité dans l'air : <%= humidite %> % </p>
+        <p> Couverture nuageuse : <%= couverture_nuageuse %> % </p>
+        <p> Index UV : <%= index_UV %> </p>
+        <p> Visibilité : <%= visibilite %> km </p>
+    </div>
+
 
 </div>
 

@@ -25,61 +25,7 @@
         <button id="mode-button" onclick="toggleMode()"></button>
     </div>
 
-    <div id="container-1">
-        <div>
-            <h2>Mon application Vlille</h2>
-        </div>
-        <p>Voici les informations recueillies sur les stations <strong>Vlilles</strong> :</p>
-
-        <div>
-            <h2> Votre horoscope </h2>
-            <p>Je sais tout, ton signe astrologique est : <%= astro %></p>
-            <p>Voici votre astrologie du jour :</p>
-            <p><%= texteAstro %></p>
-        </div>
-
-        <div>
-            <h2>Les nouvelles du moment :</h2>
-            <p>
-                <strong><%= titre0 %></strong><br>
-                <%= description0 %><br>
-                Auteur : <%= auteur0 %><br>
-                Pour en savoir plus : <a href=<%= URL0 %>><%= URL0 %></a>
-            </p>
-
-            <p>
-                <strong><%= titre1 %></strong><br>
-                <%= description1 %><br>
-                Auteur : <%= auteur1 %><br>
-                Pour en savoir plus : <a href=<%= URL1 %>><%= URL1 %></a>
-            </p>
-
-            <p>
-                <strong><%= titre2 %></strong><br>
-                <%= description2 %><br>
-                Auteur : <%= auteur2 %><br>
-                Pour en savoir plus : <a href=<%= URL2 %>><%= URL2 %></a>
-            </p>
-
-            <p>
-                <strong><%= titre3 %></strong><br>
-                <%= description3 %><br>
-                Auteur : <%= auteur3 %><br>
-                Pour en savoir plus : <a href=<%= URL3 %>><%= URL3 %></a>
-            </p>
-
-            <p>
-                <strong><%= titre4 %></strong><br>
-                <%= description4 %><br>
-                Auteur : <%= auteur4 %><br>
-                Pour en savoir plus : <a href=<%= URL4 %>><%= URL4 %></a>
-            </p>
-        </div>
-
-        <div>
-            <a href="/deconnexion">Déconnexion</a>
-        </div>
-    </div>
+    <div id="container-1"></div>
 
     <div class="social-buttons">
         <a href="https://www.facebook.com/" class="fa fa-facebook"></a>
@@ -88,8 +34,25 @@
         <a href="https://www.reddit.com/" class="fa fa-reddit"></a>
     </div>
 
+    <div>
+        <h2>Mon application Vlille</h2>
+    </div>
+    <p>Voici les informations recueillies sur les stations <strong>Vlilles</strong> :</p>
+
+    <div>
+        <h2> Votre horoscope </h2>
+        <p>Je sais tout, ton signe astrologique est : <%= astro %></p>
+        <p>Voici votre astrologie du jour :</p>
+        <p><%= texteAstro %></p>
+    </div>
+
+    <div>
+        <a href="/deconnexion">Déconnexion</a>
+    </div>
+    
 </div>
 
 <script src="javascripts/app.js"></script>
+
 </body>
 </html>
