@@ -177,7 +177,7 @@ button:focus {
 }
 
 .tabs img{
-    margin: 25px 0 0 0;
+    margin: 0;
     width: 100px;
     height: 100px;
     border-radius: 100%;
@@ -185,6 +185,10 @@ button:focus {
 
 .tabs img:hover{
     cursor: pointer;
+}
+
+#log-out{
+    margin-top: 20px;
 }
 
 hr{
@@ -330,7 +334,7 @@ hr{
     position: fixed;
     float: right;
     margin-right: 5px;
-    top: 25%;
+    top: 15%;
     left: 95%
 }
 

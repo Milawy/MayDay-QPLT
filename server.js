@@ -359,7 +359,7 @@ app.get('/weather', verifSignIn, (request, response) => {
                 resultatCheckMeteo(db, function() {
                     findDataMeteo(db,function() {
                         client.close();
-                        response.render('pages/weather', {img: imageBinaire, ville:ville, temperature:temperature, vitesse_vent: vitesse_vent, precipitation: precipitation, humidite: humidite, couverture_nuageuse: couverture_nuageuse,
+                        response.render('pages/weather', {id: request.session.user.id, img: imageBinaire, ville:ville, temperature:temperature, vitesse_vent: vitesse_vent, precipitation: precipitation, humidite: humidite, couverture_nuageuse: couverture_nuageuse,
                             ressenti: ressenti, index_UV: index_UV, visibilite: visibilite, infos_date: infos_date })
                     });
                 });
@@ -542,9 +542,45 @@ app.get('/weather', verifSignIn, (request, response) => {
 });
 
 app.get('/covid', verifSignIn, (request, response) => {
+    var imageBinaire;
 
-    response.render('pages/covid');
+    MongoClient.connect(url, function(err, client) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
 
+        const db = client.db(dbName);
+
+        findVar(db, function() {
+            client.close();
+            response.render('pages/covid', {id: request.session.user.id, img: imageBinaire});
+        });
+    });
+
+    const findVar = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Find some documents
+        collection.find({id : request.session.user.id}).toArray(function(err, docs) {
+            assert.equal(err, null);
+            console.log("Found the following records for findVar Utilisateurs");
+            console.log(docs[0].astrologie);
+            console.log(docs[0].localisation.Ville)
+            signe = docs[0].astrologie
+            ville = docs[0].localisation.Ville
+            if (typeof(docs[0].photo_profil) != 'undefined'){
+                imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
+                console.log(docs[0].photo_profil.file);
+            }
+            if (typeof(docs[0].station_fav) == 'undefined'){
+                messageVlille = "Pas_de_station_fav";
+            }
+            else{
+                messageVlille = "station_fav_OK";
+                stationFav = docs[0].station_fav;
+            }
+            callback(signe);
+        });
+    };
 });
 
 app.get('/trends', verifSignIn, (request, response) => {
@@ -581,7 +617,7 @@ app.get('/trends', verifSignIn, (request, response) => {
                 resultatCheckNouvelles(db, function() {
                     findDataNouvelles(db, function() {
                         client.close();
-                        response.render('pages/trends', {img: imageBinaire, titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
+                        response.render('pages/trends', {id: request.session.user.id, img: imageBinaire, titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
                             description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
                             auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
                             URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4});
@@ -706,8 +742,45 @@ app.get('/trends', verifSignIn, (request, response) => {
 });
 
 app.get('/transport', verifSignIn, (request, response) => {
+    var imageBinaire;
 
-    response.render('pages/transport');
+    MongoClient.connect(url, function(err, client) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+
+        const db = client.db(dbName);
+
+        findVar(db, function() {
+            client.close();
+            response.render('pages/transport', {id: request.session.user.id, img: imageBinaire});
+        });
+    });
+
+    const findVar = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Find some documents
+        collection.find({id : request.session.user.id}).toArray(function(err, docs) {
+            assert.equal(err, null);
+            console.log("Found the following records for findVar Utilisateurs");
+            console.log(docs[0].astrologie);
+            console.log(docs[0].localisation.Ville)
+            signe = docs[0].astrologie
+            ville = docs[0].localisation.Ville
+            if (typeof(docs[0].photo_profil) != 'undefined'){
+                imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
+                console.log(docs[0].photo_profil.file);
+            }
+            if (typeof(docs[0].station_fav) == 'undefined'){
+                messageVlille = "Pas_de_station_fav";
+            }
+            else{
+                messageVlille = "station_fav_OK";
+                stationFav = docs[0].station_fav;
+            }
+            callback(signe);
+        });
+    };
 
 });
 
