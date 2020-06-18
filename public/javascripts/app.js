@@ -3,23 +3,23 @@
 /// LOAD HTML PAGES ///
 
 function openHome() {
-    window.location.href = "home.ejs";
+    window.location.href = "home";
 }
 
 function openWeather() {
-    window.location.href = "weather.ejs";
+    window.location.href = "weather";
 }
 
 function openCovid() {
-    window.location.href = "covid.ejs";
+    window.location.href = "covid";
 }
 
 function openTrends() {
-    window.location.href = "trends.ejs";
+    window.location.href = "trends";
 }
 
 function openTransport() {
-    window.location.href = "transport.ejs";
+    window.location.href = "transport";
 }
 
 /// LOAD DIFFERENT PAGES INFOS ///
@@ -30,23 +30,23 @@ function loadInfos(){
     let infoDiv = document.createElement('div');
     let infoContainer = document.getElementById('container-1');
 
-    if(page === "home.ejs"){
+    if(page === "home"){
         infoContainer.appendChild(infoDiv);
         infoDiv.innerHTML="Can put your main infos here";
     }
-    else if(page === "weather.ejs"){
+    else if(page === "weather"){
         infoContainer.appendChild(infoDiv);
         infoDiv.innerHTML="Sun / Rain / Cloud / Temperature";
     }
-    else if(page === "covid.ejs"){
+    else if(page === "covid"){
         infoContainer.appendChild(infoDiv);
         infoDiv.innerHTML="Graphs / Map";
     }
-    else if(page === "trends.ejs"){
+    else if(page === "trends"){
         infoContainer.appendChild(infoDiv);
         infoDiv.innerHTML="Important and viral news of the day";
     }
-    else if(page === "transport.ejs"){
+    else if(page === "transport"){
         infoContainer.appendChild(infoDiv);
         infoDiv.innerHTML="Bicycles / Taxis / Buses / Trains / Planes";
     }

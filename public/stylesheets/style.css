@@ -73,6 +73,17 @@ body{
     margin-top: 50px;
 }
 
+.profile-bar > a{
+    color: white;
+    font-weight: bold;
+    width: 50%;
+    margin-bottom: 50px;
+}
+
+.profile-bar > a:active{
+    color: white;
+}
+
 .side-bar{
     display: flex;
     flex-direction: column;

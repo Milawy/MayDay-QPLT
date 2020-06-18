@@ -73,7 +73,7 @@ app.get('/sign-up', (request,response) => {
 
 });
 
-app.get('/Accueil_User', verifSignIn, (request,response) => {
+app.get('/home', verifSignIn, (request,response) => {
 
     var signe = "";
     var ville = "";
@@ -140,7 +140,7 @@ app.get('/Accueil_User', verifSignIn, (request,response) => {
                                     resultatCheckNouvelles(db, function() {
                                         findDataNouvelles(db, function() {
                                             client.close();
-                                            response.render('pages/Accueil_User', {id: request.session.user.id, astro: astro, texteAstro: texteAstro, ville: ville,
+                                            response.render('pages/home', {id: request.session.user.id, astro: astro, texteAstro: texteAstro, ville: ville,
                                              temperature: temperature, vitesse_vent: vitesse_vent, precipitation: precipitation, humidite: humidite, couverture_nuageuse: couverture_nuageuse,
                                               ressenti: ressenti, index_UV: index_UV, visibilite: visibilite, infos_date: infos_date,
                                                titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
@@ -510,6 +510,42 @@ app.get('/Accueil_User', verifSignIn, (request,response) => {
     };
 });
 
+app.get('/weather', verifSignIn, (request, response) => {
+
+    response.render('pages/weather');
+
+});
+
+app.get('/covid', verifSignIn, (request, response) => {
+
+    response.render('pages/covid');
+
+});
+
+app.get('/trends', verifSignIn, (request, response) => {
+
+    response.render('pages/trends');
+
+});
+
+app.get('/transport', verifSignIn, (request, response) => {
+
+    response.render('pages/transport');
+
+});
+
+app.get('/profile', verifSignIn, (request, response) => {
+
+    response.render('pages/profile');
+
+});
+
+app.get('/profileChange', verifSignIn, (request, response) => {
+
+    response.render('pages/profileChange');
+
+});
+
 app.get('/modifier_compte', verifSignIn, (request, response) => {
 
         response.render('pages/modifier_compte');
@@ -582,7 +618,7 @@ app.post('/sign-up', (request, response) => {
         assert.equal(err, null);
         assert.equal(1, result.result.n);
         assert.equal(1, result.ops.length);
-        console.log("Inserted 1 documents into the collection");
+        console.log("Inserted 1 document into the collection");
         callback(result);
       });
     }
@@ -641,7 +677,7 @@ app.post('/sign-up', (request, response) => {
 
     //response.render('pages/sign-up', {succes: 'Félicitation votre compte a été crée avec succès, vous allez être rediriger vers votre page d\'accueil'});
     console.log(Users);
-    response.redirect('/Accueil_User');
+    response.redirect('/home');
 
 });
 
@@ -655,7 +691,7 @@ app.post('/connexion1', (request, response) => {
 
             request.session.user = user;
             trouver =true;
-            response.redirect('/Accueil_User');
+            response.redirect('/home');
 
         }
     });
@@ -689,7 +725,7 @@ app.post('/connexion1', (request, response) => {
                         var User = {id: request.body.input_id, mdp: request.body.input_mdp};
                         Users.push(User);
                         request.session.user = User;
-                        response.redirect('/Accueil_User');
+                        response.redirect('/home');
 
                     }
                     else {

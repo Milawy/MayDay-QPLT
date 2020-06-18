@@ -3,7 +3,7 @@
 <head>
 
     <title>MayDay QPLT</title>
-    <link rel="stylesheet" href="public/stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
@@ -13,7 +13,7 @@
 
     <div class="side-bar">
         <div class="tabs">
-            <img src="./resources/defaultProfilePic.png" onclick="window.location.href='profile.html';" alt="">
+            <img src="images/defaultProfilePic.png" onclick="window.location.href='profile.html';" alt="">
             <hr>
             <div onclick="openHome()">HOME</div>
             <div onclick="openWeather()">WEATHER</div>
@@ -27,15 +27,16 @@
 
     <div class="profile-bar">
         <h1>PROFILE</h1>
+        <a href="/modifier_compte">Personnaliser ou modifier votre compte</a>
         <div onclick="inputName()">Name :</div>
         <div onclick="">Surname :</div>
         <div onclick="">Age :</div>
         <div onclick="">Birthday :</div>
-        <img src="./resources/defaultProfilePic.png" onclick="window.location.href='profile.html';" alt="">
+        <img src="images/defaultProfilePic.png" onclick="window.location.href='profile.html';" alt="">
     </div>
 
 </div>
 
-<script src="app.js"></script>
+<script src="javascripts/app.js"></script>
 </body>
 </html>
