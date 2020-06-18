@@ -12,12 +12,12 @@
     <h2>Login</h2>
     <div class="form-input">
         <label>
-            <input type="text" id="input_id" name="input_id" placeholder="Username" pattern="[A-Za-z0-9\-]+" title="Votre identifiant est composé uniquement de lettres et de chiffres" required>
+            <input type="text" id="input_id" name="input_id" placeholder="Username" required>
         </label>
     </div>
     <div class="form-input">
         <label>
-            <input type="password" id="input_mdp" name="input_mdp" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Votre mot de passe contient un moins une majuscule, une minuscule, un chiffre et à au moins 8 caractères" required>
+            <input type="password" id="input_mdp" name="input_mdp" placeholder="Password" required>
         </label>
         <span id="password-eye" onclick="showHide()"></span>
     </div>

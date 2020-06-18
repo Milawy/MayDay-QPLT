@@ -7,25 +7,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-<body onload="loadInfos()">
+<body>
 
 <div class="main">
 
     <div class="side-bar">
         <div class="tabs">
             <img src="images/defaultProfilePic.png" onclick="window.location.href='profile';" alt="">
+            <div onclick="window.location.href='deconnexion';">LOG OUT</div>
             <hr>
-
             <div onclick="openHome()">HOME</div>
             <div onclick="openWeather()">WEATHER</div>
-            <div onclick="openCovid()">COVID-19</div>
             <div onclick="openTrends()">TRENDS</div>
             <div onclick="openTransport()">PUBLIC TRANSPORT</div>
+            <div onclick="openCovid()">COVID-19</div>
         </div>
-
         <hr>
         <button id="mode-button" onclick="toggleMode()"></button>
-
     </div>
 
     <div class="social-buttons">
@@ -35,55 +33,59 @@
         <a href="https://www.reddit.com/" class="fa fa-reddit"></a>
     </div>
 
-    <div class="container-1">
-        <div class="container-2">
-            <div id="horoscope">
-                <h2> Votre horoscope </h2>
-                <p>Je sais tout, ton signe astrologique est : <%= astro %></p>
-                <p>Voici votre astrologie du jour :</p>
-                <p><%= texteAstro %></p>
-            </div>
+    <div id="container-1">
 
-
-            <div id="nouvelles">
-                <h2>Les nouvelles du moment :</h2><br>
-                <p>
-                    <strong><%= titre0 %></strong><br>
-                    <%= description0 %><br>
-                    Auteur : <%= auteur0 %><br>
-                    Pour en savoir plus : <a href=<%= URL0 %>><%= URL0 %></a>
-                </p><br>
-
-                <p>
-                    <strong><%= titre1 %></strong><br>
-                    <%= description1 %><br>
-                    Auteur : <%= auteur1 %><br>
-                    Pour en savoir plus : <a href=<%= URL1 %>><%= URL1 %></a>
-                </p><br>
-
-                <p>
-                    <strong><%= titre2 %></strong><br>
-                    <%= description2 %><br>
-                    Auteur : <%= auteur2 %><br>
-                    Pour en savoir plus : <a href=<%= URL2 %>><%= URL2 %></a>
-                </p><br>
+        <div id="clock">
+            <h2>The time is now</h2>
+            <div id="time">
+                <div> <span id="hours">00</span> <span>HOURS</span> </div>
+                <div> <span id="minutes">00</span> <span>MINUTES</span> </div>
+                <div> <span id="seconds">00</span> <span>SECONDS</span> </div>
             </div>
         </div>
-        <div>
+
+        <div id="horoscope">
+            <h2>Votre horoscope</h2>
+            <div>
+                <p>Je sais tout, votre signe astrologique est le <%= astro %></p>
+                <p>Voici votre astrologie du jour : <br>
+                    <%= texteAstro %></p>
+            </div>
+        </div>
+
+        <div id="hideThis">
             <h2>Mon application Vlille</h2>
+            <div>
+                Voici les informations recueillies sur les stations <strong>Vlilles</strong> : <br>
+            </div>
         </div>
-        <p>Voici les informations recueillies sur les stations <strong>Vlilles</strong> :</p>
 
-
-
-
-
-        <div>
-            <a href="/deconnexion">Déconnexion</a>
-        </div>
     </div>
 
+    <div id="container-2">
 
+        <div id="trends">
+            <h2>Les tendances du moment :</h2>
+            <p>
+                <strong><%= titre0 %></strong><br>
+                <%= description0 %><br>
+                Auteur : <%= auteur0 %><br>
+                Pour en savoir plus : <a href=<%= URL0 %>><%= URL0 %></a>
+            </p>
+            <p>
+                <strong><%= titre1 %></strong><br>
+                <%= description1 %><br>
+                Auteur : <%= auteur1 %><br>
+                Pour en savoir plus : <a href=<%= URL1 %>><%= URL1 %></a>
+            </p>
+        </div>
+
+        <div>
+            <h2>Et un autre</h2>
+            div pour mettre des nouveaux trucs incroyable
+        </div>
+
+    </div>
 
 </div>
 

@@ -7,25 +7,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-<body onload="loadInfos()">
+<body>
 
 <div class="main">
 
     <div class="side-bar">
         <div class="tabs">
             <img src="images/defaultProfilePic.png" onclick="window.location.href='profile';" alt="">
+            <div onclick="window.location.href='deconnexion';">LOG OUT</div>
             <hr>
             <div onclick="openHome()">HOME</div>
             <div onclick="openWeather()">WEATHER</div>
-            <div onclick="openCovid()">COVID-19</div>
             <div onclick="openTrends()">TRENDS</div>
             <div onclick="openTransport()">PUBLIC TRANSPORT</div>
+            <div onclick="openCovid()">COVID-19</div>
         </div>
         <hr>
         <button id="mode-button" onclick="toggleMode()"></button>
     </div>
-
-    <div id="container-1"></div>
 
     <div class="social-buttons">
         <a href="https://www.facebook.com/" class="fa fa-facebook"></a>
@@ -34,44 +33,43 @@
         <a href="https://www.reddit.com/" class="fa fa-reddit"></a>
     </div>
 
-    <div>
-        <h2>Les nouvelles du moment :</h2>
-        <p>
-            <strong><%= titre0 %></strong><br>
-            <%= description0 %><br>
-            Auteur : <%= auteur0 %><br>
-            Pour en savoir plus : <a href=<%= URL0 %>><%= URL0 %></a>
-        </p>
+    <div id="container-1">
 
-        <p>
-            <strong><%= titre1 %></strong><br>
-            <%= description1 %><br>
-            Auteur : <%= auteur1 %><br>
-            Pour en savoir plus : <a href=<%= URL1 %>><%= URL1 %></a>
-        </p>
+        <div id="trends">
+            <h2>Les tendances du moment :</h2>
+            <p>
+                <strong><%= titre0 %></strong><br>
+                <%= description0 %><br>
+                Auteur : <%= auteur0 %><br>
+                Pour en savoir plus : <a href=<%= URL0 %>><%= URL0 %></a>
+            </p>
+            <p>
+                <strong><%= titre1 %></strong><br>
+                <%= description1 %><br>
+                Auteur : <%= auteur1 %><br>
+                Pour en savoir plus : <a href=<%= URL1 %>><%= URL1 %></a>
+            </p>
+            <p>
+                <strong><%= titre2 %></strong><br>
+                <%= description2 %><br>
+                Auteur : <%= auteur2 %><br>
+                Pour en savoir plus : <a href=<%= URL2 %>><%= URL2 %></a>
+            </p>
+            <p>
+                <strong><%= titre3 %></strong><br>
+                <%= description3 %><br>
+                Auteur : <%= auteur3 %><br>
+                Pour en savoir plus : <a href=<%= URL3 %>><%= URL3 %></a>
+            </p>
+            <p>
+                <strong><%= titre4 %></strong><br>
+                <%= description4 %><br>
+                Auteur : <%= auteur4 %><br>
+                Pour en savoir plus : <a href=<%= URL4 %>><%= URL4 %></a>
+            </p>
+        </div>
 
-        <p>
-            <strong><%= titre2 %></strong><br>
-            <%= description2 %><br>
-            Auteur : <%= auteur2 %><br>
-            Pour en savoir plus : <a href=<%= URL2 %>><%= URL2 %></a>
-        </p>
-
-        <p>
-            <strong><%= titre3 %></strong><br>
-            <%= description3 %><br>
-            Auteur : <%= auteur3 %><br>
-            Pour en savoir plus : <a href=<%= URL3 %>><%= URL3 %></a>
-        </p>
-
-        <p>
-            <strong><%= titre4 %></strong><br>
-            <%= description4 %><br>
-            Auteur : <%= auteur4 %><br>
-            Pour en savoir plus : <a href=<%= URL4 %>><%= URL4 %></a>
-        </p>
     </div>
-
 </div>
 
 <script src="javascripts/app.js"></script>

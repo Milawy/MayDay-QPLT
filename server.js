@@ -43,7 +43,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-app.use('/Accueil_User', function(erreur, request, response,next){
+app.use('/home', function(erreur, request, response,next){
     console.log(erreur);
     //l'utilisateur doit être connecté ! Redirection à Connexion
     request.redirect('/login');
@@ -75,7 +75,6 @@ app.get('/sign-up', (request,response) => {
 
 app.get('/home', verifSignIn, (request,response) => {
     var signe = "";
-    var imageBinaire;
     var messageVlille = "";
     var stationFav = "";
     var majHoroscope = false;
@@ -122,8 +121,8 @@ app.get('/home', verifSignIn, (request,response) => {
                                 findDataNouvelles(db, function() {
                                     client.close();
                                     response.render('pages/home', {id: request.session.user.id, astro: astro,
-                                        texteAstro: texteAstro, img: imageBinaire, message: messageVlille,
-                                        stationFav: stationFav, titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
+                                        texteAstro: texteAstro, message: messageVlille, stationFav: stationFav,
+                                        titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
                                         description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
                                         auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
                                         URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4});
@@ -547,7 +546,6 @@ app.get('/covid', verifSignIn, (request, response) => {
 });
 
 app.get('/trends', verifSignIn, (request, response) => {
-    //Nouvelles
     var titre0 = "";
     var titre1 = "";
     var titre2 = "";
@@ -711,8 +709,45 @@ app.get('/transport', verifSignIn, (request, response) => {
 });
 
 app.get('/profile', verifSignIn, (request, response) => {
+    var imageBinaire;
 
-    response.render('pages/profile');
+    MongoClient.connect(url, function(err, client) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+
+        const db = client.db(dbName);
+
+        findVar(db, function() {
+            client.close();
+            response.render('pages/profile', {id: request.session.user.id, img: imageBinaire, message: messageVlille,});
+        });
+    });
+
+    const findVar = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Find some documents
+        collection.find({id : request.session.user.id}).toArray(function(err, docs) {
+            assert.equal(err, null);
+            console.log("Found the following records for findVar Utilisateurs");
+            console.log(docs[0].astrologie);
+            console.log(docs[0].localisation.Ville)
+            signe = docs[0].astrologie
+            ville = docs[0].localisation.Ville
+            if (typeof(docs[0].photo_profil) != 'undefined'){
+                imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
+                console.log(docs[0].photo_profil.file);
+            }
+            if (typeof(docs[0].station_fav) == 'undefined'){
+                messageVlille = "Pas_de_station_fav";
+            }
+            else{
+                messageVlille = "station_fav_OK";
+                stationFav = docs[0].station_fav;
+            }
+            callback(signe);
+        });
+    };
 
 });
 
@@ -752,11 +787,9 @@ app.post('/sign-up', (request, response) => {
 
     let astro;
     Users.filter(function(user) {
-
         if (user.id === request.body.input_id){
             response.render('pages/sign-up', {message: "Cette identifiant existe déjà ! Connectez-vous ou choisissez un autre identifiant."});
         }
-
     });
     var newUser = {id: request.body.input_id, mdp: request.body.input_mdp};
     Users.push(newUser);
@@ -845,7 +878,6 @@ app.post('/sign-up', (request, response) => {
       });
     }
 
-    //response.render('pages/sign-up', {succes: 'Félicitation votre compte a été crée avec succès, vous allez être rediriger vers votre page d\'accueil'});
     console.log(Users);
     response.redirect('/home');
 

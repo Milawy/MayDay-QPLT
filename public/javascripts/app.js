@@ -21,36 +21,6 @@ function openTransport() {
     window.location.href = "transport";
 }
 
-/// LOAD DIFFERENT PAGES INFOS ///
-
-function loadInfos(){
-    const path = window.location.pathname;
-    const page = path.split("/").pop();
-    let infoDiv = document.createElement('div');
-    let infoContainer = document.getElementById('container-1');
-
-    if(page === "home"){
-        infoContainer.appendChild(infoDiv);
-        infoDiv.innerHTML="Can put your main infos here";
-    }
-    else if(page === "weather"){
-        infoContainer.appendChild(infoDiv);
-        infoDiv.innerHTML="Sun / Rain / Cloud / Temperature";
-    }
-    else if(page === "covid"){
-        infoContainer.appendChild(infoDiv);
-        infoDiv.innerHTML="Graphs / Map";
-    }
-    else if(page === "trends"){
-        infoContainer.appendChild(infoDiv);
-        infoDiv.innerHTML="Important and viral news of the day";
-    }
-    else if(page === "transport"){
-        infoContainer.appendChild(infoDiv);
-        infoDiv.innerHTML="Bicycles / Taxis / Buses / Trains / Planes";
-    }
-}
-
 /// FORM FUNCTIONS ///
 
 function showHide(){
@@ -77,14 +47,35 @@ function checkEmail(){
         form.classList.add("valid");
         form.classList.remove("invalid");
         checkEmail.innerHTML="Valid Email";
-        checkEmail.style.color="#00ff00";
+        checkEmail.style.color="#00cc00";
     }
     else{
         form.classList.remove("valid");
         form.classList.add("invalid");
         checkEmail.innerHTML="Invalid Email";
-        checkEmail.style.color="#ff0000";
+        checkEmail.style.color="#cc0000";
     }
+}
+
+/// CLOCK ///
+const interval = setInterval(clock, 1);
+
+function clock(){
+    const hours = document.getElementById('hours');
+    const minutes = document.getElementById('minutes');
+    const seconds = document.getElementById('seconds');
+
+    let h = new Date().getHours();
+    let m = new Date().getMinutes();
+    let s = new Date().getSeconds();
+
+    h = (h < 10) ? "0" + h : h;
+    m = (m < 10) ? "0" + m : m;
+    s = (s < 10) ? "0" + s : s;
+
+    hours.innerHTML = h;
+    minutes.innerHTML = m;
+    seconds.innerHTML = s;
 }
 
 /// LIGHT/DARK MODE ///
