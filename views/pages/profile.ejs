@@ -17,7 +17,7 @@
             <% if (locals.img) { %>
             <img src="data:image/jpeg;base64,<%=img %>" onclick="window.location.href='profile';" alt="">
             <% } %>
-            <% if(!locals.img) { %>
+            <% if (!locals.img) { %>
             <img src="images/defaultProfilePic.png" onclick="window.location.href='profile';" alt="">
             <% } %>
             <div id="log-out" onclick="window.location.href='deconnexion';">LOG OUT</div>
@@ -35,14 +35,14 @@
     <div class="profile-bar">
         <h1>PROFILE</h1>
         <button onclick="window.location.href='modifier_compte';">EDIT PROFILE</button>
-        <div>Last Name :</div>
-        <div>First Name :</div>
+        <div>Last Name : <%=lastName %></div>
+        <div>First Name : <%=firstName %></div>
         <div>Username : <%=id %></div>
-        <div>Birthday :</div>
+        <div>Birthday : <%=infos_date %></div>
         <% if (locals.img) { %>
             <img src="data:image/jpeg;base64,<%=img %>" alt="">
         <% } %>
-        <% if(!locals.img) { %>
+        <% if (!locals.img) { %>
             <img src="images/defaultProfilePic.png" onclick="window.location.href='profile';" alt="">
         <% } %>
     </div>

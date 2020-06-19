@@ -359,8 +359,10 @@ app.get('/weather', verifSignIn, (request, response) => {
                 resultatCheckMeteo(db, function() {
                     findDataMeteo(db,function() {
                         client.close();
-                        response.render('pages/weather', {id: request.session.user.id, img: imageBinaire, ville:ville, temperature:temperature, vitesse_vent: vitesse_vent, precipitation: precipitation, humidite: humidite, couverture_nuageuse: couverture_nuageuse,
-                            ressenti: ressenti, index_UV: index_UV, visibilite: visibilite, infos_date: infos_date })
+                        response.render('pages/weather', {id: request.session.user.id, img: imageBinaire, ville:ville,
+                            temperature:temperature, vitesse_vent: vitesse_vent, precipitation: precipitation,
+                            humidite: humidite, couverture_nuageuse: couverture_nuageuse, ressenti: ressenti,
+                            index_UV: index_UV, visibilite: visibilite, infos_date: infos_date })
                     });
                 });
             });
@@ -786,6 +788,7 @@ app.get('/transport', verifSignIn, (request, response) => {
 
 app.get('/profile', verifSignIn, (request, response) => {
     var imageBinaire;
+    var infos_date = "";
 
     MongoClient.connect(url, function(err, client) {
         assert.equal(null, err);
@@ -795,7 +798,9 @@ app.get('/profile', verifSignIn, (request, response) => {
 
         findVar(db, function() {
             client.close();
-            response.render('pages/profile', {id: request.session.user.id, img: imageBinaire});
+            response.render('pages/profile', {id: request.session.user.id, img: imageBinaire,
+                infos_date: infos_date,
+                lastName: request.session.user.nom, firstName: request.session.user.prenom});
         });
     });
 
@@ -807,19 +812,10 @@ app.get('/profile', verifSignIn, (request, response) => {
             assert.equal(err, null);
             console.log("Found the following records for findVar Utilisateurs");
             console.log(docs[0].astrologie);
-            console.log(docs[0].localisation.Ville)
             signe = docs[0].astrologie
-            ville = docs[0].localisation.Ville
             if (typeof(docs[0].photo_profil) != 'undefined'){
                 imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
                 console.log(docs[0].photo_profil.file);
-            }
-            if (typeof(docs[0].station_fav) == 'undefined'){
-                messageVlille = "Pas_de_station_fav";
-            }
-            else{
-                messageVlille = "station_fav_OK";
-                stationFav = docs[0].station_fav;
             }
             callback(signe);
         });
