@@ -212,6 +212,11 @@ hr{
     cursor: pointer;
 }
 
+.tabs > div.active{
+    background-color: #3c3f41;
+    border-color: #3c3f41;
+}
+
 #container-1{
     display: flex;
     height: auto;

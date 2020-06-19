@@ -810,14 +810,11 @@ app.get('/profile', verifSignIn, (request, response) => {
         // Find some documents
         collection.find({id : request.session.user.id}).toArray(function(err, docs) {
             assert.equal(err, null);
-            console.log("Found the following records for findVar Utilisateurs");
-            console.log(docs[0].astrologie);
-            signe = docs[0].astrologie
             if (typeof(docs[0].photo_profil) != 'undefined'){
                 imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
                 console.log(docs[0].photo_profil.file);
             }
-            callback(signe);
+            callback(request.session.user.id);
         });
     };
 

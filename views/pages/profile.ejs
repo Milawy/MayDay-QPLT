@@ -15,10 +15,10 @@
         <div class="tabs">
             <h2><%=id %></h2>
             <% if (locals.img) { %>
-            <img src="data:image/jpeg;base64,<%=img %>" onclick="window.location.href='profile';" alt="">
+            <img src="data:image/jpeg;base64,<%=img %>" onclick="openProfile()" alt="">
             <% } %>
             <% if (!locals.img) { %>
-            <img src="images/defaultProfilePic.png" onclick="window.location.href='profile';" alt="">
+            <img src="images/defaultProfilePic.png" onclick="openProfile()" alt="">
             <% } %>
             <div id="log-out" onclick="window.location.href='deconnexion';">LOG OUT</div>
             <hr>

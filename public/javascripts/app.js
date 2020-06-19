@@ -21,6 +21,10 @@ function openTransport() {
     window.location.href = "transport";
 }
 
+function openProfile() {
+    window.location.href = "profile";
+}
+
 /// FORM FUNCTIONS ///
 
 function showHide(){

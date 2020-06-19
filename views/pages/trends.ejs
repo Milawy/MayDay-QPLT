@@ -15,16 +15,16 @@
         <div class="tabs">
             <h2><%=id %></h2>
             <% if (locals.img) { %>
-            <img src="data:image/jpeg;base64,<%=img %>" onclick="window.location.href='profile';" alt="">
+            <img src="data:image/jpeg;base64,<%=img %>" onclick="openProfile()" alt="">
             <% } %>
             <% if(!locals.img) { %>
-                <img src="images/defaultProfilePic.png" onclick="window.location.href='profile';" alt="">
+                <img src="images/defaultProfilePic.png" onclick="openProfile()" alt="">
             <% } %>
             <div id="log-out" onclick="window.location.href='deconnexion';">LOG OUT</div>
             <hr>
             <div onclick="openHome()">HOME</div>
             <div onclick="openWeather()">WEATHER</div>
-            <div onclick="openTrends()">TRENDS</div>
+            <div class="active" onclick="openTrends()">TRENDS</div>
             <div onclick="openTransport()">PUBLIC TRANSPORT</div>
             <div onclick="openCovid()">COVID-19</div>
         </div>
@@ -43,36 +43,38 @@
 
         <div id="trends">
             <h2>Les tendances du moment :</h2>
-            <p>
-                <strong><%= titre0 %></strong><br>
-                <%= description0 %><br>
-                Auteur : <%= auteur0 %><br>
-                Pour en savoir plus : <a href=<%= URL0 %>><%= URL0 %></a>
-            </p>
-            <p>
-                <strong><%= titre1 %></strong><br>
-                <%= description1 %><br>
-                Auteur : <%= auteur1 %><br>
-                Pour en savoir plus : <a href=<%= URL1 %>><%= URL1 %></a>
-            </p>
-            <p>
-                <strong><%= titre2 %></strong><br>
-                <%= description2 %><br>
-                Auteur : <%= auteur2 %><br>
-                Pour en savoir plus : <a href=<%= URL2 %>><%= URL2 %></a>
-            </p>
-            <p>
-                <strong><%= titre3 %></strong><br>
-                <%= description3 %><br>
-                Auteur : <%= auteur3 %><br>
-                Pour en savoir plus : <a href=<%= URL3 %>><%= URL3 %></a>
-            </p>
-            <p>
-                <strong><%= titre4 %></strong><br>
-                <%= description4 %><br>
-                Auteur : <%= auteur4 %><br>
-                Pour en savoir plus : <a href=<%= URL4 %>><%= URL4 %></a>
-            </p>
+            <div>
+                <p>
+                    <strong><%= titre0 %></strong><br>
+                    <%= description0 %><br>
+                    Auteur : <%= auteur0 %><br>
+                    <a href=<%= URL0 %>>En savoir plus</a>
+                </p>
+                <p>
+                    <strong><%= titre1 %></strong><br>
+                    <%= description1 %><br>
+                    Auteur : <%= auteur1 %><br>
+                    <a href=<%= URL1 %>>En savoir plus</a>
+                </p>
+                <p>
+                    <strong><%= titre2 %></strong><br>
+                    <%= description2 %><br>
+                    Auteur : <%= auteur2 %><br>
+                    <a href=<%= URL2 %>>En savoir plus</a>
+                </p>
+                <p>
+                    <strong><%= titre3 %></strong><br>
+                    <%= description3 %><br>
+                    Auteur : <%= auteur3 %><br>
+                    <a href=<%= URL3 %>>En savoir plus</a>
+                </p>
+                <p>
+                    <strong><%= titre4 %></strong><br>
+                    <%= description4 %><br>
+                    Auteur : <%= auteur4 %><br>
+                    <a href=<%= URL4 %>>En savoir plus</a>
+                </p>
+            </div>
         </div>
 
     </div>

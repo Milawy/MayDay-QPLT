@@ -15,15 +15,15 @@
         <div class="tabs">
             <h2><%=id %></h2>
             <% if (locals.img) { %>
-            <img src="data:image/jpeg;base64,<%=img %>" onclick="window.location.href='profile';" alt="">
+            <img src="data:image/jpeg;base64,<%=img %>" onclick="openProfile()" alt="">
             <% } %>
             <% if(!locals.img) { %>
-                <img src="images/defaultProfilePic.png" onclick="window.location.href='profile';" alt="">
+                <img src="images/defaultProfilePic.png" onclick="openProfile()" alt="">
             <% } %>
             <div id="log-out" onclick="window.location.href='deconnexion';">LOG OUT</div>
             <hr>
             <div onclick="openHome()">HOME</div>
-            <div onclick="openWeather()">WEATHER</div>
+            <div class="active" onclick="openWeather()">WEATHER</div>
             <div onclick="openTrends()">TRENDS</div>
             <div onclick="openTransport()">PUBLIC TRANSPORT</div>
             <div onclick="openCovid()">COVID-19</div>
@@ -43,13 +43,15 @@
 
         <div>
             <h2>La météo chez vous</h2>
-            <p> A <%= ville %> il fait actuellement <%= temperature %> degrés. </p>
-            <p> Le vent souffle à une vitesse de <%= vitesse_vent %> km/h, et la température ressentie est de <%= ressenti %> degrès. </p>
-            <p> Taux de precipitation : <%= precipitation %> mm </p>
-            <p> Taux d'humidité dans l'air : <%= humidite %> % </p>
-            <p> Couverture nuageuse : <%= couverture_nuageuse %> % </p>
-            <p> Index UV : <%= index_UV %> </p>
-            <p> Visibilité : <%= visibilite %> km </p>
+            <div>
+                <p> A <%= ville %> il fait actuellement <%= temperature %> degrés. </p>
+                <p> Le vent souffle à une vitesse de <%= vitesse_vent %> km/h, et la température ressentie est de <%= ressenti %> degrès. </p>
+                <p> Taux de precipitation : <%= precipitation %> mm </p>
+                <p> Taux d'humidité dans l'air : <%= humidite %> % </p>
+                <p> Couverture nuageuse : <%= couverture_nuageuse %> % </p>
+                <p> Index UV : <%= index_UV %> </p>
+                <p> Visibilité : <%= visibilite %> km </p>
+            </div>
         </div>
 
     </div>

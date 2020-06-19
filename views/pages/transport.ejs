@@ -15,17 +15,17 @@
         <div class="tabs">
             <h2><%=id %></h2>
             <% if (locals.img) { %>
-            <img src="data:image/jpeg;base64,<%=img %>" onclick="window.location.href='profile';" alt="">
+            <img src="data:image/jpeg;base64,<%=img %>" onclick="openProfile()" alt="">
             <% } %>
             <% if(!locals.img) { %>
-                <img src="images/defaultProfilePic.png" onclick="window.location.href='profile';" alt="">
+                <img src="images/defaultProfilePic.png" onclick="openProfile()" alt="">
             <% } %>
             <div id="log-out" onclick="window.location.href='deconnexion';">LOG OUT</div>
             <hr>
             <div onclick="openHome()">HOME</div>
             <div onclick="openWeather()">WEATHER</div>
             <div onclick="openTrends()">TRENDS</div>
-            <div onclick="openTransport()">PUBLIC TRANSPORT</div>
+            <div class="active" onclick="openTransport()">PUBLIC TRANSPORT</div>
             <div onclick="openCovid()">COVID-19</div>
         </div>
         <hr>
