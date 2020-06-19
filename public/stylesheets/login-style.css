@@ -1,8 +1,7 @@
 body{
-    /*background-image: url("/images/loginBg.gif");
-    background-repeat: no-repeat;
-    background-size: cover;*/
     background-color: #3c3f41;
+    background-repeat: no-repeat;
+    background-size: cover;
     color: white;
     margin: 0;
     padding: 0;
@@ -11,15 +10,24 @@ body{
     font-family: sans-serif;
 }
 
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
 #login-form{
+    background-color: rgba(50,50,50,.8);
     color: white;
+    opacity: 1;
     position: absolute;
+    transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     width: 300px;
-    padding: 60px 40px;
-    opacity: 1;
+    padding: 20px 70px;
 }
 
 #login-form h2{
@@ -142,4 +150,3 @@ hr{
     background: url("/images/hidePasswordL.png");
     background-size: cover;
 }
-

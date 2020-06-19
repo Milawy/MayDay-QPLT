@@ -1,8 +1,3 @@
-html{
-    height: 100%;
-    width: 100%;
-}
-
 body{
     background-color: #3c3f41;
     color: white;
@@ -58,7 +53,7 @@ body{
 }
 
 .light-body #container-1 div {
-    background-color: #d5d5d5;
+    background-color: rgba(213, 213, 213 ,.7);
 }
 
 .light-body #container-1 div h2{
@@ -74,7 +69,7 @@ body{
 }
 
 .light-body #container-2 div {
-    background-color: #d5d5d5;
+    background-color: rgba(213, 213, 213 ,.7);
 }
 
 .light-body #container-2 div h2{
@@ -85,8 +80,19 @@ body{
     color: #3c3f41;
 }
 
+.light-body .calendar .date .days .day:nth-child(7),
+.light-body .calendar .date .days .number:nth-child(7n){
+    color: #55ACEE;
+    font-weight: 600;
+}
+
+.light-body .calendar .date .days .number.active{
+    color: #ff5700;
+    border: #ff5700 solid 1px;
+}
+
 .light-body #container-3 div {
-    background-color: #d5d5d5;
+    background-color: rgba(213, 213, 213 ,.7);
 }
 
 .light-body #container-3 div h2{
@@ -97,12 +103,18 @@ body{
     color: #3c3f41;
 }
 
-/* MAIN CSS PART */
+.light-body #weather #weatherDiv,
+.light-body #weather #weatherDiv div {
+    background-color: rgba(213, 213, 213 ,.7);
 
-.main{
-    height: 100%;
-    width: 100%;
 }
+
+.light-body #trends #trendsDiv,
+.light-body #trends #trendsDiv div{
+    background-color: rgba(213, 213, 213 ,.7);
+}
+
+/* MAIN CSS PART */
 
 .profile-bar{
     display: flex;
@@ -172,6 +184,7 @@ body{
     height: 100%;
     width: 15%;
     margin-right: 15px;
+    opacity: 0.9;
 }
 
 button:focus {
@@ -249,7 +262,7 @@ hr{
 
 #container-1 div{
     font-family: system-ui, serif;
-    background-color: #313335;
+    background-color: rgba(49, 51, 53,.7);
     padding: 15px;
     margin-top: 10px;
 }
@@ -314,19 +327,6 @@ hr{
     background-color: #ff5700;
 }
 
-#trends{
-    background-image: url("/images/loginBg.gif");
-}
-
-#trends #trendsDiv,
-#trends #trendsDiv div {
-    background-color: rgba(0,0,0,.2);
-}
-
-#hideThis {
-    display: none;
-}
-
 #container-2{
     display: flex;
     justify-content: center;
@@ -344,7 +344,7 @@ hr{
 
 #container-2 div{
     font-family: system-ui, serif;
-    background-color: #313335;
+    background-color: rgba(49, 51, 53,.7);
 }
 
 #container-2 div h2 {
@@ -410,6 +410,7 @@ hr{
 
 .calendar .date .days .number.active{
     color: #55ACEE;
+    border: #55ACEE solid 1px;
 }
 
 .calendar .image{
@@ -443,7 +444,7 @@ hr{
 
 #container-3 div{
     font-family: system-ui, serif;
-    background-color: #313335;
+    background-color: rgba(49, 51, 53,.7);
     padding: 15px;
     margin-top: 10px;
 }
@@ -506,4 +507,40 @@ hr{
 .fa-reddit {
     background: #ff5700;
     color: white;
+}
+
+/* HOME */
+
+#home{
+    background-image: url("/images/home2BK.png");
+    background-size: cover;
+    background-attachment: scroll, local;
+}
+
+/* WEATHER */
+
+#weather{
+    background-image: url("/images/weatherBK.png");
+    background-size: cover;
+    background-attachment: scroll, local;
+    height: 100vh;
+}
+
+#weather #weatherDiv,
+#weather #weatherDiv div{
+    background-color: rgba(49, 51, 53,.7);
+}
+
+/* TRENDS */
+
+#trends{
+    background-image: url("/images/trendsBK.png");
+    background-size: cover;
+    background-attachment: scroll, local;
+    height: 100vh;
+}
+
+#trends #trendsDiv,
+#trends #trendsDiv div{
+    background-color: rgba(49, 51, 53,.7);
 }

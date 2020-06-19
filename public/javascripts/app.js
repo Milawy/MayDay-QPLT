@@ -1,4 +1,3 @@
-
 /// LOAD HTML PAGES ///
 
 function openHome() {
@@ -63,8 +62,6 @@ function checkEmail(){
 
 /// CLOCK ///
 
-const interval = setInterval(clock, 1);
-
 function clock(){
     const hours = document.getElementById('hours');
     const minutes = document.getElementById('minutes');
@@ -85,7 +82,16 @@ function clock(){
 
 /// CALENDAR ///
 
+function calendar(){
+    let today = new Date();
+    let dayName = String(today.getDate()).padStart(1, '0');
+    const dayNumber = String(today.getDate()).padStart(2, '0');
+    const monthNumber = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const year = today.getFullYear();
 
+    console.log("today : " + today);
+    console.log("dayName : " + dayName);
+}
 
 /// LIGHT/DARK MODE ///
 

@@ -36,15 +36,16 @@
     <div class="profile-bar">
         <h1>PROFILE</h1>
         <button onclick="window.location.href='modifier_compte';">EDIT PROFILE</button>
+        <div>Username : <%=id %></div>
         <div>Last Name : <%=lastName %></div>
         <div>First Name : <%=firstName %></div>
-        <div>Username : <%=id %></div>
-        <div>Birthday : <%=infos_date %></div>
+        <div>Birthday : <%=birthday %></div>
+        <div>City : <%=city %></div>
         <% if (locals.img) { %>
             <img src="data:image/jpeg;base64,<%=img %>" alt="">
         <% } %>
         <% if (!locals.img) { %>
-            <img src="images/defaultProfilePic.png" onclick="window.location.href='profile';" alt="">
+            <img src="images/defaultProfilePic.png" alt="">
         <% } %>
     </div>
 

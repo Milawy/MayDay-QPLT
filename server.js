@@ -787,8 +787,11 @@ app.get('/transport', verifSignIn, (request, response) => {
 });
 
 app.get('/profile', verifSignIn, (request, response) => {
-    var imageBinaire;
-    var infos_date = "";
+    let imageBinaire;
+    let lastname;
+    let firstname;
+    let city;
+    let birthday;
 
     MongoClient.connect(url, function(err, client) {
         assert.equal(null, err);
@@ -797,10 +800,11 @@ app.get('/profile', verifSignIn, (request, response) => {
         const db = client.db(dbName);
 
         findVar(db, function() {
-            client.close();
-            response.render('pages/profile', {id: request.session.user.id, img: imageBinaire,
-                infos_date: infos_date,
-                lastName: request.session.user.nom, firstName: request.session.user.prenom});
+            findUserInfo(db, function() {
+                client.close();
+                response.render('pages/profile', {id: request.session.user.id, img: imageBinaire,
+                lastName: lastname, firstName: firstname, birthday: birthday, city: city});
+            });
         });
     });
 
@@ -814,7 +818,23 @@ app.get('/profile', verifSignIn, (request, response) => {
                 imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
                 console.log(docs[0].photo_profil.file);
             }
-            callback(request.session.user.id);
+            callback();
+        });
+    };
+
+    const findUserInfo = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Find some documents
+        collection.find({id : request.session.user.id}).toArray(function(err, docs) {
+            assert.equal(err, null);
+            console.log("Trouve les informations de l'utilisateur");
+            lastname = docs[0].nom;
+            firstname = docs[0].prenom;
+            city = docs[0].localisation.Ville;
+            birthday = docs[0].Date_Naissance;
+            console.log(birthday);
+            callback();
         });
     };
 
@@ -853,6 +873,8 @@ app.post('/connexion', (request,response) => {
 });
 
 app.post('/sign-up', (request, response) => {
+
+    let astro;
 
     Users.filter(function(user) {
         if (user.id === request.body.input_id){
@@ -898,40 +920,40 @@ app.post('/sign-up', (request, response) => {
     const date_tronquee = request.body.input_date_naissance.substring(5, 9);
 
     if (date_tronquee.localeCompare("01-19") === 1 && date_tronquee.localeCompare("02-19") === -1) {
-        let astro = "Aquarius";
+        astro = "Aquarius";
     }
     if (date_tronquee.localeCompare("02-18") === 1 && date_tronquee.localeCompare("03-21") === -1) {
-        let astro = "Pisces";
+        astro = "Pisces";
     }
     if (date_tronquee.localeCompare("03-20") === 1 && date_tronquee.localeCompare("04-20") === -1) {
-        let astro = "Aries";
+        astro = "Aries";
     }
     if (date_tronquee.localeCompare("04-19") === 1 && date_tronquee.localeCompare("05-21") === -1) {
-        let astro = "Taurus";
+        astro = "Taurus";
     }
     if (date_tronquee.localeCompare("05-20") === 1 && date_tronquee.localeCompare("06-22") === -1) {
-        let astro = "Gemini";
+        astro = "Gemini";
     }
     if (date_tronquee.localeCompare("06-21") === 1 && date_tronquee.localeCompare("07-23") === -1) {
-        let astro = "Cancer";
+        astro = "Cancer";
     }
     if (date_tronquee.localeCompare("07-22") === 1 && date_tronquee.localeCompare("08-23") === -1) {
-        let astro = "Leo";
+        astro = "Leo";
     }
     if (date_tronquee.localeCompare("08-22") === 1 && date_tronquee.localeCompare("09-23") === -1) {
-        let astro = "Virgo";
+        astro = "Virgo";
     }
     if (date_tronquee.localeCompare("09-22") === 1 && date_tronquee.localeCompare("10-24") === -1) {
-        let astro = "Libra";
+        astro = "Libra";
     }
     if (date_tronquee.localeCompare("10-23") === 1 && date_tronquee.localeCompare("11-22") === -1) {
-        let astro = "Scorpio";
+        astro = "Scorpio";
     }
     if (date_tronquee.localeCompare("11-21") === 1 && date_tronquee.localeCompare("12-22") === -1) {
-        let astro = "Sagittarius";
+        astro = "Sagittarius";
     }
     if (typeof(astro) === 'undefined'){
-        let astro = "Capricorn";
+        astro = "Capricorn";
     }
 
     const updateDocument = function(db, callback) {
