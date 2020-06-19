@@ -93,6 +93,37 @@ function calendar(){
     console.log("dayName : " + dayName);
 }
 
+/// WEATHER ///
+
+function changeWeatherIcons(){
+    let temperature = 19;
+    let thermo = document.getElementById('thermo');
+
+    if(temperature <= 5){
+        thermo.innerHTML="&#xf2cb;";
+        thermo.style.color="#22DDFF";
+    }
+    else if(temperature > 5 && temperature <= 15){
+        thermo.innerHTML="&#xf2ca;";
+        thermo.style.color="#22FF22";
+    }
+    else if(temperature > 15 && temperature <= 25){
+        thermo.innerHTML="&#xf2c9;";
+        thermo.style.color="#FFFF22";
+    }
+    else if(temperature > 25 && temperature <= 35){
+        thermo.innerHTML="&#xf2c8;";
+        thermo.style.color="#FF8822";
+    }
+    else if(temperature > 35){
+        thermo.innerHTML="&#xf2c7;";
+        thermo.style.color="#FF2222";
+    }
+    else{
+        thermo.innerHTML="Not valid";
+    }
+}
+
 /// LIGHT/DARK MODE ///
 
 let defaultMode = "light";

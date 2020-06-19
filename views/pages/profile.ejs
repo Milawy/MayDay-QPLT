@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div class="main">
+<div>
 
     <div class="side-bar">
         <div class="tabs">
@@ -41,12 +41,6 @@
         <div>First Name : <%=firstName %></div>
         <div>Birthday : <%=birthday %></div>
         <div>City : <%=city %></div>
-        <% if (locals.img) { %>
-            <img src="data:image/jpeg;base64,<%=img %>" alt="">
-        <% } %>
-        <% if (!locals.img) { %>
-            <img src="images/defaultProfilePic.png" alt="">
-        <% } %>
     </div>
 
 </div>

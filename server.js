@@ -51,7 +51,7 @@ app.use('/home', function(erreur, request, response,next){
 app.use(fileUpload());
 app.use(express.static(__dirname + "/public"));
 
-var Users = [];
+const Users = [];
 
 //Nos routes
 //Nos Get
@@ -333,21 +333,21 @@ app.get('/home', verifSignIn, (request,response) => {
 });
 
 app.get('/weather', verifSignIn, (request, response) => {
-    var imageBinaire;
-    var ville = "";
-    var majMeteo = false;
-    var meteo_data = "";
-    var ajouterMeteo = false;
-    var ajoutMeteo = false;
-    var temperature = "";
-    var vitesse_vent = "";
-    var precipitation = "";
-    var humidite = "";
-    var couverture_nuageuse = "";
-    var ressenti = "";
-    var index_UV = "";
-    var visibilite = "";
-    var infos_date = "";
+    let imageBinaire;
+    let ville;
+    let majMeteo = false;
+    let meteo_data = "";
+    let ajouterMeteo = false;
+    let ajoutMeteo = false;
+    let temperature;
+    let vitesse_vent;
+    let precipitation;
+    let humidite;
+    let couverture_nuageuse;
+    let ressenti;
+    let index_UV;
+    let visibilite;
+    let infos_date;
 
     MongoClient.connect(url, function(err, client) {
         assert.equal(null, err);
@@ -360,9 +360,9 @@ app.get('/weather', verifSignIn, (request, response) => {
                     findDataMeteo(db,function() {
                         client.close();
                         response.render('pages/weather', {id: request.session.user.id, img: imageBinaire, ville:ville,
-                            temperature:temperature, vitesse_vent: vitesse_vent, precipitation: precipitation,
+                            temperature: temperature, vitesse_vent: vitesse_vent, precipitation: precipitation,
                             humidite: humidite, couverture_nuageuse: couverture_nuageuse, ressenti: ressenti,
-                            index_UV: index_UV, visibilite: visibilite, infos_date: infos_date })
+                            index_UV: index_UV, visibilite: visibilite, infos_date: infos_date})
                     });
                 });
             });

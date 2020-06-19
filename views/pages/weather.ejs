@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-<body>
+<body onload="changeWeatherIcons()">
 
 <div id="weather">
 
@@ -43,15 +43,16 @@
     <div id="container-1">
 
         <div id="weatherDiv">
-            <h2>La météo chez vous</h2>
+            <h2>La météo à <%=ville %></h2>
             <div>
-                <p> A <%= ville %> il fait actuellement <%= temperature %> degrés. </p>
-                <p> Le vent souffle à une vitesse de <%= vitesse_vent %> km/h, et la température ressentie est de <%= ressenti %> degrès. </p>
-                <p> Taux de precipitation : <%= precipitation %> mm </p>
-                <p> Taux d'humidité dans l'air : <%= humidite %> % </p>
-                <p> Couverture nuageuse : <%= couverture_nuageuse %> % </p>
-                <p> Index UV : <%= index_UV %> </p>
-                <p> Visibilité : <%= visibilite %> km </p>
+                <span class="fa fa-thermo" id="thermo"></span> <%=temperature %> degrés<br>
+                <span> Ressentie : <%=ressenti %> degrès</span><br>
+                <span> Le vent souffle à une vitesse de <%=vitesse_vent %> km/h</span><br>
+                <span> Taux de precipitation : <%=precipitation %> mm</span><br>
+                <span> Taux d'humidité dans l'air : <%=humidite %> %</span><br>
+                <span> Couverture nuageuse : <%=couverture_nuageuse %> %</span><br>
+                <span> Index UV : <%=index_UV %></span><br>
+                <span> Visibilité : <%=visibilite %> km</span>
             </div>
         </div>
 
