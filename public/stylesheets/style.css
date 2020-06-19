@@ -5,11 +5,11 @@ html{
 
 body{
     background-color: #3c3f41;
-    color: #e5e5e5;
-    height: 100%;
-    width: 100%;
+    color: white;
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100vh;
 }
 
 /* LIGHT MODE */
@@ -312,6 +312,15 @@ hr{
 
 #clock #time div:nth-child(3) span:nth-child(2){
     background-color: #ff5700;
+}
+
+#trends{
+    background-image: url("/images/loginBg.gif");
+}
+
+#trends #trendsDiv,
+#trends #trendsDiv div {
+    background-color: rgba(0,0,0,.2);
 }
 
 #hideThis {

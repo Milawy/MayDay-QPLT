@@ -854,7 +854,6 @@ app.post('/connexion', (request,response) => {
 
 app.post('/sign-up', (request, response) => {
 
-    let astro;
     Users.filter(function(user) {
         if (user.id === request.body.input_id){
             response.render('pages/sign-up', {message: "Cette identifiant existe déjà ! Connectez-vous ou choisissez un autre identifiant."});
@@ -897,41 +896,42 @@ app.post('/sign-up', (request, response) => {
 
     //Prenom en charge tout de suite son signe astrologique
     const date_tronquee = request.body.input_date_naissance.substring(5, 9);
+
     if (date_tronquee.localeCompare("01-19") === 1 && date_tronquee.localeCompare("02-19") === -1) {
-        astro = "Aquarius";
+        let astro = "Aquarius";
     }
     if (date_tronquee.localeCompare("02-18") === 1 && date_tronquee.localeCompare("03-21") === -1) {
-        astro = "Pisces";
+        let astro = "Pisces";
     }
     if (date_tronquee.localeCompare("03-20") === 1 && date_tronquee.localeCompare("04-20") === -1) {
-        astro = "Aries";
+        let astro = "Aries";
     }
     if (date_tronquee.localeCompare("04-19") === 1 && date_tronquee.localeCompare("05-21") === -1) {
-        astro = "Taurus";
+        let astro = "Taurus";
     }
     if (date_tronquee.localeCompare("05-20") === 1 && date_tronquee.localeCompare("06-22") === -1) {
-        astro = "Gemini";
+        let astro = "Gemini";
     }
     if (date_tronquee.localeCompare("06-21") === 1 && date_tronquee.localeCompare("07-23") === -1) {
-        astro = "Cancer";
+        let astro = "Cancer";
     }
     if (date_tronquee.localeCompare("07-22") === 1 && date_tronquee.localeCompare("08-23") === -1) {
-        astro = "Leo";
+        let astro = "Leo";
     }
     if (date_tronquee.localeCompare("08-22") === 1 && date_tronquee.localeCompare("09-23") === -1) {
-        astro = "Virgo";
+        let astro = "Virgo";
     }
     if (date_tronquee.localeCompare("09-22") === 1 && date_tronquee.localeCompare("10-24") === -1) {
-        astro = "Libra";
+        let astro = "Libra";
     }
     if (date_tronquee.localeCompare("10-23") === 1 && date_tronquee.localeCompare("11-22") === -1) {
-        astro = "Scorpio";
+        let astro = "Scorpio";
     }
     if (date_tronquee.localeCompare("11-21") === 1 && date_tronquee.localeCompare("12-22") === -1) {
-        astro = "Sagittarius";
+        let astro = "Sagittarius";
     }
-    if (date_tronquee.localeCompare("12-21") === 1 && date_tronquee.localeCompare("01-20") === -1) {
-        astro = "Capricorn";
+    if (typeof(astro) === 'undefined'){
+        let astro = "Capricorn";
     }
 
     const updateDocument = function(db, callback) {
