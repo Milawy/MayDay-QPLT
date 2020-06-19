@@ -320,6 +320,7 @@ hr{
 
 #container-2{
     display: flex;
+    justify-content: center;
     height: auto;
     margin-left: 300px;
     margin-right: 110px;
@@ -356,7 +357,7 @@ hr{
 .calendar{
     position: relative;
     background: #fff;
-    width: 800px;
+    width: 85%;
     height: 450px;
     display: flex;
     justify-content: space-between;
@@ -406,16 +407,15 @@ hr{
     position: absolute;
     top: 0;
     right: 0;
-    width: 400px;
+    width: 65%;
     height: 100%;
-    background: #000;
 }
 
 .calendar .image img{
     position: absolute;
     top: 0;
     right: 0;
-    width: 400px;
+    width: 100%;
     height: 100%;
     object-fit: cover;
 }

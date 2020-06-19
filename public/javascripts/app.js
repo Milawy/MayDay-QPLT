@@ -62,6 +62,7 @@ function checkEmail(){
 }
 
 /// CLOCK ///
+
 const interval = setInterval(clock, 1);
 
 function clock(){
@@ -81,6 +82,10 @@ function clock(){
     minutes.innerHTML = m;
     seconds.innerHTML = s;
 }
+
+/// CALENDAR ///
+
+
 
 /// LIGHT/DARK MODE ///
 
