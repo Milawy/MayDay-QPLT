@@ -52,6 +52,11 @@ body{
     border-color: #3c3f41;
 }
 
+.light-body .tabs > div.active{
+    background-color: #e5e5e5;
+    border-color: #e5e5e5;
+}
+
 .light-body #container-1 div {
     background-color: #d5d5d5;
 }
@@ -77,6 +82,18 @@ body{
 }
 
 .light-body #container-2 div a {
+    color: #3c3f41;
+}
+
+.light-body #container-3 div {
+    background-color: #d5d5d5;
+}
+
+.light-body #container-3 div h2{
+    color: black;
+}
+
+.light-body #container-3 div a {
     color: #3c3f41;
 }
 
