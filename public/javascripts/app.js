@@ -96,8 +96,10 @@ function calendar(){
 /// WEATHER ///
 
 function changeWeatherIcons(){
-    let temperature = 19;
+    let temperature = document.getElementById('hideValueGetter').value;
     let thermo = document.getElementById('thermo');
+
+    console.log("temperature : " + temperature);
 
     if(temperature <= 5){
         thermo.innerHTML="&#xf2cb;";

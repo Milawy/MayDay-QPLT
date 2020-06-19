@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
+
 <body onload="changeWeatherIcons()">
 
 <div id="weather">
@@ -41,13 +42,18 @@
     </div>
 
     <div id="container-1">
+        <label>
+            <input id="hideValueGetter" type="hidden" name="temperature"
+                   value="<%=temperature %>"/>
+        </label>
 
         <div id="weatherDiv">
             <h2>La météo à <%=ville %></h2>
             <div>
-                <span class="fa fa-thermo" id="thermo"></span> <%=temperature %> degrés<br>
+                <span class="fa fa-thermo" id="thermo"></span>
+                <span><%=temperature %> degrés</span><br>
                 <span> Ressentie : <%=ressenti %> degrès</span><br>
-                <span> Le vent souffle à une vitesse de <%=vitesse_vent %> km/h</span><br>
+                <span> Vitesse du vent : <%=vitesse_vent %> km/h</span><br>
                 <span> Taux de precipitation : <%=precipitation %> mm</span><br>
                 <span> Taux d'humidité dans l'air : <%=humidite %> %</span><br>
                 <span> Couverture nuageuse : <%=couverture_nuageuse %> %</span><br>
