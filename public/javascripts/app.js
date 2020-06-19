@@ -49,14 +49,16 @@ function checkEmail(){
     if(email.match(pattern)){
         form.classList.add("valid");
         form.classList.remove("invalid");
-        checkEmail.innerHTML="Valid Email";
-        checkEmail.style.color="#00cc00";
+        checkEmail.innerHTML="Format d'email correct";
+        checkEmail.style.display="flex";
+        checkEmail.style.color="#00CC00";
     }
     else{
         form.classList.remove("valid");
         form.classList.add("invalid");
-        checkEmail.innerHTML="Invalid Email";
-        checkEmail.style.color="#cc0000";
+        checkEmail.innerHTML="Format d'email incorrect";
+        checkEmail.style.display="flex";
+        checkEmail.style.color="#CC7700";
     }
 }
 
@@ -103,23 +105,23 @@ function changeWeatherIcons(){
 
     if(temperature <= 5){
         thermo.innerHTML="&#xf2cb;";
-        thermo.style.color="#22DDFF";
+        thermo.style.color="#00CCCC";
     }
     else if(temperature > 5 && temperature <= 15){
         thermo.innerHTML="&#xf2ca;";
-        thermo.style.color="#22FF22";
+        thermo.style.color="#00CC00";
     }
     else if(temperature > 15 && temperature <= 25){
         thermo.innerHTML="&#xf2c9;";
-        thermo.style.color="#FFFF22";
+        thermo.style.color="#CCCC00";
     }
     else if(temperature > 25 && temperature <= 35){
         thermo.innerHTML="&#xf2c8;";
-        thermo.style.color="#FF8822";
+        thermo.style.color="#CC7700";
     }
     else if(temperature > 35){
         thermo.innerHTML="&#xf2c7;";
-        thermo.style.color="#FF2222";
+        thermo.style.color="#CC0000";
     }
     else{
         thermo.innerHTML="Not valid";

@@ -8,62 +8,62 @@
 
 </head>
 <body>
-
+<!--
 <video autoplay muted loop id="myVideo">
     <source src="/video/espace.mp4" type="video/mp4">
 </video>
-
+-->
 <form id="login-form" action="/sign-up" method="post">
-        <h2>Sign up</h2>
-        <div class="form-input">
-            <label>
-                <input id="input_nom" type="text" name="input_nom" placeholder="Last Name" required>
-            </label>
-        </div>
-        <div class="form-input">
-            <label>
-                <input id="input_prenom" type="text" name="input_prenom" placeholder="First Name" required>
-            </label>
-        </div>
-        <div class="form-input">
-            <label>
-                <input id="input_id" type="text" name="input_id" placeholder="Username" required>
-            </label>
-        </div>
-        <div class="form-input">
-            <label>
-                <input id="email" type="text" name="email" placeholder="Email" onchange="checkEmail()" required>
-            </label>
-            <span id="check-email"></span>
-        </div>
-        <div class="form-input">
-            <label>
-                <input id="input_mdp" type="password" name="input_mdp" placeholder="Password" required>
-            </label>
-            <span id="password-eye" onclick="showHide()"></span>
-        </div>
-        <div class="form-input">
-            <label id="birthday-label"> Birthday :
-                <input id="input_date_naissance" type="date" name="input_date_naissance" required>
-            </label>
-        </div>
-        <div class="form-input">
-            <label>
-                <input id="input_commune" type="text" name="input_commune" placeholder="Ville" required>
-            </label>
-        </div>
-        <div class="form-input">
-            <label>
-                <input id="input_CP" type="text" name="input_CP" placeholder="Code Postal" required>
-            </label>
-        </div>
-        <div class="form-input">
-            <input type="submit" name="" value="Submit">
-        </div>
-        <hr>
-        <div class="form-input">
-            <input type="button" name="" value="Log in" onclick="window.location.href='login';">
-        </div>
+    <h2>Créer un compte</h2>
+    <div class="form-input">
+        <label>
+            <input id="input_nom" type="text" name="input_nom" placeholder="Nom" required>
+        </label>
+    </div>
+    <div class="form-input">
+        <label>
+            <input id="input_prenom" type="text" name="input_prenom" placeholder="Prénom" required>
+        </label>
+    </div>
+    <div class="form-input">
+        <label>
+            <input id="input_id" type="text" name="input_id" placeholder="Pseudo" required>
+        </label>
+    </div>
+    <div class="form-input">
+        <label>
+            <input id="email" type="text" name="email" placeholder="Email" onchange="checkEmail()" required>
+        </label>
+        <span id="check-email"></span>
+    </div>
+    <div class="form-input">
+        <label>
+            <input id="input_mdp" type="password" name="input_mdp" placeholder="Mot de passe" required>
+        </label>
+        <span id="password-eye" onclick="showHide()"></span>
+    </div>
+    <div class="form-input">
+        <label id="birthday-label"> Date de naissance
+            <input id="input_date_naissance" type="date" name="input_date_naissance" required>
+        </label>
+    </div>
+    <div class="form-input">
+        <label>
+            <input id="input_commune" type="text" name="input_commune" placeholder="Ville" required>
+        </label>
+    </div>
+    <div class="form-input">
+        <label>
+            <input id="input_CP" type="text" name="input_CP" placeholder="Code Postal" required>
+        </label>
+    </div>
+    <div class="form-input">
+        <input type="submit" name="" value="Envoyer">
+    </div>
+    <hr>
+    <div class="form-input">
+        <input type="button" name="" value="Se connecter" onclick="window.location.href='login';">
+    </div>
 </form>
 
 <script src="javascripts/app.js"></script>
