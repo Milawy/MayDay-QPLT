@@ -792,6 +792,7 @@ app.get('/profile', verifSignIn, (request, response) => {
     let firstname;
     let city;
     let birthday;
+    let country;
 
     MongoClient.connect(url, function(err, client) {
         assert.equal(null, err);
@@ -803,7 +804,7 @@ app.get('/profile', verifSignIn, (request, response) => {
             findUserInfo(db, function() {
                 client.close();
                 response.render('pages/profile', {id: request.session.user.id, img: imageBinaire,
-                lastName: lastname, firstName: firstname, birthday: birthday, city: city});
+                lastName: lastname, firstName: firstname, birthday: birthday, city: city, country: country});
             });
         });
     });
@@ -831,9 +832,9 @@ app.get('/profile', verifSignIn, (request, response) => {
             console.log("Trouve les informations de l'utilisateur");
             lastname = docs[0].nom;
             firstname = docs[0].prenom;
-            city = docs[0].localisation.Ville;
             birthday = docs[0].Date_Naissance;
-            console.log(birthday);
+            city = docs[0].localisation.Ville;
+            country = docs[0].localisation.Pays;
             callback();
         });
     };
@@ -873,7 +874,6 @@ app.post('/connexion', (request,response) => {
 });
 
 app.post('/sign-up', (request, response) => {
-
     let astro;
 
     Users.filter(function(user) {
@@ -905,13 +905,13 @@ app.post('/sign-up', (request, response) => {
       collection.insertMany([
         {"nom":request.body.input_nom, "prenom":request.body.input_prenom,
             "id":request.body.input_id, "mdp":request.body.input_mdp,
-            "localisation" : {"Ville":request.body.input_commune,"CP":request.body.input_CP},
+            "localisation" : {"Pays":request.body.input_pays, "Ville":request.body.input_commune,"CP":request.body.input_CP},
             "Date_Naissance":new Date(request.body.input_date_naissance), "email":request.body.email}],
           function(err, result) {
             assert.equal(err, null);
             assert.equal(1, result.result.n);
             assert.equal(1, result.ops.length);
-            console.log("Inserted 1 document into the collection");
+            console.log("Inserted 1 user into the collection");
             callback(result);
       });
     }

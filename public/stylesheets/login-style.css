@@ -85,7 +85,12 @@ body{
 }
 
 #login-form .form-input input[type="date"]::-webkit-calendar-picker-indicator {
+    font-size: 25px;
     opacity: 0;
+}
+
+#login-form #paysInput input::-webkit-calendar-picker-indicator{
+    display: none;
 }
 
 #login-form .form-input input[type="submit"]{
@@ -120,8 +125,9 @@ body{
 
 #login-form .forget-password{
     display: block;
-    margin-top: 30px;
     color: white;
+    margin-top: 30px;
+    padding-left: 10px;
     font-weight: bold;
     width: fit-content;
 }
@@ -156,4 +162,20 @@ hr{
 #password-eye.hide{
     background: url("/images/hidePasswordL.png");
     background-size: cover;
+}
+
+/* CAPS LOCK */
+
+#login-form .maj {
+    /* */
+    display: none;
+    /* */
+    position: absolute;
+    top: 5px;
+    right: 70px;
+    width: 30px;
+    height: 30px;
+    background-image: url("/images/capsLock.png");
+    background-size: cover;
+    cursor: pointer;
 }
