@@ -8,7 +8,6 @@ const https = require ('https');
 const http = require ('http');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const moment = require('moment');
-//var formidable = require('formidable');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const NewsAPI = require('newsapi');
@@ -849,7 +848,13 @@ app.get('/profileChange', verifSignIn, (request, response) => {
 
 app.get('/modifier_compte', verifSignIn, (request, response) => {
 
-        response.render('pages/modifier_compte');
+    response.render('pages/modifier_compte');
+
+});
+
+app.get('/modifier_image', verifSignIn, (request, response) => {
+
+    response.render('pages/modifier_compte');
 
 });
 
@@ -983,7 +988,7 @@ app.post('/connexion1', (request, response) => {
         if (user.id === request.body.input_id && user.mdp === request.body.input_mdp){
 
             request.session.user = user;
-            trouver =true;
+            trouver = true;
             response.redirect('/home');
 
         }
@@ -1032,7 +1037,7 @@ app.post('/connexion1', (request, response) => {
          };
     }
 });
-
+/*
 app.post('/modifier_compte', (request, response, next) => {
 
     var user_actuel = "";
@@ -1106,6 +1111,129 @@ app.post('/nomStation', (request, response) => {
         });
     }
 
+})*/
+
+// Modification du profile
+app.post('/modifier_compte', (request, response, next) => {
+
+    let user_actuel = "";
+    //let file = {file: binary(request.files.fichier.data)};
+
+    Users.filter(function(user) {
+        user_actuel = user.id;
+    });
+
+    MongoClient.connect(url, function(err, client) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+
+        const db = client.db(dbName);
+            updateDocument(db, function() {
+                client.close();
+            });
+    });
+
+    //Modifier un document
+    const updateDocument = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Modifie le compte de l'utilisateur
+        collection.updateOne({ id : user_actuel }
+            , { $set: { /*photo_profil : file,*/
+                    nom : request.body.input_nom,
+                    prenom : request.body.input_prenom,
+                    id : request.body.input_id,
+                    mdp : request.body.input_mdp,
+                    email : request.body.email,
+                    "localisation.Ville" : request.body.input_commune,
+                    "localisation.pays" : request.body.input_pays,
+                    "localisation.CP" : request.body.input_CP,
+                    Date_Naissance : request.body.input_date_naissance }
+                    }, function(err, result) {
+                assert.equal(err, null);
+                assert.equal(1, result.result.n);
+                console.log("Photo mise à jour");
+                callback(result);
+                response.render('pages/login', {result1: "Votre photo de profil a bien été mise à jour"});
+                if (err) {
+                    response.render('pages/login', {result1: "Erreur lors de l'insertion de votre image"});
+                }
+            });
+    }
+});
+/*
+app.post('/modifier_image', (request, response, next) => {
+
+    var user_actuel = "";
+    let file = {file: binary(request.files.fichier.data)};
+
+    Users.filter(function(user) {
+        user_actuel = user.id;
+    });
+
+    MongoClient.connect(url, function(err, client) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+
+        const db = client.db(dbName);
+
+        updateDocument(db, function() {
+            client.close();
+        });
+    });
+
+    //Modifier un document
+    const updateDocument = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Modifie le compte de l'utilisateur
+        collection.updateOne({ id : user_actuel }
+            , { $set: { photo_profil : file } }, function(err, result) {
+                assert.equal(err, null);
+                assert.equal(1, result.result.n);
+                console.log("Photo mise à jour");
+                callback(result);
+                response.render('pages/profile', {result1: "Votre photo de profil a bien été mise à jour"});
+                if (err) {
+                    response.render('pages/profile', {result1: "Erreur lors de l'insertion de votre image"});
+                }
+            });
+    }
+})*/
+
+app.post('/nomStation', (request, response) => {
+
+    var user_actuel = "";
+
+    Users.filter(function(user) {
+        user_actuel = user.id;
+    });
+
+    MongoClient.connect(url, function(err, client) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+
+        const db = client.db(dbName);
+
+        updateDocument(db, function() {
+            client.close();
+        });
+    });
+
+    //Modifier un document
+    const updateDocument = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Modifie le compte de l'utilisateur
+        collection.updateOne({ id : user_actuel }
+            , { $set: { station_fav : request.body.input_nomStation.toUpperCase() } }, function(err, result) {
+                assert.equal(err, null);
+                assert.equal(1, result.result.n);
+                console.log("Station favorite mise à jour");
+                callback(result);
+                response.render('pages/profile', {result10: "Votre station favorite a bien été mise à jour"});
+        });
+    }
 })
 
 app.post('/', (request,response1) => {

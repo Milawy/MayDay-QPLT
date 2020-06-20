@@ -21,7 +21,7 @@ body{
 }
 */
 
-/* FORM */
+/* LOGIN/SIGNUP FORM */
 
 #login-form{
     background-color: rgba(50,50,50,.5);
@@ -42,6 +42,7 @@ body{
     font-size: 3em;
 }
 
+
 #login-form .form-input{
     position: relative;
     margin: 20px 0;
@@ -52,10 +53,10 @@ body{
     background-color: rgba(50,50,50,.8);
     color: white;
     outline: none;
+    width: 85%;
     height: 40px;
     padding: 10px;
     box-sizing: border-box;
-    width: 85%;
     border: 1px solid white;
     font-size: 18px;
 }
@@ -95,9 +96,9 @@ body{
     opacity: 0;
 }
 
-/* PAYS INPUT */
+/* COUNTRY INPUT */
 
-#login-form #paysInput input::-webkit-calendar-picker-indicator{
+#login-form #countryInput input::-webkit-calendar-picker-indicator{
     display: none;
 }
 
@@ -118,7 +119,7 @@ body{
     cursor: pointer;
 }
 
-/* CHANGE PAGE INPUT */
+/* SWITCH LOGIN/SIGNUP INPUT */
 
 #login-form .form-input input[type="button"]{
     color: white;
@@ -152,7 +153,7 @@ hr{
 
 /* CHECK EMAIL */
 
-#check-email{
+#login-form #check-email{
     display: none;
     background-color: #3c3f41;
     width: fit-content;
@@ -162,7 +163,7 @@ hr{
 
 /* SHOW/HIDE PASSWORD */
 
-#password-eye{
+#login-form #password-eye{
     position: absolute;
     top: 7px;
     right: 42px;
@@ -173,6 +174,157 @@ hr{
 /* CAPS LOCK */
 
 #login-form .maj {
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 70px;
+    width: 30px;
+    height: 30px;
+    background-image: url("/images/capsLock.png");
+    background-size: cover;
+    cursor: pointer;
+}
+
+/* ------------------------------------------------------------------------------- */
+
+/* CHANGE PROFILE FORM */
+
+#change-form{
+    background-color: rgba(50,50,50,.5);
+    color: white;
+    opacity: 1;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    padding: 20px 20px;
+}
+
+#change-form h2{
+    margin: 0 0 40px;
+    padding: 0;
+    text-align: center;
+    font-size: 3em;
+}
+
+#change-form #container-form{
+    display: flex;
+}
+
+#change-form #first-column{
+    width: 50%;
+}
+
+#change-form #second-column{
+    width: 50%;
+}
+
+#change-form .form-input{
+    position: relative;
+    margin: 20px 0;
+    text-align: center;
+}
+
+#change-form .form-input input{
+    background-color: rgba(50,50,50,.8);
+    color: white;
+    outline: none;
+    width: 85%;
+    height: 40px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid white;
+    font-size: 18px;
+}
+
+#change-form .form-input input[type="date"]{
+    background-image: url("/images/calendarIconL.png");
+    background-position: 97%;
+    background-size: 10%;
+    background-repeat: no-repeat;
+}
+
+#change-form .form-input input[type="date"]:hover{
+    cursor: text;
+}
+
+#change-form .form-input input[type="date"]:invalid{
+    color: #AAA;
+}
+
+#change-form .form-input input[type="date"]::-webkit-inner-spin-button {
+    display: none;
+}
+
+#change-form .form-input input[type="date"]::-webkit-calendar-picker-indicator {
+    font-size: 25px;
+    opacity: 0;
+}
+
+/* CHANGE PROFILE COUNTRY INPUT */
+
+#change-form #countryInput input::-webkit-calendar-picker-indicator{
+    display: none;
+}
+
+/* CHANGE PROFILE SUBMIT INPUT */
+
+#change-form .form-input input[type="submit"]{
+    color: white;
+    border: solid 1px white;
+    cursor: pointer;
+    width: 40%;
+    margin: 0 20%;
+}
+
+#change-form .form-input input[type="submit"]:hover{
+    transition-duration: 250ms;
+    background-color: #313335;
+    color: #d5d5d5;
+    cursor: pointer;
+}
+
+/* CHANGE PROFILE ABORT INPUT */
+
+#change-form .form-input input[type="button"]{
+    color: white;
+    border: solid 1px white;
+    cursor: pointer;
+    width: 40%;
+    margin: 0 20%;
+}
+
+#change-form .form-input input[type="button"]:hover{
+    transition-duration: 250ms;
+    background-color: #313335;
+    color: #d5d5d5;
+    cursor: pointer;
+}
+
+/* CHANGE PROFILE CHECK EMAIL */
+
+#change-form #check-email{
+    display: none;
+    background-color: #3c3f41;
+    width: fit-content;
+    padding: 5px;
+    margin-left: 30px;
+}
+
+/* CHANGE PROFILE SHOW/HIDE PASSWORD */
+
+#change-form #password-eye{
+    position: absolute;
+    top: 7px;
+    right: 42px;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+/* CHANGE PROFILE CAPS LOCK */
+
+#change-form .maj {
     display: none;
     position: absolute;
     top: 5px;

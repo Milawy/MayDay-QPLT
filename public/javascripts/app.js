@@ -62,6 +62,28 @@ function checkEmail(){
     }
 }
 
+function checkEmailProfileChange(){
+    const form = document.getElementById("change-form");
+    const email = document.getElementById("email").value;
+    const checkEmail = document.getElementById("check-email");
+    const pattern = "^[^ ]+@[^ ]+\\.[a-z]{2,3}$";
+
+    if(email.match(pattern)){
+        form.classList.add("valid");
+        form.classList.remove("invalid");
+        checkEmail.innerHTML="Format d'email correct";
+        checkEmail.style.display="flex";
+        checkEmail.style.color="#00CC00";
+    }
+    else{
+        form.classList.remove("valid");
+        form.classList.add("invalid");
+        checkEmail.innerHTML="Format d'email incorrect";
+        checkEmail.style.display="flex";
+        checkEmail.style.color="#CC7700";
+    }
+}
+
 /// CLOCK ///
 
 function clock(){
@@ -94,10 +116,10 @@ function calendar(){
     const days = container2.getElementsByClassName('number');
 
     let today = new Date();
-    let monthNumber = today.getMonth() + 1; //Starts at 0
     //let monthNumber = 3;
-    let monthDayNumber = today.getDate(); //Starts at 1
     //let monthDayNumber = 27;
+    let monthNumber = today.getMonth() + 1; //Starts at 0
+    let monthDayNumber = today.getDate(); //Starts at 1
     let year = today.getFullYear();
 
     days[monthDayNumber - 1].classList.add('active');
@@ -209,6 +231,9 @@ function changeWeatherIcons(){
     }
     else if(temperature > ressenti){
         thermoFeel.innerHTML="&#xf76b;";
+    }
+    else if(temperature === ressenti){
+        thermoFeel.innerHTML="&#xf2c9;";
     }
     else{
         thermoFeel.innerHTML="Not valid";
