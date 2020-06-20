@@ -61,15 +61,6 @@ function checkEmail(){
         checkEmail.style.color="#CC7700";
     }
 }
-/*
-const inpPassword = document.getElementById("input_mdp")
-const maj = document.querySelector(".maj")
-
-inpPassword.addEventListener('keyup', function(event){
-    const isCapsLockOn = event.getModifierState("CapsLock");
-    console.log("salit")
-    maj.style.display = isCapsLockOn ? 'block' : 'none';
-});*/
 
 /// CLOCK ///
 
@@ -174,7 +165,6 @@ function calendar(){
     else{
         month.innerHTML = "Error in month counter";
     }
-
 }
 
 /// WEATHER ///

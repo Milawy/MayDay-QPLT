@@ -267,6 +267,16 @@
     </div>
 </form>
 
+<script>
+    const inpPassword = document.getElementById("input_mdp")
+    const maj = document.querySelector(".maj")
+
+    inpPassword.addEventListener('keyup', function(event){
+        const isCapsLockOn = event.getModifierState("CapsLock");
+        console.log("salit")
+        maj.style.display = isCapsLockOn ? 'block' : 'none';
+    });
+</script>
 <script src="https://kit.fontawesome.com/30f9fd1eba.js" crossorigin="anonymous"></script>
 <script src="javascripts/app.js"></script>
 </body>

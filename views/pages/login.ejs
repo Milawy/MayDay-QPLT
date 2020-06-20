@@ -8,11 +8,11 @@
 
 </head>
 <body>
-
+<!--
 <video autoplay muted loop id="myVideo">
     <source src="/video/espace.mp4" type="video/mp4">
 </video>
-
+-->
 <form id="login-form" action="/connexion1" method="post">
     <h2>Connexion</h2>
     <div class="form-input">
@@ -41,6 +41,16 @@
     <%= erreur %>
 <% } %>
 
+<script>
+    const inpPassword = document.getElementById("input_mdp")
+    const maj = document.querySelector(".maj")
+
+    inpPassword.addEventListener('keyup', function(event){
+        const isCapsLockOn = event.getModifierState("CapsLock");
+        console.log("salit")
+        maj.style.display = isCapsLockOn ? 'block' : 'none';
+    });
+</script>
 <script src="https://kit.fontawesome.com/30f9fd1eba.js" crossorigin="anonymous"></script>
 <script src="javascripts/app.js"></script>
 </body>
