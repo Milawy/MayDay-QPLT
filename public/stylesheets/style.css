@@ -518,6 +518,10 @@ button:focus {
     border: #55ACEE solid 1px;
 }
 
+.calendar .date .days .number.hide{
+    display: none;
+}
+
 .calendar .image{
     position: absolute;
     top: 0;

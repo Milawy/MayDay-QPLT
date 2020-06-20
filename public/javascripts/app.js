@@ -93,15 +93,88 @@ function clock(){
 
 /// CALENDAR ///
 
-function calendar(){
-    let today = new Date();
-    let dayName = String(today.getDate()).padStart(1, '0');
-    const dayNumber = String(today.getDate()).padStart(2, '0');
-    const monthNumber = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    const year = today.getFullYear();
+function daysInMonth(month, year) {
+    return new Date(year, month, 0).getDate();
+}
 
-    console.log("today : " + today);
-    console.log("dayName : " + dayName);
+function calendar(){
+    const container2 = document.getElementById('container-2');
+    const month = container2.querySelector('h3');
+    const days = container2.getElementsByClassName('number');
+
+    let today = new Date();
+    let monthNumber = today.getMonth() + 1; //Starts at 0
+    //let monthNumber = 3;
+    let monthDayNumber = today.getDate(); //Starts at 1
+    //let monthDayNumber = 27;
+    let year = today.getFullYear();
+
+    days[monthDayNumber - 1].classList.add('active');
+
+    if(daysInMonth(monthNumber, year) === 28){
+        days[28].classList.add('hide');
+        days[29].classList.add('hide');
+        days[30].classList.add('hide');
+    }
+    else if(daysInMonth(monthNumber, year) === 29){
+        days[28].classList.remove('hide');
+        days[29].classList.add('hide');
+        days[30].classList.add('hide');
+    }
+    else if(daysInMonth(monthNumber, year) === 30){
+        days[28].classList.remove('hide');
+        days[29].classList.remove('hide');
+        days[30].classList.add('hide');
+    }
+    else if(daysInMonth(monthNumber, year) === 31){
+        days[28].classList.remove('hide');
+        days[29].classList.remove('hide');
+        days[30].classList.remove('hide');
+    }
+    else{
+        console.log("Error in days in month counter");
+    }
+
+    if(monthNumber === 1){
+        month.innerHTML = "Janvier";
+    }
+    else if(monthNumber === 2){
+        month.innerHTML = "Février";
+    }
+    else if(monthNumber === 3){
+        month.innerHTML = "Mars";
+    }
+    else if(monthNumber === 4){
+        month.innerHTML = "Avril";
+    }
+    else if(monthNumber === 5){
+        month.innerHTML = "Mai";
+    }
+    else if(monthNumber === 6){
+        month.innerHTML = "Juin";
+    }
+    else if(monthNumber === 7){
+        month.innerHTML = "Juillet";
+    }
+    else if(monthNumber === 8){
+        month.innerHTML = "Août";
+    }
+    else if(monthNumber === 9){
+        month.innerHTML = "Septembre";
+    }
+    else if(monthNumber === 10){
+        month.innerHTML = "Octobre";
+    }
+    else if(monthNumber === 11){
+        month.innerHTML = "Novembre";
+    }
+    else if(monthNumber === 12){
+        month.innerHTML = "Décembre";
+    }
+    else{
+        month.innerHTML = "Error in month counter";
+    }
+
 }
 
 /// WEATHER ///
