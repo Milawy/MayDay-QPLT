@@ -25,7 +25,7 @@
             <div id="log-out" onclick="window.location.href='deconnexion';">DÉCONNEXION</div>
             <hr>
             <div onclick="openHome()">ACCUEIL</div>
-            <div class="active" onclick="openWeather()">MÉTÉO</div>
+            <div id="active" onclick="openWeather()">MÉTÉO</div>
             <div onclick="openTrends()">TENDANCES</div>
             <div onclick="openTransport()">TRANSPORTS</div>
             <div onclick="openCovid()">COVID-19</div>
@@ -42,29 +42,66 @@
     </div>
 
     <div id="container-1">
+
         <label>
             <input id="hideValueGetter" type="hidden" name="temperature"
                    value="<%=temperature %>"/>
+        </label>
+        <label>
+            <input id="hideValueGetter2" type="hidden" name="ressentie"
+                   value="<%=ressenti %>"/>
         </label>
 
         <div id="weatherDiv">
             <h2>La météo à <%=ville %></h2>
             <div>
-                <span class="fa fa-thermo" id="thermo"></span>
-                <span><%=temperature %> degrès</span><br>
-                <span> Ressentie : <%=ressenti %> degrès</span><br>
-                <span> Vitesse du vent : <%=vitesse_vent %> km/h</span><br>
-                <span> Taux de precipitation : <%=precipitation %> mm</span><br>
-                <span> Taux d'humidité dans l'air : <%=humidite %> %</span><br>
-                <span> Couverture nuageuse : <%=couverture_nuageuse %> %</span><br>
-                <span> Index UV : <%=index_UV %></span><br>
-                <span> Visibilité : <%=visibilite %> km</span>
+                <div>
+                    <span class="fa fa-weather" id="thermo"></span>
+                    <span>Température</span>
+                    <span><%=temperature %> degrès</span>
+                </div>
+                <div>
+                    <span class="fa fa-weather" id="thermo-feel"></span>
+                    <span>T° ressentie</span>
+                    <span><%=ressenti %> degrès</span>
+                </div>
+                <div>
+                    <span class="fa fa-weather">&#xf72e;</span>
+                    <span>Vitesse du vent</span>
+                    <span><%=vitesse_vent %> km/h</span>
+                </div>
+                <div>
+                    <span class="fa fa-weather">&#xf740;</span>
+                    <span>Taux de précipitation</span>
+                    <span><%=precipitation %> mm</span>
+                </div>
+                <div>
+                    <span class="fa fa-weather">&#xf043;</span>
+                    <span>Taux d'humidité dans l'air</span>
+                    <span><%=humidite %> %</span>
+                </div>
+                <div>
+                    <span class="fa fa-weather">&#xf0c2;</span>
+                    <span>Couverture nuageuse</span>
+                    <span><%=couverture_nuageuse %> %</span>
+                </div>
+                <div>
+                    <span class="fa fa-weather">&#xf185;</span>
+                    <span>Indice UV</span>
+                    <span><%=index_UV %></span>
+                </div>
+                <div>
+                    <span class="fa fa-weather">&#xf75f;</span>
+                    <span>Visibilité</span>
+                    <span><%=visibilite %> km</span>
+                </div>
             </div>
         </div>
 
     </div>
 </div>
 
+<script src="https://kit.fontawesome.com/30f9fd1eba.js" crossorigin="anonymous"></script>
 <script src="javascripts/app.js"></script>
 </body>
 </html>

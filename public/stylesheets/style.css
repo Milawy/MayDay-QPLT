@@ -11,11 +11,7 @@ body{
 
 .light-body{
     background-color: #e5e5e5;
-    color: #3c3f41;
-}
-
-.light-body .side-bar{
-    background-color: #d5d5d5;
+    color: black;
 }
 
 .light-body .profile-bar{
@@ -33,9 +29,8 @@ body{
     border-color: #3c3f41;
 }
 
-.light-body #mode-button{
+.light-body .side-bar{
     background-color: #d5d5d5;
-    color: black;
 }
 
 .light-body .tabs > div{
@@ -47,9 +42,14 @@ body{
     border-color: #3c3f41;
 }
 
-.light-body .tabs > div.active{
+.light-body .tabs #active{
     background-color: #e5e5e5;
     border-color: #e5e5e5;
+}
+
+.light-body #mode-button{
+    background-color: #d5d5d5;
+    color: black;
 }
 
 .light-body #container-1 div {
@@ -64,27 +64,12 @@ body{
     color: #3c3f41;
 }
 
-.light-body #clock #time div span{
-    color: black;
-}
-
 .light-body #container-2 div {
-    background-color: rgba(213, 213, 213 ,.7);
+    background-color: rgba(213,213,213,.7);
 }
 
 .light-body #container-2 div h3{
     color: black;
-}
-
-.light-body .calendar .date .days .day:nth-child(7),
-.light-body .calendar .date .days .number:nth-child(7n){
-    color: #55ACEE;
-    font-weight: 600;
-}
-
-.light-body .calendar .date .days .number.active{
-    color: #ff5700;
-    border: #ff5700 solid 1px;
 }
 
 .light-body #container-3 div {
@@ -99,10 +84,33 @@ body{
     color: #3c3f41;
 }
 
+.light-body .fa-weather{
+    background: rgba(180,180,180,.7);
+    color: white;
+}
+
+.light-body #clock #time div span{
+    color: black;
+}
+
+.light-body .calendar{
+    border: 15px solid rgba(213, 213, 213,.1);
+}
+
+.light-body .calendar .date .days .day:nth-child(7),
+.light-body .calendar .date .days .number:nth-child(7n){
+    color: #55ACEE;
+    font-weight: 600;
+}
+
+.light-body .calendar .date .days .number.active{
+    color: #ff5700;
+    border: #ff5700 solid 1px;
+}
+
 .light-body #weather #weatherDiv,
 .light-body #weather #weatherDiv div {
     background-color: rgba(213, 213, 213 ,.7);
-
 }
 
 .light-body #trends #trendsDiv,
@@ -110,7 +118,7 @@ body{
     background-color: rgba(213, 213, 213 ,.7);
 }
 
-/* MAIN CSS PART */
+/* PROFILE */
 
 .profile-bar{
     display: flex;
@@ -160,16 +168,7 @@ body{
     margin-top: 50px;
 }
 
-.profile-bar > a{
-    color: white;
-    font-weight: bold;
-    width: 50%;
-    margin-bottom: 50px;
-}
-
-.profile-bar > a:active{
-    color: white;
-}
+/* SIDE BAR */
 
 .side-bar{
     position: fixed;
@@ -182,26 +181,6 @@ body{
     width: 15%;
     margin-right: 15px;
     opacity: 0.9;
-}
-
-button:focus {
-    outline: 0;
-}
-
-#mode-button{
-    transition-duration: 250ms;
-    background-color: #313335;
-    color: white;
-    border-style: none;
-    border-radius: 100%;
-    font-size: 150%;
-    height: 50px;
-    width: 50px;
-    margin: auto auto 10% auto;
-}
-
-#mode-button:hover{
-    cursor: pointer;
 }
 
 .tabs img{
@@ -231,6 +210,7 @@ hr{
 .tabs > div{
     border: solid 1px #313335;
     padding: 5% 0;
+    overflow: hidden;
 }
 
 .tabs > div:hover{
@@ -240,10 +220,32 @@ hr{
     cursor: pointer;
 }
 
-.tabs > div.active{
+.tabs #active{
     background-color: #3c3f41;
     border-color: #3c3f41;
 }
+
+button:focus {
+    outline: 0;
+}
+
+#mode-button{
+    transition-duration: 250ms;
+    background-color: #313335;
+    color: white;
+    border-style: none;
+    border-radius: 100%;
+    font-size: 150%;
+    height: 50px;
+    width: 50px;
+    margin: auto auto 10% auto;
+}
+
+#mode-button:hover{
+    cursor: pointer;
+}
+
+/* CONTAINER 1 */
 
 #container-1{
     font-family: system-ui, serif;
@@ -263,7 +265,7 @@ hr{
     background-color: rgba(49, 51, 53,.7);
     justify-content: center;
     padding: 15px;
-    margin-top: 10px;
+    margin: 10px 0;
 }
 
 #container-1 div h2 {
@@ -279,6 +281,154 @@ hr{
 #container-1 div a{
     color: #e5e5e5;
 }
+
+/* CONTAINER 2 */
+
+#container-2{
+    font-family: system-ui, serif;
+    display: flex;
+    justify-content: center;
+    height: auto;
+    margin-left: 300px;
+    margin-right: 110px;
+}
+
+#container-2 > div{
+    padding: 15px;
+    margin-top: 10px;
+    margin-right: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.5);
+}
+
+#container-2 div{
+    background-color: rgba(49, 51, 53,.7);
+}
+
+#container-2 div h3 {
+    color: white;
+    padding: 0;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+
+}
+
+/* CONTAINER 3 */
+
+#container-3{
+    font-family: system-ui, serif;
+    display: flex;
+    height: auto;
+    margin-left: 300px;
+    margin-right: 110px;
+}
+
+#container-3 > div{
+    width: 100%;
+    margin-right: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.5);
+}
+
+#container-3 div{
+    background-color: rgba(49, 51, 53,.7);
+    padding: 15px;
+    margin: 10px 0;
+}
+
+#container-3 div h2 {
+    color: white;
+    text-align: center;
+    margin: 10px 0;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-size: 1.5em;
+}
+
+#container-3 div a{
+    color: #e5e5e5;
+}
+
+/* SOCIAL BUTTONS */
+
+.social-buttons{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    float: right;
+    margin-right: 5px;
+    top: 15%;
+    left: 95%
+}
+
+/* FONT-AWESOME ICONS */
+
+.fa {
+    text-align: center;
+    text-decoration: none;
+    padding: 20px;
+    margin: 5px 2px;
+    border-radius: 100%;
+    opacity: 0.7;
+}
+
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.fa-facebook:hover {
+    transition-duration: 250ms;
+    opacity: 1;
+}
+
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+
+.fa-twitter:hover {
+    transition-duration: 250ms;
+    opacity: 1;
+}
+
+.fa-instagram {
+    background: #125688;
+    color: white;
+}
+
+.fa-instagram:hover {
+    transition-duration: 250ms;
+    opacity: 1;
+}
+
+.fa-reddit {
+    background: #ff5700;
+    color: white;
+}
+
+.fa-reddit:hover {
+    transition-duration: 250ms;
+    opacity: 1;
+}
+
+.fa.fa-weather{
+    opacity: 1;
+    font-size: 3em;
+}
+
+/* HOME */
+
+#home{
+    background-image: url("/images/homeBg.png");
+    background-size: cover;
+    background-attachment: scroll, local;
+}
+
+/* CLOCK */
 
 #clock #time{
     display: flex;
@@ -323,37 +473,7 @@ hr{
     background-color: #ff5700;
 }
 
-#container-2{
-    font-family: system-ui, serif;
-    display: flex;
-    justify-content: center;
-    height: auto;
-    margin-left: 300px;
-    margin-right: 110px;
-}
-
-#container-2 > div{
-    padding: 15px;
-    margin-top: 10px;
-    margin-right: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,.5);
-}
-
-#container-2 div{
-    background-color: rgba(49, 51, 53,.7);
-}
-
-#container-2 div h3 {
-    color: white;
-    padding: 0;
-    margin: 10px 0;
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: 700;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-
-}
+/* CALENDAR */
 
 .calendar{
     position: relative;
@@ -363,6 +483,7 @@ hr{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: 15px solid rgba(49, 51, 53,.1);
     box-shadow: 0 15px 35px rgba(0,0,0,.5);
 }
 
@@ -411,111 +532,6 @@ hr{
     height: 100%;
 }
 
-#container-3{
-    font-family: system-ui, serif;
-    display: flex;
-    height: auto;
-    margin-left: 300px;
-    margin-right: 110px;
-}
-
-#container-3 > div{
-    width: 100%;
-    margin-right: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,.5);
-}
-
-#container-3 div{
-    background-color: rgba(49, 51, 53,.7);
-    padding: 15px;
-    margin-top: 10px;
-}
-
-#container-3 div h2 {
-    color: white;
-    text-align: center;
-    margin: 10px 0;
-    font-weight: 700;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    font-size: 1.5em;
-}
-
-#container-3 div a{
-    color: #e5e5e5;
-}
-
-.social-buttons{
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    float: right;
-    margin-right: 5px;
-    top: 15%;
-    left: 95%
-}
-
-.fa {
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    margin: 5px 2px;
-    border-radius: 100%;
-    opacity: 0.7;
-}
-
-.fa-facebook {
-    background: #3B5998;
-    color: white;
-}
-
-.fa-facebook:hover {
-    transition-duration: 250ms;
-    opacity: 1;
-}
-
-.fa-twitter {
-    background: #55ACEE;
-    color: white;
-}
-
-.fa-twitter:hover {
-    transition-duration: 250ms;
-    opacity: 1;
-}
-
-.fa-instagram {
-    background: #125688;
-    color: white;
-}
-
-.fa-instagram:hover {
-    transition-duration: 250ms;
-    opacity: 1;
-}
-
-.fa-reddit {
-    background: #ff5700;
-    color: white;
-}
-
-.fa-reddit:hover {
-    transition-duration: 250ms;
-    opacity: 1;
-}
-
-.fa.fa-thermo{
-    font-size: 3em;
-}
-
-/* HOME */
-
-#home{
-    background-image: url("/images/homeBg.png");
-    background-size: cover;
-    background-attachment: scroll, local;
-}
-
 /* WEATHER */
 
 #weather{
@@ -528,6 +544,25 @@ hr{
 #weather #weatherDiv,
 #weather #weatherDiv div{
     background-color: rgba(49, 51, 53,.7);
+}
+
+#weatherDiv div{
+    display: flex;
+    margin: auto 10px;
+}
+
+#weatherDiv div div{
+    flex-direction: column;
+    align-items: center;
+}
+
+#weatherDiv span:nth-child(2){
+    margin-top: 10px;
+}
+
+#weatherDiv span:nth-child(3){
+    color: #ff5700;
+    margin-top: 10px;
 }
 
 /* TRENDS */

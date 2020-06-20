@@ -32,11 +32,11 @@ function showHide(){
 
     if(password.type === 'password'){
         password.setAttribute('type', 'text');
-        eye.classList.add('hide');
+        eye.innerHTML="&#xf070;";
     }
     else{
         password.setAttribute('type', 'password');
-        eye.classList.remove('hide');
+        eye.innerHTML="&#xf06e;";
     }
 }
 
@@ -107,10 +107,15 @@ function calendar(){
 /// WEATHER ///
 
 function changeWeatherIcons(){
+    //let temperature = 0;
+    //let ressenti = 0;
     let temperature = document.getElementById('hideValueGetter').value;
+    let ressenti = document.getElementById('hideValueGetter2').value;
     let thermo = document.getElementById('thermo');
+    let thermoFeel = document.getElementById('thermo-feel');
 
     console.log("temperature : " + temperature);
+    console.log("ressenti : " + ressenti);
 
     if(temperature <= 5){
         thermo.innerHTML="&#xf2cb;";
@@ -134,6 +139,16 @@ function changeWeatherIcons(){
     }
     else{
         thermo.innerHTML="Not valid";
+    }
+
+    if(temperature < ressenti){
+        thermoFeel.innerHTML="&#xf769;";
+    }
+    else if(temperature > ressenti){
+        thermoFeel.innerHTML="&#xf76b;";
+    }
+    else{
+        thermoFeel.innerHTML="Not valid";
     }
 }
 

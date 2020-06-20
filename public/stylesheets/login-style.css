@@ -67,7 +67,7 @@ body{
 
 #login-form .form-input input[type="date"]{
     background-image: url("/images/calendarIconL.png");
-    background-position: 96.5%;
+    background-position: 97%;
     background-size: 10%;
     background-repeat: no-repeat;
 }
@@ -150,18 +150,10 @@ hr{
 
 #password-eye{
     position: absolute;
-    top: 5px;
+    top: 7px;
     right: 42px;
-    width: 30px;
-    height: 30px;
-    background: url("/images/showPasswordL.png");
-    background-size: cover;
     cursor: pointer;
-}
-
-#password-eye.hide{
-    background: url("/images/hidePasswordL.png");
-    background-size: cover;
+    font-size: 1.5em;
 }
 
 /* CAPS LOCK */
