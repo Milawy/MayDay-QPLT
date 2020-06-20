@@ -11,6 +11,7 @@ body{
     font-family: sans-serif;
 }
 
+/*
 #myVideo {
     position: fixed;
     right: 0;
@@ -18,6 +19,9 @@ body{
     min-width: 100%;
     min-height: 100%;
 }
+*/
+
+/* FORM */
 
 #login-form{
     background-color: rgba(50,50,50,.5);
@@ -61,6 +65,8 @@ body{
     opacity: 0.5;
 }
 
+/* DATE INPUT */
+
 #birthday-label{
     background-color: #3c3f41;
 }
@@ -89,9 +95,13 @@ body{
     opacity: 0;
 }
 
+/* PAYS INPUT */
+
 #login-form #paysInput input::-webkit-calendar-picker-indicator{
     display: none;
 }
+
+/* SUBMIT INPUT */
 
 #login-form .form-input input[type="submit"]{
     color: white;
@@ -108,6 +118,8 @@ body{
     cursor: pointer;
 }
 
+/* CHANGE PAGE INPUT */
+
 #login-form .form-input input[type="button"]{
     color: white;
     border: solid 1px white;
@@ -122,6 +134,8 @@ body{
     color: #d5d5d5;
     cursor: pointer;
 }
+
+/* FORGET PASSWORD ? */
 
 #login-form .forget-password{
     display: block;
@@ -159,9 +173,7 @@ hr{
 /* CAPS LOCK */
 
 #login-form .maj {
-    /* */
     display: none;
-    /* */
     position: absolute;
     top: 5px;
     right: 70px;
