@@ -240,6 +240,16 @@ function changeWeatherIcons(){
     }
 }
 
+/// BIRTHDAY PARSER ///
+
+function birthdayParse(){
+    let longBirthday = document.getElementById('hideValueGetter3').value;
+    let birthdaySpan = document.getElementById('birthdaySpan');
+
+    let smallerBirthday = longBirthday.split(' ');
+    birthdaySpan.innerHTML = smallerBirthday[2] + " " + smallerBirthday[1] + " " + smallerBirthday[3];
+}
+
 /// LIGHT/DARK MODE ///
 
 let defaultMode = "light";

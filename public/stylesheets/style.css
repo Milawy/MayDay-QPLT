@@ -153,15 +153,12 @@ body{
 #profileDiv div div{
     flex-direction: column;
     align-items: center;
-}
-
-#profileDiv span:nth-child(1){
-    margin-top: 10px;
+    width: 100%;
 }
 
 #profileDiv span:nth-child(2){
     color: #55ACEE;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 #profileDiv,
@@ -187,7 +184,7 @@ body{
     color: white;
     border: solid 1px #313335;
     width: fit-content;
-    padding: 1% 1%;
+    padding: 20px;
 }
 
 #profileDiv > button:hover{

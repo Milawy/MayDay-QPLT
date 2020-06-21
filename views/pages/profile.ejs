@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-<body>
+<body onload="birthdayParse()">
 
 <div id="profile">
 
@@ -33,6 +33,11 @@
         <button id="mode-button" onclick="toggleMode()"></button>
     </div>
 
+    <label>
+        <input id="hideValueGetter3" type="hidden" name="birthday"
+               value="<%=birthday %>"/>
+    </label>
+
     <div id="profileDiv">
         <h2>Profil de <%=id %></h2>
         <button onclick="window.location.href='modifier_compte';">MODIFIER LE PROFIL</button>
@@ -51,7 +56,7 @@
             </div>
             <div>
                 <span>Date de naissance</span>
-                <span><%=birthday %></span>
+                <span id="birthdaySpan"></span>
             </div>
             <div>
                 <span>Pays</span>
