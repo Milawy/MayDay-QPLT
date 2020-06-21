@@ -72,8 +72,10 @@ app.get('/sign-up', (request,response) => {
 
 });
 
+var imageBinaire;
+
 app.get('/home', verifSignIn, (request,response) => {
-    var imageBinaire;
+
     var signe = "";
     var messageVlille = "";
     var stationFav = "";
@@ -142,22 +144,12 @@ app.get('/home', verifSignIn, (request,response) => {
         collection.find({id : request.session.user.id}).toArray(function(err, docs) {
             assert.equal(err, null);
             console.log("Found the following records for findVar Utilisateurs");
-            console.log(docs[0].astrologie);
-            console.log(docs[0].localisation.Ville)
-            signe = docs[0].astrologie
-            ville = docs[0].localisation.Ville
+            signe = docs[0].astrologie;
             if (typeof(docs[0].photo_profil) != 'undefined'){
                 imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
                 console.log(docs[0].photo_profil.file);
             }
-            if (typeof(docs[0].station_fav) == 'undefined'){
-                messageVlille = "Pas_de_station_fav";
-            }
-            else{
-                messageVlille = "station_fav_OK";
-                stationFav = docs[0].station_fav;
-            }
-            callback(signe);
+            callback();
         });
     };
 
@@ -375,23 +367,13 @@ app.get('/weather', verifSignIn, (request, response) => {
         collection.find({id : request.session.user.id}).toArray(function(err, docs) {
             assert.equal(err, null);
             console.log("Found the following records for findVar Utilisateurs");
-            console.log(docs[0].astrologie);
             console.log(docs[0].localisation.Ville)
-            signe = docs[0].astrologie
             ville = docs[0].localisation.Ville
             if (typeof(docs[0].photo_profil) != 'undefined'){
                 imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
                 console.log(docs[0].photo_profil.file);
             }
-            if (typeof(docs[0].station_fav) == 'undefined'){
-                messageVlille = "Pas_de_station_fav";
-            }
-            else{
-                messageVlille = "station_fav_OK";
-                stationFav = docs[0].station_fav;
-            }
-
-            callback(signe);
+            callback();
 
         });
     };
@@ -566,18 +548,10 @@ app.get('/covid', verifSignIn, (request, response) => {
             console.log("Found the following records for findVar Utilisateurs");
             console.log(docs[0].astrologie);
             console.log(docs[0].localisation.Ville)
-            signe = docs[0].astrologie
             ville = docs[0].localisation.Ville
             if (typeof(docs[0].photo_profil) != 'undefined'){
                 imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
                 console.log(docs[0].photo_profil.file);
-            }
-            if (typeof(docs[0].station_fav) == 'undefined'){
-                messageVlille = "Pas_de_station_fav";
-            }
-            else{
-                messageVlille = "station_fav_OK";
-                stationFav = docs[0].station_fav;
             }
             callback(signe);
         });
@@ -635,22 +609,11 @@ app.get('/trends', verifSignIn, (request, response) => {
         collection.find({id : request.session.user.id}).toArray(function(err, docs) {
             assert.equal(err, null);
             console.log("Found the following records for findVar Utilisateurs");
-            console.log(docs[0].astrologie);
-            console.log(docs[0].localisation.Ville)
-            signe = docs[0].astrologie
-            ville = docs[0].localisation.Ville
             if (typeof(docs[0].photo_profil) != 'undefined'){
                 imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
                 console.log(docs[0].photo_profil.file);
             }
-            if (typeof(docs[0].station_fav) == 'undefined'){
-                messageVlille = "Pas_de_station_fav";
-            }
-            else{
-                messageVlille = "station_fav_OK";
-                stationFav = docs[0].station_fav;
-            }
-            callback(signe);
+            callback();
         });
     };
 
@@ -742,13 +705,12 @@ app.get('/trends', verifSignIn, (request, response) => {
     };
 });
 
-app.get('/transport', verifSignIn, (request, response) => {
-    let imageBinaire;
-    let stationFav = "";
-    let etatStationFav = "";
-    let nbVeloDispoFav = "";
-    let nbPlaceDispoFav = "";
+let stationFav = "";
+let etatStationFav = "";
+let nbVeloDispoFav = "";
+let nbPlaceDispoFav = "";
 
+app.get('/transport', verifSignIn, (request, response) => {
     let VLilleData = "";
     let ajouterVLille = false;
     let majVLille = false;
@@ -759,50 +721,24 @@ app.get('/transport', verifSignIn, (request, response) => {
         console.log("Connected successfully to server");
 
         const db = client.db(dbName);
-        findVar(db, function() {
-            findUserInfoVLille(db, function() {
-                checkUpdateVLille(db, function() {
-                    resultatCheckVLille(db, function() {
-                        findDataVLille(db, function() {
-                            client.close();
-                            response.render('pages/transport',
-                                {id: request.session.user.id, img: imageBinaire,
-                                stationFav:stationFav,
-                                etatStationFav:etatStationFav,
-                                nbVeloDispoFav: nbVeloDispoFav,
-                                nbPlaceDispoFav: nbPlaceDispoFav});
-                        })
+
+        findUserInfoVLille(db, function() {
+            checkUpdateVLille(db, function() {
+                resultatCheckVLille(db, function() {
+                    findDataVLille(db, function() {
+                        client.close();
+                        response.render('pages/transport',
+                            {id: request.session.user.id, img: imageBinaire,
+                            stationFav:stationFav,
+                            etatStationFav:etatStationFav,
+                            nbVeloDispoFav: nbVeloDispoFav,
+                            nbPlaceDispoFav: nbPlaceDispoFav});
                     })
                 })
-            });
+            })
         });
-    });
 
-    const findVar = function(db, callback) {
-        // Get the documents collection
-        const collection = db.collection('Utilisateurs');
-        // Find some documents
-        collection.find({id : request.session.user.id}).toArray(function(err, docs) {
-            assert.equal(err, null);
-            console.log("Found the following records for findVar Utilisateurs");
-            console.log(docs[0].astrologie);
-            console.log(docs[0].localisation.Ville)
-            signe = docs[0].astrologie
-            ville = docs[0].localisation.Ville
-            if (typeof(docs[0].photo_profil) != 'undefined'){
-                imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
-                console.log(docs[0].photo_profil.file);
-            }
-            if (typeof(docs[0].station_fav) == 'undefined'){
-                messageVlille = "Pas_de_station_fav";
-            }
-            else{
-                messageVlille = "station_fav_OK";
-                stationFav = docs[0].station_fav;
-            }
-            callback(signe);
-        });
-    };
+    });
 
     const findUserInfoVLille = function(db, callback) {
         // Get the documents collection
@@ -1338,10 +1274,6 @@ app.post('/modifier_image', (request, response, next) => {
 })*/
 
 app.post('/transport', (request,response) => {
-    let stationFav = "";
-    let etatStationFav = "";
-    let nbVeloDispoFav = "";
-    let nbPlaceDispoFav = "";
     VLilleData = "";
     let inputNomStation = request.body.inputNomStation;
     inputNomStation = inputNomStation.toUpperCase ();
@@ -1374,7 +1306,7 @@ app.post('/transport', (request,response) => {
                 for (let i=0; i<VLilleData.parameters.rows; i++) {
                     if (VLilleData.records[i].fields.nom === inputNomStation)	{
                         response.render('pages/transport',
-                            {nomStation: VLilleData.records[i].fields.nom.toUpperCase(),
+                            {id: request.session.user.id, img: imageBinaire, nomStation: VLilleData.records[i].fields.nom.toUpperCase(),
                                 etatStation: VLilleData.records[i].fields.etat.toLowerCase(),
                                 nbVeloDispo: VLilleData.records[i].fields.nbvelosdispo,
                                 nbPlaceDispo: VLilleData.records[i].fields.nbplacesdispo,
