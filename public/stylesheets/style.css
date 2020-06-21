@@ -619,3 +619,12 @@ button:focus {
 #trends #trendsDiv div{
     background-color: rgba(49, 51, 53,.7);
 }
+
+/* COVID */
+
+#covid{
+    background-image: url("/images/covidBg.png");
+    background-size: cover;
+    background-attachment: scroll, local;
+    height: 100vh;
+}

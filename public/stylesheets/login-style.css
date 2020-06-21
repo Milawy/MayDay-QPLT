@@ -6,9 +6,9 @@ body{
     color: white;
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
     width: 100%;
     height: 100vh;
-    font-family: sans-serif;
 }
 
 /*
@@ -189,48 +189,52 @@ hr{
 
 /* CHANGE PROFILE FORM */
 
-#change-form{
+#changeProfile{
     background-color: rgba(50,50,50,.5);
-    color: white;
+    display: flex;
+    flex-direction: column;
     opacity: 1;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    width: 800px;
-    padding: 20px 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 75%;
+    margin-left: 220px;
 }
 
-#change-form h2{
-    margin: 0 0 40px;
-    padding: 0;
+#changeProfile form {
+    width: 800px;
+}
+
+#changeProfile h2{
+    margin: 0 0 20px;
+    padding: 20px;
     text-align: center;
     font-size: 3em;
 }
 
-#change-form #container-form{
+#changeProfile #container-form{
     display: flex;
 }
 
-#change-form #first-column{
+#changeProfile #first-column{
     width: 50%;
 }
 
-#change-form #second-column{
+#changeProfile #second-column{
     width: 50%;
 }
 
-#change-form .form-input{
+#changeProfile .form-input{
     position: relative;
     margin: 20px 0;
     text-align: center;
 }
 
-#change-form .form-input input{
+#changeProfile .form-input input{
     background-color: rgba(50,50,50,.8);
     color: white;
     outline: none;
-    width: 85%;
+    width: 50%;
     height: 40px;
     padding: 10px;
     box-sizing: border-box;
@@ -238,47 +242,47 @@ hr{
     font-size: 18px;
 }
 
-#change-form .form-input input[type="date"]{
+#changeProfile .form-input input[type="date"]{
     background-image: url("/images/calendarIconL.png");
     background-position: 97%;
     background-size: 10%;
     background-repeat: no-repeat;
 }
 
-#change-form .form-input input[type="date"]:hover{
+#changeProfile .form-input input[type="date"]:hover{
     cursor: text;
 }
 
-#change-form .form-input input[type="date"]:invalid{
+#changeProfile .form-input input[type="date"]:invalid{
     color: #AAA;
 }
 
-#change-form .form-input input[type="date"]::-webkit-inner-spin-button {
+#changeProfile .form-input input[type="date"]::-webkit-inner-spin-button {
     display: none;
 }
 
-#change-form .form-input input[type="date"]::-webkit-calendar-picker-indicator {
+#changeProfile .form-input input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 25px;
     opacity: 0;
 }
 
 /* CHANGE PROFILE COUNTRY INPUT */
 
-#change-form #countryInput input::-webkit-calendar-picker-indicator{
+#changeProfile #countryInput input::-webkit-calendar-picker-indicator{
     display: none;
 }
 
 /* CHANGE PROFILE SUBMIT INPUT */
 
-#change-form .form-input input[type="submit"]{
+#changeProfile .form-input input[type="submit"]{
     color: white;
     border: solid 1px white;
     cursor: pointer;
-    width: 40%;
-    margin: 0 20%;
+    width: 20%;
+    margin: 10px 20%;
 }
 
-#change-form .form-input input[type="submit"]:hover{
+#changeProfile .form-input input[type="submit"]:hover{
     transition-duration: 250ms;
     background-color: #313335;
     color: #d5d5d5;
@@ -287,7 +291,7 @@ hr{
 
 /* CHANGE PROFILE ABORT INPUT */
 
-#change-form .form-input input[type="button"]{
+#cchangeProfile .form-input input[type="button"]{
     color: white;
     border: solid 1px white;
     cursor: pointer;
@@ -295,7 +299,7 @@ hr{
     margin: 0 20%;
 }
 
-#change-form .form-input input[type="button"]:hover{
+#changeProfile .form-input input[type="button"]:hover{
     transition-duration: 250ms;
     background-color: #313335;
     color: #d5d5d5;
@@ -304,34 +308,55 @@ hr{
 
 /* CHANGE PROFILE CHECK EMAIL */
 
-#change-form #check-email{
+#changeProfile #check-email{
     display: none;
     background-color: #3c3f41;
     width: fit-content;
     padding: 5px;
-    margin-left: 30px;
+    margin-left: 200px;
 }
 
 /* CHANGE PROFILE SHOW/HIDE PASSWORD */
 
-#change-form #password-eye{
+#changeProfile #password-eye{
     position: absolute;
-    top: 7px;
-    right: 42px;
+    top: 8px;
+    right: 215px;
     cursor: pointer;
     font-size: 1.5em;
 }
 
 /* CHANGE PROFILE CAPS LOCK */
 
-#change-form .maj {
+#changeProfile .maj {
     display: none;
     position: absolute;
     top: 5px;
-    right: 70px;
+    right: 250px;
     width: 30px;
     height: 30px;
     background-image: url("/images/capsLock.png");
     background-size: cover;
+    cursor: pointer;
+}
+
+#changeProfile #cancel{
+    background-color: rgba(50,50,50,.8);
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    width: 25%;
+    margin: 10px 20%;
+    outline: none;
+    height: 40px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+#changeProfile #cancel:hover{
+    transition-duration: 250ms;
+    background-color: #313335;
+    color: #d5d5d5;
     cursor: pointer;
 }

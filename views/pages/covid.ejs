@@ -10,11 +10,11 @@
 </head>
 <body>
 
-<div>
+<div id="covid">
 
     <div class="side-bar">
         <div class="tabs">
-            <h2><%=id %></h2>
+            <h2> <%= id %> </h2>
             <% if (locals.img) { %>
             <img src="data:image/jpeg;base64,<%=img %>" onclick="openProfile()" alt="">
             <% } %>
@@ -39,8 +39,95 @@
         <a href="https://www.instagram.com/" class="fa fa-instagram"></a>
         <a href="https://www.reddit.com/" class="fa fa-reddit"></a>
     </div>
+
+    <div id="container-1">
+        <div>
+            <h2>Covid</h2>
+        </div>
+    </div>
+
+    <div id="container-1">
+
+        <div id="graphique1">
+
+            <div style="width:75%" >
+                <canvas id="myChart1"></canvas>
+            </div>
+
+        </div>
+
+        <div id="description1">
+
+            <h2><%=country%></h2><hr>
+            <span class="" id="nbrcas"></span>
+            <span>Nombre de cas : </span>
+            <span><%= cases %> </span><br><br>
+
+            <span class="" id="nbrmort"></span>
+            <span>Nombre de morts : </span>
+            <span><%=deaths%> </span><br><br>
+
+            <span class="" id="nbrguerit"></span>
+            <span>Nombre de guérits : </span>
+            <span><%=recovered%> </span><br><br>
+
+            <span class="" id="nbrguerit"></span>
+            <span>Nombre de cas actifs : </span>
+            <span><%=active%> </span><br><br>
+
+        </div>
+
+    </div>
+    <div>
+
+        <div id="container-1">
+            <div id="graphique1">
+                <div style="width:75%" >
+                    <canvas id="myChart2"></canvas>
+                </div>
+            </div>
+
+            <div id="graphique1">
+                <div style="width:75%" >
+                    <canvas id="myChart3"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
+<script>
+    const ctx1 = document.getElementById('myChart1');
+    const myChart1 = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['J-5', 'J-4', 'J-3', 'J-2', 'J-1'],
+            datasets: [{
+                label: 'Nombre de cas',
+                data: [ <%= j_5_cases %>, <%= j_4_cases %>, <%= j_3_cases %>, <%= j_2_cases %>, <%= j_1_cases %>]}]}})
+
+    const ctx2 = document.getElementById('myChart2');
+    const myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['J-5', 'J-4', 'J-3', 'J-2', 'J-1'],
+            datasets: [{
+                label: 'Nombre de morts',
+                data: [ <%= j_5_deaths %>, <%= j_4_deaths %>, <%= j_3_deaths %>, <%= j_2_deaths %>, <%= j_1_deaths %>]}]}})
+
+    const ctx3 = document.getElementById('myChart3');
+    const myChart3 = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ['J-5', 'J-4', 'J-3', 'J-2', 'J-1'],
+            datasets: [{
+                label: 'Nombre de morts',
+                data: [ <%= j_5_recovered %>, <%= j_4_recovered %>, <%= j_3_recovered %>, <%= j_2_recovered %>, <%= j_1_recovered %>]}]}})
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="https://kit.fontawesome.com/30f9fd1eba.js" crossorigin="anonymous"></script>
 <script src="javascripts/app.js"></script>
 </body>
