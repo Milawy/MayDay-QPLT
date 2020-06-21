@@ -19,6 +19,10 @@ body{
     background-color: rgba(213, 213, 213 ,.7);
 }
 
+.light-body #profileDiv span:nth-child(2){
+    color: #125688;
+}
+
 .light-body #profileDiv > button{
     background-color: #d5d5d5;
     border: solid 1px #d5d5d5;
