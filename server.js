@@ -72,10 +72,8 @@ app.get('/sign-up', (request,response) => {
 
 });
 
-var imageBinaire;
-
 app.get('/home', verifSignIn, (request,response) => {
-
+    var imageBinaire;
     var signe = "";
     var messageVlille = "";
     var stationFav = "";
@@ -374,7 +372,6 @@ app.get('/weather', verifSignIn, (request, response) => {
                 console.log(docs[0].photo_profil.file);
             }
             callback();
-
         });
     };
 
@@ -546,14 +543,13 @@ app.get('/covid', verifSignIn, (request, response) => {
         collection.find({id : request.session.user.id}).toArray(function(err, docs) {
             assert.equal(err, null);
             console.log("Found the following records for findVar Utilisateurs");
-            console.log(docs[0].astrologie);
             console.log(docs[0].localisation.Ville)
             ville = docs[0].localisation.Ville
             if (typeof(docs[0].photo_profil) != 'undefined'){
                 imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
                 console.log(docs[0].photo_profil.file);
             }
-            callback(signe);
+            callback();
         });
     };
 });
@@ -609,6 +605,8 @@ app.get('/trends', verifSignIn, (request, response) => {
         collection.find({id : request.session.user.id}).toArray(function(err, docs) {
             assert.equal(err, null);
             console.log("Found the following records for findVar Utilisateurs");
+            console.log(docs[0].localisation.Ville)
+            ville = docs[0].localisation.Ville
             if (typeof(docs[0].photo_profil) != 'undefined'){
                 imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
                 console.log(docs[0].photo_profil.file);
@@ -711,6 +709,7 @@ let nbVeloDispoFav = "";
 let nbPlaceDispoFav = "";
 
 app.get('/transport', verifSignIn, (request, response) => {
+    let imageBinaire;
     let VLilleData = "";
     let ajouterVLille = false;
     let majVLille = false;
@@ -747,6 +746,10 @@ app.get('/transport', verifSignIn, (request, response) => {
         collection.find({id : request.session.user.id}).toArray(function(err, docs) {
             assert.equal(err, null);
             console.log("Trouve les informations VLille de l'utilisateur");
+            if (typeof(docs[0].photo_profil) != 'undefined'){
+                imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
+                console.log(docs[0].photo_profil.file);
+            }
             stationFav = docs[0].station_fav
             callback();
         });
@@ -922,6 +925,8 @@ app.get('/profile', verifSignIn, (request, response) => {
         // Find some documents
         collection.find({id : request.session.user.id}).toArray(function(err, docs) {
             assert.equal(err, null);
+            console.log("Found the following records for findVar Utilisateurs");
+            console.log(docs[0].localisation.Ville)
             if (typeof(docs[0].photo_profil) != 'undefined'){
                 imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
                 console.log(docs[0].photo_profil.file);
@@ -1274,10 +1279,39 @@ app.post('/modifier_image', (request, response, next) => {
 })*/
 
 app.post('/transport', (request,response) => {
+    let imageBinaire;
     VLilleData = "";
     let inputNomStation = request.body.inputNomStation;
     inputNomStation = inputNomStation.toUpperCase ();
     console.log(inputNomStation);
+
+    MongoClient.connect(url, function(err, client) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+
+        const db = client.db(dbName);
+
+        findVar(db, function() {
+            client.close();
+        });
+    });
+
+    const findVar = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Find some documents
+        collection.find({id : request.session.user.id}).toArray(function(err, docs) {
+            assert.equal(err, null);
+            console.log("Found the following records for findVar Utilisateurs");
+            console.log(docs[0].localisation.Ville)
+            ville = docs[0].localisation.Ville
+            if (typeof(docs[0].photo_profil) != 'undefined'){
+                imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
+                console.log(docs[0].photo_profil.file);
+            }
+            callback();
+        });
+    };
 
     if (inputNomStation === ' '){
 
