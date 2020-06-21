@@ -43,11 +43,55 @@
     <div id="container-1">
 
         <div>
-            <h2>Mon application Vlille</h2>
+            <h2>Application V'Lille</h2>
             <div>
-                Voici les informations recueillies sur les stations <strong>Vlilles</strong> : <br>
+                Voici les informations recueillies sur les stations <strong>Vlilles</strong>
+                <% if (typeof(locals.stationFav) != 'undefined') { %>
+                    <h3> Votre station favorite :</h3>
+                    <div id="stationFav">
+                        <p>
+                            <%= stationFav %><br>
+                            Cette station est <%= locals.etatStationFav %> . <br>
+                            Il y a <%= locals.nbVeloDispoFav %>  vélos disponible(s) . <br>
+                            Il y a <%= locals.nbPlaceDispoFav %> places disponible(s) . <br>
+                        </p>
+                    </div>
+                <% }else { %>
+                    <div> Vous n'avez pas de station favorite enregistrée, vous pouvez l'ajouter sur la page de modification et personnalisation du compte </div>
+                <% } %>
             </div>
         </div>
+
+    </div>
+
+    <div id="container-3">
+
+        <form method="post">
+            <div>
+                <label>
+                    <input type="text" id="inputNomStation" name="inputNomStation" placeholder="Nom de station" required>
+                </label>
+                <input type="submit" value="Valider">
+            </div>
+        </form>
+
+        <% if (locals.nomStation) { %>
+
+            <div id="station">
+                <div>
+                    <%= nomStation %><br>
+                    Cette station est <%= etatStation %> . <br>
+                    Il y a <%= nbVeloDispo %>  vélos disponible(s) . <br>
+                    Il y a <%= nbPlaceDispo %> places disponible(s) . <br>
+                </div>
+            </div>
+        <% } %>
+
+        <% if (locals.erreurNomStation) { %>
+            <div id="erreurNomStation">
+                <%= erreurNomStation %>
+            </div>
+        <% } %>
 
     </div>
 

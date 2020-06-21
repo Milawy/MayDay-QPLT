@@ -743,17 +743,38 @@ app.get('/trends', verifSignIn, (request, response) => {
 });
 
 app.get('/transport', verifSignIn, (request, response) => {
-    var imageBinaire;
+    let imageBinaire;
+    let stationFav = "";
+    let etatStationFav = "";
+    let nbVeloDispoFav = "";
+    let nbPlaceDispoFav = "";
+
+    let VLilleData = "";
+    let ajouterVLille = false;
+    let majVLille = false;
+    let ajoutVLille = false;
 
     MongoClient.connect(url, function(err, client) {
         assert.equal(null, err);
         console.log("Connected successfully to server");
 
         const db = client.db(dbName);
-
         findVar(db, function() {
-            client.close();
-            response.render('pages/transport', {id: request.session.user.id, img: imageBinaire});
+            findUserInfoVLille(db, function() {
+                checkUpdateVLille(db, function() {
+                    resultatCheckVLille(db, function() {
+                        findDataVLille(db, function() {
+                            client.close();
+                            response.render('pages/transport',
+                                {id: request.session.user.id, img: imageBinaire,
+                                stationFav:stationFav,
+                                etatStationFav:etatStationFav,
+                                nbVeloDispoFav: nbVeloDispoFav,
+                                nbPlaceDispoFav: nbPlaceDispoFav});
+                        })
+                    })
+                })
+            });
         });
     });
 
@@ -782,6 +803,157 @@ app.get('/transport', verifSignIn, (request, response) => {
             callback(signe);
         });
     };
+
+    const findUserInfoVLille = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Find some documents
+        collection.find({id : request.session.user.id}).toArray(function(err, docs) {
+            assert.equal(err, null);
+            console.log("Trouve les informations VLille de l'utilisateur");
+            stationFav = docs[0].station_fav
+            callback();
+        });
+    };
+
+    const checkUpdateVLille = function(db, callback) {
+        const collection = db.collection('VLille');
+        collection.find({nomStation : stationFav}).toArray(function(err,docs) {
+            assert.equal(err,null);
+            console.log("Found the following records for checkUpdateVLille");
+            console.log(docs[0]);
+            if (typeof(docs[0]) == 'undefined'){
+                ajouterVLille = true;
+                callback(ajouterVLille);
+            }
+            else{
+                var dateAjd = new Date();
+                var date_a_comparer = docs[0].date_mise_a_jour;
+                console.log(dateAjd);
+                console.log(date_a_comparer);
+                if ( dateAjd - date_a_comparer > 3 * 60000) {      //3 minutes
+                    majVLille = true;
+                    callback(majVLille);
+                }
+                else{
+                    majVLille = false;
+                    callback(majVLille);
+                }
+            }
+        })
+    };
+
+    const resultatCheckVLille = function(db,callback) {
+        if (ajouterVLille === true){
+            insertVLille(db,function() {
+                callback(ajouterVLille);
+            });
+        }
+        else {
+            if (majVLille === true){
+                updateVLille(db, function() {
+                    callback(majVLille);
+                });
+            }
+            else{
+                callback(majVLille);
+            }
+        }
+
+    }
+
+    const insertVLille= function(db, callback) {
+
+        https.get("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=108&facet=libelle&facet=nom&facet=commune&facet=etat&refine.commune=LILLE", (response2) => {
+            // A chunk of data has been received.
+            response2.on('data', (chunk) => {
+                VLilleData += chunk;
+            });
+
+            // The whole response has been received. Print out the result.
+            response2.on('end',() => {
+                console.log("J'ai reçu la réponse, plus qu'a la print");
+                VLilleData = JSON.parse(VLilleData);
+                //console.log(VLilleData);
+                for (var i=0; i<VLilleData.parameters.rows; i++) {
+                    if (VLilleData.records[i].fields.nom === stationFav)	{
+                        etatStationFav = VLilleData.records[i].fields.etat.toLowerCase()
+                        nbVeloDispoFav = VLilleData.records[i].fields.nbvelosdispo
+                        nbPlaceDispoFav = VLilleData.records[i].fields.nbplacesdispo
+                        //response1.render('pages/index', {nomStation: vLille_data.records[i].fields.nom.toLowerCase(), etatStation: vLille_data.records[i].fields.etat.toLowerCase(), nbVeloDispo: vLille_data.records[i].fields.nbvelosdispo, nbPlaceDispo: vLille_data.records[i].fields.nbplacesdispo });
+                    }
+                }
+
+                const collection = db.collection('VLille');
+                collection.insertMany([
+                    {"nomStation": stationFav, "etat": etatStationFav, "nbVeloDispo": nbVeloDispoFav, "nbPlaceDispo": nbPlaceDispoFav, "date_mise_a_jour": new Date()}], function(err, result) {
+                    assert.equal(err, null);
+                    assert.equal(1, result.result.n);
+                    assert.equal(1, result.ops.length);
+                    console.log("Inserted 1 documents into the collection VLille");
+                    ajoutVLille = true;
+                    callback(result);
+                });
+            });
+        }).on("error", (err) => {
+            console.log("Error: " + err.message);
+        });
+    }
+
+    const updateVLille = function(db, callback) {
+        https.get("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=108&facet=libelle&facet=nom&facet=commune&facet=etat&refine.commune=LILLE", (response2) => {
+            // A chunk of data has been received.
+            response2.on('data', (chunk) => {
+                VLilleData += chunk;
+            });
+
+            // The whole response has been received. Print out the result.
+            response2.on('end',() => {
+                console.log("J'ai reçu la réponse, plus qu'a la print");
+                VLilleData = JSON.parse(VLilleData);
+                //console.log(VLilleData);
+                for (var i=0; i<VLilleData.parameters.rows; i++) {
+                    if (VLilleData.records[i].fields.nom === stationFav)	{
+                        etatStationFav = VLilleData.records[i].fields.etat.toLowerCase()
+                        nbVeloDispoFav = VLilleData.records[i].fields.nbvelosdispo
+                        nbPlaceDispoFav = VLilleData.records[i].fields.nbplacesdispo
+                        //response1.render('pages/index', {nomStation: vLille_data.records[i].fields.nom.toLowerCase(), etatStation: vLille_data.records[i].fields.etat.toLowerCase(), nbVeloDispo: vLille_data.records[i].fields.nbvelosdispo, nbPlaceDispo: vLille_data.records[i].fields.nbplacesdispo });
+                    }
+                }
+
+                const collection = db.collection('VLille');
+                // Mettre à jour les  informations des VLilles pour la station concernée
+                collection.updateOne({ nomStation : stationFav }
+                    , { $set: {"nomStation": stationFav, "etat": etatStationFav, "nbVeloDispo": nbVeloDispoFav, "nbPlaceDispo": nbPlaceDispoFav, "date_mise_a_jour": new Date() } }, function(err, result) {
+                        assert.equal(err, null);
+                        assert.equal(1, result.result.n);
+                        console.log("Document VLille mis à jour");
+                        callback(result);
+                    });
+            });
+
+        }).on("error", (err) => {
+            console.log("Error: " + err.message);
+        });
+    }
+
+    const findDataVLille = function(db,callback) {
+        if(ajoutVLille === true){
+            callback();
+        }
+        else{
+            const collection = db.collection('VLille');
+            collection.find({nomStation : stationFav}).toArray(function(err, docs) {
+                assert.equal(err, null);
+                console.log(docs[0]);
+                etatStationFav = docs[0].etat;
+                nbVeloDispoFav = docs[0].nbVeloDispo;
+                nbPlaceDispoFav = docs[0].nbPlaceDispo
+                callback(docs);
+            });
+        }
+
+    }
 
 });
 
@@ -1075,45 +1247,9 @@ app.post('/modifier_compte', (request, response, next) => {
             }
         });
     }
-})
-
-app.post('/nomStation', (request, response) => {
-
-    var user_actuel = "";
-
-    Users.filter(function(user) {
-        user_actuel = user.id;
-    });
-
-    MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        const db = client.db(dbName);
-
-        updateDocument(db, function() {
-            client.close();
-        });
-    });
-
-    //Modifier un document
-    const updateDocument = function(db, callback) {
-        // Get the documents collection
-        const collection = db.collection('Utilisateurs');
-        // Modifie le compte de l'utilisateur
-        collection.updateOne({ id : user_actuel }
-            , { $set: { station_fav : request.body.input_nomStation.toUpperCase() } }, function(err, result) {
-            assert.equal(err, null);
-            assert.equal(1, result.result.n);
-            console.log("Station favorite mise à jour");
-            callback(result);
-            response.render('pages/modifier_compte', {result2: "Votre station favorite a bien été mise à jour"});
-        });
-    }
-
 })*/
 
-// Modification du profile
+// Modification du profil
 app.post('/modifier_compte', (request, response, next) => {
 
     let user_actuel = "";
@@ -1201,9 +1337,65 @@ app.post('/modifier_image', (request, response, next) => {
     }
 })*/
 
+app.post('/transport', (request,response) => {
+    let stationFav = "";
+    let etatStationFav = "";
+    let nbVeloDispoFav = "";
+    let nbPlaceDispoFav = "";
+    VLilleData = "";
+    let inputNomStation = request.body.inputNomStation;
+    inputNomStation = inputNomStation.toUpperCase ();
+    console.log(inputNomStation);
+
+    if (inputNomStation === ' '){
+
+        response.render('pages/transport',
+            {stationFav:stationFav,
+                etatStationFav:etatStationFav,
+                nbVeloDispoFav: nbVeloDispoFav,
+                nbPlaceDispoFav: nbPlaceDispoFav,
+                erreurNomStation: 'Veuillez entrer un nom de station'});
+
+    }
+    else {
+
+        https.get("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=108&facet=libelle&facet=nom&facet=commune&facet=etat&refine.commune=LILLE", (response2) => {
+
+            let VLilleData = '';
+            // A chunk of data has been received.
+            response2.on('data', (chunk) => {
+                VLilleData += chunk;
+            });
+
+            // The whole response has been received. Print out the result.
+            response2.on('end',() => {
+
+                VLilleData = JSON.parse(VLilleData)
+                for (let i=0; i<VLilleData.parameters.rows; i++) {
+                    if (VLilleData.records[i].fields.nom === inputNomStation)	{
+                        response.render('pages/transport',
+                            {nomStation: VLilleData.records[i].fields.nom.toUpperCase(),
+                                etatStation: VLilleData.records[i].fields.etat.toLowerCase(),
+                                nbVeloDispo: VLilleData.records[i].fields.nbvelosdispo,
+                                nbPlaceDispo: VLilleData.records[i].fields.nbplacesdispo,
+                                stationFav:stationFav,
+                                etatStationFav:etatStationFav,
+                                nbVeloDispoFav: nbVeloDispoFav,
+                                nbPlaceDispoFav: nbPlaceDispoFav});
+                    }
+                }
+
+            });
+
+        }).on("error", (err) => {
+            console.log("Error: " + err.message);
+        });
+    }
+});
+
 app.post('/nomStation', (request, response) => {
 
-    var user_actuel = "";
+    let user_actuel = "";
 
     Users.filter(function(user) {
         user_actuel = user.id;
@@ -1226,20 +1418,21 @@ app.post('/nomStation', (request, response) => {
         const collection = db.collection('Utilisateurs');
         // Modifie le compte de l'utilisateur
         collection.updateOne({ id : user_actuel }
-            , { $set: { station_fav : request.body.input_nomStation.toUpperCase() } }, function(err, result) {
+            , { $set: { station_fav : request.body.input_nomStation.toUpperCase() } }
+            , function(err, result) {
                 assert.equal(err, null);
                 assert.equal(1, result.result.n);
                 console.log("Station favorite mise à jour");
                 callback(result);
-                response.render('pages/profile', {result10: "Votre station favorite a bien été mise à jour"});
+                response.render('pages/transport', {result10: "Votre station favorite a bien été mise à jour"});
         });
     }
-})
+});
 
 app.post('/', (request,response1) => {
 
-    var input_nomStation = request.body.input_nomStation;
-    input_nomStation = input_nomStation.toUpperCase ();
+    let input_nomStation = request.body.input_nomStation;
+    input_nomStation = input_nomStation.toUpperCase();
     console.log(input_nomStation);
 
     if (input_nomStation === ' '){
@@ -1261,7 +1454,7 @@ app.post('/', (request,response1) => {
                 response2.on('end',() => {
 
                     vLille_data = JSON.parse(vLille_data)
-                    for (var i=0; i<vLille_data.parameters.rows; i++) {
+                    for (let i = 0; i < vLille_data.parameters.rows; i++) {
                         if (vLille_data.records[i].fields.nom === input_nomStation)	{
                     	    response1.render('pages/index', {nomStation: vLille_data.records[i].fields.nom.toLowerCase(), etatStation: vLille_data.records[i].fields.etat.toLowerCase(), nbVeloDispo: vLille_data.records[i].fields.nbvelosdispo, nbPlaceDispo: vLille_data.records[i].fields.nbplacesdispo });
                     	}

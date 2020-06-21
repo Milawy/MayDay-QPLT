@@ -284,22 +284,22 @@
         <label for="image_upload">Sélectionner une image de profil (PNG, JPG)</label>
         <input type="file" id="fichier" name="fichier" accept=".jpg, .jpeg, .png">
     </div>
-    <input type="submit" id="bouton" value="Valider">
+    <input type="submit" value="Valider">
 </form>
 
 <hr>
-
+-->
 <form action="/nomStation" method="post">
     <label for="nomStation">Votre nom de station favorite (Veuillez entrer le nom exacte ex: Massena, Jardin Vauban) :
-        <input type="text" id="input_nomStation" name="input_nomStation" value="" required>
+        <input type="text" id="input_nomStation" name="input_nomStation" required>
     </label>
-    <input type="submit" id="bouton" value="Valider">
+    <input type="submit" value="Valider">
 </form>
 
 <% if (locals.result2) { %>
     <p><%= result2 %></p>
 <% } %>
--->
+
 <script>
     const inpPassword = document.getElementById("input_mdp")
     const maj = document.querySelector(".maj")

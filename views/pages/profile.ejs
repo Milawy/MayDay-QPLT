@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div>
+<div id="profile">
 
     <div class="side-bar">
         <div class="tabs">
@@ -33,15 +33,35 @@
         <button id="mode-button" onclick="toggleMode()"></button>
     </div>
 
-    <div class="profile-bar">
+    <div id="profileDiv">
         <h2>Profil de <%=id %></h2>
         <button onclick="window.location.href='modifier_compte';">MODIFIER LE PROFIL</button>
-        <div>Pseudo : <%=id %></div>
-        <div>Nom : <%=lastName %></div>
-        <div>Prénom : <%=firstName %></div>
-        <div>Date de naissance : <%=birthday %></div>
-        <div>Pays : <%=country %></div>
-        <div>Ville : <%=city %></div>
+        <div>
+            <div>
+                <span>Pseudo</span>
+                <span><%=id %></span>
+            </div>
+            <div>
+                <span>Nom</span>
+                <span><%=lastName %></span>
+            </div>
+            <div>
+                <span>Prénom</span>
+                <span><%=firstName %></span>
+            </div>
+            <div>
+                <span>Date de naissance</span>
+                <span><%=birthday %></span>
+            </div>
+            <div>
+                <span>Pays</span>
+                <span><%=country %></span>
+            </div>
+            <div>
+                <span>Ville</span>
+                <span><%=city %></span>
+            </div>
+        </div>
     </div>
 
 </div>

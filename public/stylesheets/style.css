@@ -14,17 +14,18 @@ body{
     color: black;
 }
 
-.light-body .profile-bar{
-    background-color: #d5d5d5;
+.light-body #profileDiv,
+.light-body #profileDiv div{
+    background-color: rgba(213, 213, 213 ,.7);
 }
 
-.light-body .profile-bar > button{
+.light-body #profileDiv > button{
     background-color: #d5d5d5;
     border: solid 1px #d5d5d5;
     color: #3c3f41;
 }
 
-.light-body .profile-bar > button:hover{
+.light-body #profileDiv > button:hover{
     background-color: #e5e5e5;
     border-color: #3c3f41;
 }
@@ -120,31 +121,66 @@ body{
 
 /* PROFILE */
 
-.profile-bar{
+#profile{
+    background-image: url("/images/profileBg.png");
+    background-size: cover;
+    background-attachment: scroll, local;
+    height: 100vh;
+}
+
+#profileDiv{
     display: flex;
     flex-direction: column;
     background-color: #313335;
     padding: 0 100px;
     height: 100vh;
-    width: 50%;
+    width: 70%;
     margin-left: 300px;
     margin-right: 110px;
     box-shadow: 0 15px 35px rgba(0,0,0,.5);
 }
 
-.profile-bar > h2{
+#profileDiv > div{
+    width: 95%;
+}
+
+#profileDiv div{
+    display: flex;
+    margin: auto 10px;
+    padding: 20px;
+}
+
+#profileDiv div div{
+    flex-direction: column;
+    align-items: center;
+}
+
+#profileDiv span:nth-child(1){
+    margin-top: 10px;
+}
+
+#profileDiv span:nth-child(2){
+    color: #55ACEE;
+    margin-top: 10px;
+}
+
+#profileDiv,
+#profileDiv div{
+    background-color: rgba(49, 51, 53,.7);
+}
+
+#profileDiv > h2{
     text-align: center;
     margin: 5% 0;
     text-transform: uppercase;
 }
 
-.profile-bar > div{
+#profileDiv > div{
     margin: 5px 0;
 }
 
-.profile-bar > button{
+#profileDiv > button{
     display: flex;
-    position: absolute;
     top: 35px;
     left: 60%;
     background-color: #313335;
@@ -154,14 +190,14 @@ body{
     padding: 1% 1%;
 }
 
-.profile-bar > button:hover{
+#profileDiv > button:hover{
     transition-duration: 250ms;
     background-color: #3c3f41;
     border-color: #e5e5e5;
     cursor: pointer;
 }
 
-.profile-bar > img{
+#profileDiv > img{
     width: 300px;
     height: 300px;
     border-radius: 100%;
