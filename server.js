@@ -524,7 +524,7 @@ app.get('/weather', verifSignIn, (request, response) => {
 var user_country="france";
 
 app.get('/covid', verifSignIn,(request,response) => {
-
+    let imageBinaire;
     let country = "";
     let cases = "";
     let deaths = "";
@@ -546,14 +546,20 @@ app.get('/covid', verifSignIn,(request,response) => {
     let j_5_deaths= "";
     let j_5_recovered= "";
 
-
     MongoClient.connect(url, function(err, client) {
 
         console.log("Bien connecté au serveur");
         const db = client.db(dbName);
         findDocuments1(db, function() {
             client.close();
-            response.render('pages/covid',{ country:country ,cases:cases ,deaths:deaths ,recovered:recovered, active:active ,j_1_cases:j_1_cases, j_1_deaths:j_1_deaths ,j_1_recovered:j_1_recovered,j_2_cases:j_2_cases,j_2_deaths:j_2_deaths,j_2_recovered:j_2_recovered,j_3_cases:j_3_cases,j_3_deaths:j_3_deaths,j_3_recovered:j_3_recovered,j_4_cases:j_4_cases,j_4_deaths:j_4_deaths,j_4_recovered:j_4_recovered,j_5_cases:j_5_cases,j_5_deaths:j_5_deaths,j_5_recovered:j_5_recovered,              id: request.session.user.id});
+            response.render('pages/covid',{ id: request.session.user.id, img: imageBinaire,
+                country:country, cases:cases, deaths:deaths,
+                recovered:recovered, active:active,
+                j_1_cases:j_1_cases, j_1_deaths:j_1_deaths, j_1_recovered:j_1_recovered,
+                j_2_cases:j_2_cases, j_2_deaths:j_2_deaths, j_2_recovered:j_2_recovered,
+                j_3_cases:j_3_cases, j_3_deaths:j_3_deaths, j_3_recovered:j_3_recovered,
+                j_4_cases:j_4_cases, j_4_deaths:j_4_deaths, j_4_recovered:j_4_recovered,
+                j_5_cases:j_5_cases, j_5_deaths:j_5_deaths, j_5_recovered:j_5_recovered});
         })
 
     });
@@ -1115,10 +1121,16 @@ app.post('/sign-up', (request, response) => {
       // Get the documents collection
       const collection = db.collection('Utilisateurs');
       collection.insertMany([
-        {"nom":request.body.input_nom, "prenom":request.body.input_prenom,
-            "id":request.body.input_id, "mdp":request.body.input_mdp,
-            "localisation" : {"Pays":request.body.input_pays, "Ville":request.body.input_commune,"CP":request.body.input_CP},
-            "Date_Naissance":new Date(request.body.input_date_naissance), "email":request.body.email}],
+          {"nom": request.body.input_nom,
+              "prenom": request.body.input_prenom,
+              "id": request.body.input_id,
+              "mdp": request.body.input_mdp,
+              "localisation":
+                  {"Pays": request.body.input_pays,
+                      "Ville": request.body.input_commune,
+                      "CP": request.body.input_CP},
+              "Date_Naissance": new Date(request.body.input_date_naissance),
+              "email":request.body.email}],
           function(err, result) {
             assert.equal(err, null);
             assert.equal(1, result.result.n);
@@ -1128,7 +1140,7 @@ app.post('/sign-up', (request, response) => {
       });
     }
 
-    //Prenom en charge tout de suite son signe astrologique
+    //Prenons en charge tout de suite son signe astrologique
     const date_tronquee = request.body.input_date_naissance.substring(5, 9);
 
     if (date_tronquee.localeCompare("01-19") === 1 && date_tronquee.localeCompare("02-19") === -1) {
@@ -1182,7 +1194,7 @@ app.post('/sign-up', (request, response) => {
     }
 
     console.log(Users);
-    response.redirect('/home');
+    response.redirect('/login');
 
 });
 
@@ -1245,24 +1257,70 @@ app.post('/connexion1', (request, response) => {
     }
 });
 
-// Modification du profile
-// Nom
-app.post('/modifier_nom',(request, response, next) => {
-    var user_actuel = "";
+// Modification du profil
+app.post('/modifier_compte', (request, response, next) => {
 
-    Users.filter(function(user) {
-        user_actuel = user.id;
-    });
+    //tout mettre au début de ton app.post
+
+    let nom;
+    let prenom;
+    let pseudo;
+    let mdp;
+    let ville;
+    let codePostal;
+    let pays;
+    let dateNaissance;
+    let email;
+    let stationFavorite;
+
+    let change_nom;
+    let change_prenom;
+    let change_pseudo;
+    let change_email;
+    let change_mdp;
+    let change_date;
+    let change_pays;
+    let change_ville;
+    let change_CP;
+    let change_station
+
+
+    const Cherche = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Find some documents
+        collection.find({id : request.session.user.id}).toArray(function(err, docs) {
+            assert.equal(err, null);
+            console.log("Found the following records for findVar Utilisateurs");
+            nom = docs[0].nom;
+            prenom = docs[0].prenom;
+            pseudo = docs[0].id;
+            mdp = docs[0].mdp;
+            ville = docs[0].localisation.Ville;
+            codePostal = docs[0].localisation.CP;
+            pays = docs[0].localisation.Pays;
+            dateNaissance = docs[0].Date_Naissance;
+            email = docs[0].email;
+            stationFavorite = docs[0].station_fav;
+            callback();
+        });
+    };
 
     MongoClient.connect(url, function(err, client) {
         assert.equal(null, err);
         console.log("Connected successfully to server");
 
         const db = client.db(dbName);
-
-        updateDocument(db, function() {
-            client.close();
+        Cherche(db, function() {
+            updateDocument(db,function(){
+                client.close();
+            });
         });
+    });
+
+    let user_actuel = "";
+    Users.filter(function(user) {
+        user_actuel = user.id;
     });
 
     //Modifier un document
@@ -1270,305 +1328,89 @@ app.post('/modifier_nom',(request, response, next) => {
         // Get the documents collection
         const collection = db.collection('Utilisateurs');
         // Modifie le compte de l'utilisateur
+
+        if (request.body.input_nom === ""){
+            change_nom = nom;
+        }
+        else {
+            change_nom = request.body.input_nom;
+        }
+        if (request.body.input_prenom === ""){
+            change_prenom = prenom;
+        }
+        else{
+            change_prenom= request.body.input_prenom;
+        }
+        if (request.body.input_id === ""){
+            change_pseudo = pseudo;
+        }
+        else{
+            change_pseudo = request.body.input_id;
+        }
+        if (request.body.email === ""){
+            change_email = email;
+        }
+        else{
+            change_email = request.body.email;
+        }
+        if (request.body.input_mdp === ""){
+            change_mdp = mdp;
+        }
+        else{
+            change_mdp = request.body.input_mdp;
+        }
+        if (request.body.input_date_naissance === ""){
+            change_date = dateNaissance;
+        }
+        else{
+            change_date = request.body.input_date_naissance;
+        }
+        if (request.body.input_pays === ""){
+            change_pays = pays;
+        }
+        else{
+            change_pays = request.body.input_pays;
+        }
+        if (request.body.input_commune === ""){
+            change_ville = ville;
+        }
+        else{
+            change_ville = request.body.input_commune;
+        }
+        if (request.body.input_CP === ""){
+            change_CP = codePostal;
+        }
+        else{
+            change_CP = request.body.input_CP;
+        }
+        if (request.body.input_nomStation === ""){
+            change_station = stationFavorite;
+        }
+        else {
+            change_station = request.body.input_nomStation;
+        }
+
         collection.updateOne({ id : user_actuel }
-            , { $set: { nom : request.body.input_nom } }, function(err, result) {
+            , { $set: { /*photo_profil : file,*/
+                    "nom" : change_nom,
+                    "prenom" : change_prenom,
+                    "id" : change_pseudo,
+                    "mdp" : change_mdp,
+                    "email" : change_email,
+                    "localisation.Ville" : change_ville,
+                    "localisation.pays" : change_pays,
+                    "localisation.CP" : change_CP,
+                    "Date_Naissance" : change_date,
+                    "station_fav" : change_station }
+            }, function(err, result) {
                 assert.equal(err, null);
                 assert.equal(1, result.result.n);
-                console.log("nom mise à jour");
+                console.log("profil mise à jour");
                 callback(result);
-                response.render('pages/modifier_nom', {result2: "Votre nom a bien été mise à jour"});
+                response.render('pages/login');
             });
     }
-})
-
-//Prenom
-
-app.post('/modifier_prenom',(request, response, next) => {
-    var user_actuel = "";
-
-    Users.filter(function(user) {
-        user_actuel = user.id;
-    });
-
-    MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        const db = client.db(dbName);
-
-        updateDocument(db, function() {
-            client.close();
-        });
-    });
-
-    //Modifier un document
-    const updateDocument = function(db, callback) {
-        // Get the documents collection
-        const collection = db.collection('Utilisateurs');
-        // Modifie le compte de l'utilisateur
-        collection.updateOne({ id : user_actuel }
-            , { $set: { prenom : request.body.input_prenom } }, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                console.log("prenom mise à jour");
-                callback(result);
-                response.render('pages/modifier_compte', {result3: "Votre prenom a bien été mise à jour"});
-            });
-    }
-})
-
-//Pseudo
-
-app.post('/modifier_id',(request, response, next) => {
-    var user_actuel = "";
-
-    Users.filter(function(user) {
-        user_actuel = user.id;
-    });
-
-    MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        const db = client.db(dbName);
-
-        updateDocument(db, function() {
-            client.close();
-        });
-    });
-
-    //Modifier un document
-    const updateDocument = function(db, callback) {
-        // Get the documents collection
-        const collection = db.collection('Utilisateurs');
-        // Modifie le compte de l'utilisateur
-        collection.updateOne({ id : user_actuel }
-            , { $set: { id : request.body.input_id } }, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                console.log("pseudo mise à jour");
-                callback(result);
-                response.render('pages/login', {result4: ""});
-            });
-    }
-})
-
-//MDP
-
-app.post('/modifier_mdp',(request, response, next) => {
-    var user_actuel = "";
-
-    Users.filter(function(user) {
-        user_actuel = user.id;
-    });
-
-    MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        const db = client.db(dbName);
-
-        updateDocument(db, function() {
-            client.close();
-        });
-    });
-
-    //Modifier un document
-    const updateDocument = function(db, callback) {
-        // Get the documents collection
-        const collection = db.collection('Utilisateurs');
-        // Modifie le compte de l'utilisateur
-        collection.updateOne({ id : user_actuel }
-            , { $set: { mdp : request.body.input_mdp } }, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                console.log("mdp mise à jour");
-                callback(result);
-                response.render('pages/login', {result5: ""});
-            });
-    }
-})
-
-//Email
-
-app.post('/modifier_email',(request, response, next) => {
-    var user_actuel = "";
-
-    Users.filter(function(user) {
-        user_actuel = user.id;
-    });
-
-    MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        const db = client.db(dbName);
-
-        updateDocument(db, function() {
-            client.close();
-        });
-    });
-
-    //Modifier un document
-    const updateDocument = function(db, callback) {
-        // Get the documents collection
-        const collection = db.collection('Utilisateurs');
-        // Modifie le compte de l'utilisateur
-        collection.updateOne({ id : user_actuel }
-            , { $set: { email : request.body.email } }, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                console.log("email mise à jour");
-                callback(result);
-                response.render('pages/modifier_compte', {result6: "Votre email a bien été mise à jour"});
-            });
-    }
-})
-
-
-//Ville
-
-app.post('/modifier_ville',(request, response, next) => {
-    var user_actuel = "";
-
-    Users.filter(function(user) {
-        user_actuel = user.id;
-    });
-
-    MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        const db = client.db(dbName);
-
-        updateDocument(db, function() {
-            client.close();
-        });
-    });
-
-    //Modifier un document
-    const updateDocument = function(db, callback) {
-        // Get the documents collection
-        const collection = db.collection('Utilisateurs');
-        // Modifie le compte de l'utilisateur
-        collection.updateOne({ id : user_actuel }
-            , { $set: { "localisation.Ville" : request.body.input_commune  } }, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                console.log("ville mise à jour");
-                callback(result);
-                response.render('pages/modifier_compte', {result7: "Votre ville a bien été mise à jour"});
-            });
-    }
-})
-
-
-//Pays
-
-app.post('/modifier_pays',(request, response, next) => {
-    var user_actuel = "";
-
-    Users.filter(function(user) {
-        user_actuel = user.id;
-    });
-
-    MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        const db = client.db(dbName);
-
-        updateDocument(db, function() {
-            client.close();
-        });
-    });
-
-    //Modifier un document
-    const updateDocument = function(db, callback) {
-        // Get the documents collection
-        const collection = db.collection('Utilisateurs');
-        // Modifie le compte de l'utilisateur
-        collection.updateOne({ id : user_actuel }
-            , { $set: { "localisation.pays" : request.body.input_pays  } }, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                console.log("pays mise à jour");
-                callback(result);
-                response.render('pages/modifier_compte', {result8: "Votre pays a bien été mise à jour"});
-            });
-    }
-})
-// CP
-
-app.post('/modifier_CP',(request, response, next) => {
-    var user_actuel = "";
-
-    Users.filter(function(user) {
-        user_actuel = user.id;
-    });
-
-    MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        const db = client.db(dbName);
-
-        updateDocument(db, function() {
-            client.close();
-        });
-    });
-
-    //Modifier un document
-    const updateDocument = function(db, callback) {
-        // Get the documents collection
-        const collection = db.collection('Utilisateurs');
-        // Modifie le compte de l'utilisateur
-        collection.updateOne({ id : user_actuel }
-            , { $set: { "localisation.CP" : request.body.input_CP  } }, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                console.log("CP mise à jour");
-                callback(result);
-                response.render('pages/modifier_compte', {result9: "Votre CP a bien été mise à jour"});
-            });
-    }
-})
-
-//date de naissance
-
-app.post('/modifier_date',(request, response, next) => {
-    var user_actuel = "";
-
-    Users.filter(function(user) {
-        user_actuel = user.id;
-    });
-
-    MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        const db = client.db(dbName);
-
-        updateDocument(db, function() {
-            client.close();
-        });
-    });
-
-    //Modifier un document
-    const updateDocument = function(db, callback) {
-        // Get the documents collection
-        const collection = db.collection('Utilisateurs');
-        // Modifie le compte de l'utilisateur
-        collection.updateOne({ id : user_actuel }
-            , { $set: { Date_Naissance : request.body.input_date_naissance } }, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                console.log("date de naissance mise à jour");
-                callback(result);
-                response.render('pages/modifier_compte', {result11: "Votre date de naissance a bien été mise à jour"});
-            });
-    }
-})
+});
 
 //Photo
 app.post('/modifier_image', (request, response, next) => {
@@ -1602,7 +1444,7 @@ app.post('/modifier_image', (request, response, next) => {
                 assert.equal(1, result.result.n);
                 console.log("Photo mise à jour");
                 callback(result);
-                response.render('pages/modifier_compte', {result1: "Votre photo de profil a bien été mise à jour"});
+                response.render('pages/modifier_compte', {result1: "Votre photo de profil a bien été mis à jour"});
                 if (err) {
                     response.render('pages/modifier_compte', {result1: "Erreur lors de l'insertion de votre image"});
                 }
@@ -1649,8 +1491,8 @@ app.post('/nomStation', (request, response) => {
 app.post('/transport', (request,response) => {
     let imageBinaire;
     VLilleData = "";
-    let inputNomStation = request.body.inputNomStation;
-    inputNomStation = inputNomStation.toUpperCase ();
+    let inputNomStation = request.body.input_nomStation;
+    inputNomStation = inputNomStation.toUpperCase();
     console.log(inputNomStation);
 
     MongoClient.connect(url, function(err, client) {

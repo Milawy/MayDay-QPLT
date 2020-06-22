@@ -63,7 +63,7 @@ function checkEmail(){
 }
 
 function checkEmailProfileChange(){
-    const form = document.getElementById("changeEmail");
+    const form = document.getElementById("changeProfile");
     const email = document.getElementById("email").value;
     const checkEmail = document.getElementById("check-email");
     const pattern = "^[^ ]+@[^ ]+\\.[a-z]{2,3}$";
