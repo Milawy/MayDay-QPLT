@@ -407,8 +407,8 @@ p{
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 40%;
-    margin: 150px 0 0 560px;
+    width: 30%;
+    margin: 150px 0 0 660px;
 }
 
 #recoverInfos form {
@@ -461,4 +461,9 @@ p{
     background-color: #313335;
     color: #d5d5d5;
     cursor: pointer;
+}
+
+#recoverInfos hr{
+    margin: 50px 0 50px 85px;
+    width: 75%;
 }

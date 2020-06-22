@@ -17,6 +17,18 @@
             <div id="first-column">
                 <div class="form-input">
                     <label>
+                        <input id="input_id" type="text" name="input_id" placeholder="Pseudo" autocomplete="off">
+                    </label>
+                </div>
+                <div class="form-input">
+                    <label>
+                        <input id="input_mdp" type="password" name="input_mdp" placeholder="Mot de passe" autocomplete="off">
+                    </label>
+                    <span class="fa" id="password-eye" onclick="showHide()">&#xf06e;</span>
+                    <span class="maj"></span>
+                </div>
+                <div class="form-input">
+                    <label>
                         <input id="input_nom" type="text" name="input_nom" placeholder="Nom" autocomplete="off">
                     </label>
                 </div>
@@ -27,29 +39,13 @@
                 </div>
                 <div class="form-input">
                     <label>
-                        <input id="input_id" type="text" name="input_id" placeholder="Pseudo" autocomplete="off">
-                    </label>
-                </div>
-                <div class="form-input">
-                    <label>
                         <input id="email" type="text" name="email" placeholder="Email" onchange="checkEmailProfileChange()" autocomplete="off">
                     </label>
                     <span id="check-email"></span>
                 </div>
-                <div class="form-input">
-                    <label>
-                        <input id="input_mdp" type="password" name="input_mdp" placeholder="Mot de passe" autocomplete="off">
-                    </label>
-                    <span class="fa" id="password-eye" onclick="showHide()">&#xf06e;</span>
-                    <span class="maj"></span>
-                </div>
             </div>
             <div id="second-column">
-                <div class="form-input">
-                    <label>
-                        <input id="input_date_naissance" type="date" name="input_date_naissance" autocomplete="off">
-                    </label>
-                </div>
+
                 <div class="form-input" id="listInput">
                     <label>
                         <input id="input_pays" type="text" name="input_pays" list="pays" placeholder="Pays" autocomplete="off">

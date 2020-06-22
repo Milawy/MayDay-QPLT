@@ -522,8 +522,7 @@ app.get('/weather', verifSignIn, (request, response) => {
     }
 });
 
-//var user_country="france";
-
+var user_country="france";
 app.get('/covid', verifSignIn,(request,response) => {
 
     var imageBinaire;
@@ -566,6 +565,86 @@ app.get('/covid', verifSignIn,(request,response) => {
             });
         });
     });
+
+    https.get("https://api.covid19api.com/total/dayone/country/" + user_country, (response2) => {
+        var covid_data='';
+
+        // A chunk of data has been received.
+        response2.on('data', (chunk) => {
+            covid_data += chunk;
+        });
+
+        // The whole response has been received. Print out the result.
+        response2.on('end',() => {
+
+            covid_data = JSON.parse(covid_data)
+            //affichage des résultats dans la console :
+            /*for (var i=covid_data.length-5; i<covid_data.length; i++) {
+                //afficher sur la page du début les résultats
+                console.log('Nom pays : '+covid_data[i].Country);
+                console.log('Nouveaux cas : '+(parseInt(covid_data[i].Confirmed,10)-parseInt(covid_data[i-1].Confirmed,10)));
+                console.log('Nouveaux décès : '+(parseInt(covid_data[i].Deaths,10)-parseInt(covid_data[i-1].Deaths,10)));
+                console.log('Nouveaux rétablissement : '+(parseInt(covid_data[i].Recovered,10)-parseInt(covid_data[i-1].Recovered,10)));
+                console.log('Date : '+covid_data[i].Date);
+                console.log();
+                //response1.render('pages/index', {nomPays: covid_data[i].Country, nmbreCas: covid_data[i].Cases, status: covid_data[i].Status, date: covid_data[i].Date });
+
+            }
+            console.log('Etat actuel : ');
+            console.log('Nombre de cas actif : '+covid_data[covid_data.length-1].Active);
+            console.log('Nombre de cas confirmés : '+covid_data[covid_data.length-1].Confirmed);
+            console.log('Nombre de morts : '+covid_data[covid_data.length-1].Deaths);
+            console.log('Nombre de rémissions : '+covid_data[covid_data.length-1].Recovered);*/
+            if (err) throw err;
+            var len = covid_data.length;
+            var dbo = db.db('api');
+            var myquery = { type: 'covid'};
+            var newvalues = { $set: {country:user_country,
+                    j_5:{
+                        cases:parseInt(covid_data[len-5].Confirmed,10)-parseInt(covid_data[len-6].Confirmed,10),
+                        deaths:parseInt(covid_data[len-5].Deaths,10)-parseInt(covid_data[len-6].Deaths,10),
+                        recovered:parseInt(covid_data[len-5].Recovered,10)-parseInt(covid_data[len-6].Recovered,10)
+                    },
+                    j_4:{
+                        cases:parseInt(covid_data[len-4].Confirmed,10)-parseInt(covid_data[len-5].Confirmed,10),
+                        deaths:parseInt(covid_data[len-4].Deaths,10)-parseInt(covid_data[len-5].Deaths,10),
+                        recovered:parseInt(covid_data[len-4].Recovered,10)-parseInt(covid_data[len-5].Recovered,10)
+                    },
+                    j_3:{
+                        cases:parseInt(covid_data[len-3].Confirmed,10)-parseInt(covid_data[len-4].Confirmed,10),
+                        deaths:parseInt(covid_data[len-3].Deaths,10)-parseInt(covid_data[len-4].Deaths,10),
+                        recovered:parseInt(covid_data[len-3].Recovered,10)-parseInt(covid_data[len-4].Recovered,10)
+                    },
+                    j_2:{
+                        cases:parseInt(covid_data[len-2].Confirmed,10)-parseInt(covid_data[len-3].Confirmed,10),
+                        deaths:parseInt(covid_data[len-2].Deaths,10)-parseInt(covid_data[len-3].Deaths,10),
+                        recovered:parseInt(covid_data[len-2].Recovered,10)-parseInt(covid_data[len-3].Recovered,10)
+                    },
+                    j_1:{
+                        cases:parseInt(covid_data[len-1].Confirmed,10)-parseInt(covid_data[len-2].Confirmed,10),
+                        deaths:parseInt(covid_data[len-1].Deaths,10)-parseInt(covid_data[len-2].Deaths,10),
+                        recovered:parseInt(covid_data[len-1].Recovered,10)-parseInt(covid_data[len-2].Recovered,10)
+                    },
+                    current:{
+                        cases:parseInt(covid_data[len-1].Confirmed,10),
+                        deaths:parseInt(covid_data[len-1].Deaths,10),
+                        recovered:parseInt(covid_data[len-1].Recovered,10),
+                        active:parseInt(covid_data[len-1].Active,10),
+                        date:parseInt(covid_data[len-1].Date[0]+covid_data[len-1].Date[1]+covid_data[len-1].Date[2]+covid_data[len-1].Date[3]
+                            +covid_data[len-1].Date[5]+covid_data[len-1].Date[6]+covid_data[len-1].Date[8]+covid_data[len-1].Date[9],10)
+                    },
+                    last_update:parseInt(covid_data[len-1].Date[0]+covid_data[len-1].Date[1]+covid_data[len-1].Date[2]+covid_data[len-1].Date[3]
+                        +covid_data[len-1].Date[5]+covid_data[len-1].Date[6]+covid_data[len-1].Date[8]+covid_data[len-1].Date[9],10)+1
+                }};
+            dbo.collection('covid').updateOne(myquery, newvalues,function(err, res) {
+                if (err) throw err;
+                console.log("1 document updated");
+                db.close();
+            });
+        });
+
+    });
+
 
     const findVar = function(db, callback) {
         // Get the documents collection
@@ -1233,7 +1312,7 @@ app.post('/modifier_compte', (request, response, next) => {
     let ville;
     let codePostal;
     let pays;
-    let dateNaissance;
+    //let dateNaissance;
     let email;
     let stationFavorite;
 
@@ -1242,7 +1321,7 @@ app.post('/modifier_compte', (request, response, next) => {
     let change_pseudo;
     let change_email;
     let change_mdp;
-    let change_date;
+    //let change_date;
     let change_pays;
     let change_ville;
     let change_CP;
@@ -1262,7 +1341,7 @@ app.post('/modifier_compte', (request, response, next) => {
             ville = docs[0].localisation.Ville;
             codePostal = docs[0].localisation.CP;
             pays = docs[0].localisation.Pays;
-            dateNaissance = docs[0].Date_Naissance;
+            //dateNaissance = docs[0].Date_Naissance;
             email = docs[0].email;
             stationFavorite = docs[0].station_fav;
             callback();
@@ -1322,12 +1401,12 @@ app.post('/modifier_compte', (request, response, next) => {
         else{
             change_mdp = request.body.input_mdp;
         }
-        if (request.body.input_date_naissance === ""){
+        /*if (request.body.input_date_naissance === ""){
             change_date = dateNaissance;
         }
         else{
             change_date = request.body.input_date_naissance;
-        }
+        }*/
         if (request.body.input_pays === ""){
             change_pays = pays;
         }
@@ -1353,27 +1432,52 @@ app.post('/modifier_compte', (request, response, next) => {
             change_station = request.body.input_nomStation;
         }
 
-        collection.updateOne({ id : user_actuel }
-            , { $set: {
-                    "nom" : change_nom,
-                    "prenom" : change_prenom,
-                    "id" : change_pseudo,
-                    "mdp" : change_mdp,
-                    "email" : change_email,
-                    "localisation.Ville" : change_ville,
-                    "localisation.Pays" : change_pays,
-                    "localisation.CP" : change_CP,
-                    "Date_Naissance" : change_date,
-                    "station_fav" : change_station }
-            }, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                console.log("profil mis à jour");
-                callback(result);
-                response.render('pages/login');
-            });
+        if (request.body.input_id === "" && request.body.input_mdp === ""){
+            collection.updateOne({ id : user_actuel }
+                , { $set: {
+                        "nom" : change_nom,
+                        "prenom" : change_prenom,
+                        "id" : change_pseudo,
+                        "mdp" : change_mdp,
+                        "email" : change_email,
+                        "localisation.Ville" : change_ville,
+                        "localisation.Pays" : change_pays,
+                        "localisation.CP" : change_CP,
+                        //"Date_Naissance" : change_date,
+                        "station_fav" : change_station }
+                }, function(err, result) {
+                    assert.equal(err, null);
+                    assert.equal(1, result.result.n);
+                    console.log("profil mis à jour");
+                    callback(result);
+                    response.render('pages/modifier_compte', {result1: "Votre profil a bien été mise à jour"});
+                });
+        }
+        else {
+
+            collection.updateOne({ id : user_actuel }
+                , { $set: {
+                        "nom" : change_nom,
+                        "prenom" : change_prenom,
+                        "id" : change_pseudo,
+                        "mdp" : change_mdp,
+                        "email" : change_email,
+                        "localisation.Ville" : change_ville,
+                        "localisation.Pays" : change_pays,
+                        "localisation.CP" : change_CP,
+                        //"Date_Naissance" : change_date,
+                        "station_fav" : change_station }
+                }, function(err, result) {
+                    assert.equal(err, null);
+                    assert.equal(1, result.result.n);
+                    console.log("profil mis à jour");
+                    callback(result);
+                    response.render('pages/login');
+                });
+        }
     }
 });
+
 
 //Photo
 app.post('/modifier_image', (request, response, next) => {
