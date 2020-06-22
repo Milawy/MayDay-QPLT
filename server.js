@@ -522,7 +522,9 @@ app.get('/weather', verifSignIn, (request, response) => {
     }
 });
 
+/* COVID */
 var user_country="france";
+
 app.get('/covid', verifSignIn,(request,response) => {
 
     var imageBinaire;
