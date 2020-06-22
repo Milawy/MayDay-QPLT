@@ -41,7 +41,6 @@
     </div>
 
     <div id="container-1">
-
         <div id="clock">
             <h2>Il est</h2>
             <div id="time">
@@ -58,11 +57,9 @@
                 <p><%= texteAstro %></p>
             </div>
         </div>
-
     </div>
 
     <div id="container-2">
-
         <div class="calendar">
             <div class="date">
                 <h3></h3>
@@ -112,11 +109,9 @@
                 <img src="images/calendarBg.png" alt="">
             </div>
         </div>
-
     </div>
 
     <div id="container-3">
-
         <div>
             <h2>Aperçu des tendances du moment</h2>
             <div>
@@ -134,11 +129,21 @@
                 </p>
             </div>
         </div>
-
     </div>
+
+    <div id="progressBar"></div>
+    <div id="scrollPath"></div>
 
 </div>
 
+<script>
+    let progress = document.getElementById('progressBar');
+    let totalHeigth = document.body.scrollHeight - window.innerHeight;
+    window.onscroll = function(){
+        let progressHeight = (window.pageYOffset / totalHeigth) * 100;
+        progress.style.height = progressHeight + "%";
+    }
+</script>
 <script src="https://kit.fontawesome.com/30f9fd1eba.js" crossorigin="anonymous"></script>
 <script src="javascripts/app.js"></script>
 <script>setInterval(clock, 1)</script>

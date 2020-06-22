@@ -84,8 +84,19 @@
 
     </div>
 
+    <div id="progressBar"></div>
+    <div id="scrollPath"></div>
+
 </div>
 
+<script>
+    let progress = document.getElementById('progressBar');
+    let totalHeigth = document.body.scrollHeight - window.innerHeight + 1600;
+    window.onscroll = function(){
+        let progressHeight = (window.pageYOffset / totalHeigth) * 100;
+        progress.style.height = progressHeight + "%";
+    }
+</script>
 <script>
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {

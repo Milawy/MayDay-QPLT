@@ -597,9 +597,9 @@ app.get('/covid', verifSignIn,(request,response) => {
             console.log('Nombre de cas confirmés : '+covid_data[covid_data.length-1].Confirmed);
             console.log('Nombre de morts : '+covid_data[covid_data.length-1].Deaths);
             console.log('Nombre de rémissions : '+covid_data[covid_data.length-1].Recovered);*/
-            if (err) throw err;
+            if(err){throw(err)}
             var len = covid_data.length;
-            var dbo = db.db('api');
+            var dbo = db.db('QPLT');
             var myquery = { type: 'covid'};
             var newvalues = { $set: {country:user_country,
                     j_5:{
@@ -646,7 +646,6 @@ app.get('/covid', verifSignIn,(request,response) => {
         });
 
     });
-
 
     const findVar = function(db, callback) {
         // Get the documents collection
