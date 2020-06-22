@@ -1248,6 +1248,8 @@ app.post('/modifier_compte', (request, response, next) => {
     let change_CP;
     let change_station
 
+    let ilFautSeReconnecterLa = false;
+
     const Cherche = function(db, callback) {
         // Get the documents collection
         const collection = db.collection('Utilisateurs');
@@ -1277,6 +1279,12 @@ app.post('/modifier_compte', (request, response, next) => {
         Cherche(db, function() {
             updateDocument(db,function(){
                 client.close();
+                if (ilFautSeReconnecterLa == true){
+                    response.render('pages/login');
+                }
+                else{
+                    response.render('pages/modifier_compte', {result2 : "Votre compte à bien été modifié"})
+                }
             });
         });
     });
@@ -1309,6 +1317,7 @@ app.post('/modifier_compte', (request, response, next) => {
         }
         else{
             change_pseudo = request.body.input_id;
+            ilFautSeReconnecterLa = true;
         }
         if (request.body.email === ""){
             change_email = email;
@@ -1321,6 +1330,7 @@ app.post('/modifier_compte', (request, response, next) => {
         }
         else{
             change_mdp = request.body.input_mdp;
+            ilFautSeReconnecterLa = true;
         }
         if (request.body.input_date_naissance === ""){
             change_date = dateNaissance;
@@ -1370,7 +1380,6 @@ app.post('/modifier_compte', (request, response, next) => {
                 assert.equal(1, result.result.n);
                 console.log("profil mis à jour");
                 callback(result);
-                response.render('pages/login');
             });
     }
 });
