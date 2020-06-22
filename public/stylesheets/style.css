@@ -309,6 +309,7 @@ button:focus {
     color: white;
     text-align: center;
     margin: 10px 0;
+    padding-bottom: 20px;
     font-weight: 700;
     letter-spacing: 0.4em;
     text-transform: uppercase;
@@ -345,12 +346,12 @@ button:focus {
     color: white;
     padding: 0;
     margin: 10px 0;
+    padding-bottom: 20px;
     text-align: center;
     font-size: 1.5em;
     font-weight: 700;
     letter-spacing: 0.4em;
     text-transform: uppercase;
-
 }
 
 /* CONTAINER 3 */
@@ -379,6 +380,7 @@ button:focus {
     color: white;
     text-align: center;
     margin: 10px 0;
+    padding-bottom: 20px;
     font-weight: 700;
     letter-spacing: 0.4em;
     text-transform: uppercase;
@@ -626,43 +628,71 @@ button:focus {
     background-image: url("/images/covidBg.png");
     background-size: cover;
     background-attachment: scroll, local;
-    height: 100vh;
 }
 
 /* TRANSPORT */
 
 #transport{
-    background-image: url("/images/weatherBg2.png");
+    background-image: url("/images/transportBg.png");
     background-size: cover;
     background-attachment: scroll, local;
     height: 100vh;
 }
 
-#transport #transportDiv,
-#transport #transportDiv div{
+#transport #fakeTransportDiv,
+#transport #fakeTransportDiv div{
     background-color: rgba(49, 51, 53,.7);
 }
 
-#transportDiv div{
-    display: flex;
-    margin: auto 10px;
+#fakeTransportDiv h2{
+    padding-top: 10px;
+    padding-bottom: 20px;
 }
 
-#transportDiv div div{
-    flex-direction: column;
+#transportDiv{
+    display: flex;
+}
+
+#transportDiv > div{
+    width: 50%;
     align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-#transportDiv .form-input{
-    display: flex;
-    position: relative;
-    margin: 20px 0;
+#transportDiv h3{
+    color: white;
     text-align: center;
+    margin: 10px 0;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-size: 1em;
+}
+
+#favoriteStation #stationFav span{
+    display: block;
+    padding: 10px;
+}
+
+#favoriteStation #stationFav span:nth-child(1){
+    color: #55ACEE;
+    font-size: 1.2em;
+}
+
+#formStations form{
+    display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
-#transportDiv .form-input input{
+#formStations .form-input{
+    position: relative;
+    margin: 20px 0;
+}
+
+#formStations .form-input input{
     background-color: rgba(50,50,50,.8);
     color: white;
     outline: none;
@@ -673,18 +703,32 @@ button:focus {
     font-size: 18px;
 }
 
-#transportDiv .form-input input::-webkit-calendar-picker-indicator{
+#formStations .form-input input[type="submit"]{
+    color: white;
+    border: solid 1px white;
+    margin-top: 10px;
+    width: 25%;
+    cursor: pointer;
+}
+
+#formStations .form-input input[type="submit"]:hover{
+    transition-duration: 250ms;
+    background-color: #313335;
+    color: #d5d5d5;
+    cursor: pointer;
+}
+
+#formStations .form-input input::-webkit-calendar-picker-indicator{
     display: none;
 }
 
-#transportDiv #station{
-    width: fit-content;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+#formStations #station span{
+    display: block;
+    padding: 10px;
 }
 
-#transportDiv #station span{
-    padding: 10px;
-    width: 100%;
+#formStations #station span:nth-child(1){
+    color: #55ACEE;
+    font-size: 1.2em;
 }
+
