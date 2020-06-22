@@ -526,7 +526,7 @@ app.get('/weather', verifSignIn, (request, response) => {
 
 app.get('/covid', verifSignIn,(request,response) => {
 
-    let imageBinaire;
+    var imageBinaire;
     let country = "";
     let cases = "";
     let deaths = "";
@@ -552,19 +552,37 @@ app.get('/covid', verifSignIn,(request,response) => {
 
         console.log("Bien connecté au serveur");
         const db = client.db(dbName);
-        findDocuments1(db, function() {
-            client.close();
-            response.render('pages/covid',{ id: request.session.user.id, img: imageBinaire,
-                country:country, cases:cases, deaths:deaths,
-                recovered:recovered, active:active,
-                j_1_cases:j_1_cases, j_1_deaths:j_1_deaths, j_1_recovered:j_1_recovered,
-                j_2_cases:j_2_cases, j_2_deaths:j_2_deaths, j_2_recovered:j_2_recovered,
-                j_3_cases:j_3_cases, j_3_deaths:j_3_deaths, j_3_recovered:j_3_recovered,
-                j_4_cases:j_4_cases, j_4_deaths:j_4_deaths, j_4_recovered:j_4_recovered,
-                j_5_cases:j_5_cases, j_5_deaths:j_5_deaths, j_5_recovered:j_5_recovered});
-        })
-
+        findVar(db, function() {
+            findDocuments1(db, function() {
+                client.close();
+                response.render('pages/covid',{ id: request.session.user.id, img: imageBinaire,
+                    country:country, cases:cases, deaths:deaths,
+                    recovered:recovered, active:active,
+                    j_1_cases:j_1_cases, j_1_deaths:j_1_deaths, j_1_recovered:j_1_recovered,
+                    j_2_cases:j_2_cases, j_2_deaths:j_2_deaths, j_2_recovered:j_2_recovered,
+                    j_3_cases:j_3_cases, j_3_deaths:j_3_deaths, j_3_recovered:j_3_recovered,
+                    j_4_cases:j_4_cases, j_4_deaths:j_4_deaths, j_4_recovered:j_4_recovered,
+                    j_5_cases:j_5_cases, j_5_deaths:j_5_deaths, j_5_recovered:j_5_recovered});
+            });
+        });
     });
+
+    const findVar = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Find some documents
+        collection.find({id : request.session.user.id}).toArray(function(err, docs) {
+            assert.equal(err, null);
+            console.log("Found the following records for findVar Utilisateurs");
+            console.log(docs[0].localisation.Ville)
+            ville = docs[0].localisation.Ville
+            if (typeof(docs[0].photo_profil) != 'undefined'){
+                imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
+                console.log(docs[0].photo_profil.file);
+            }
+            callback();
+        });
+    };
 
     const findDocuments1 = function(db, callback) {
         // Get the documents collection
@@ -602,6 +620,7 @@ app.get('/covid', verifSignIn,(request,response) => {
 });
 
 app.get('/trends', verifSignIn, (request, response) => {
+
     var imageBinaire;
     var titre0 = "";
     var titre1 = "";
@@ -635,7 +654,8 @@ app.get('/trends', verifSignIn, (request, response) => {
                 resultatCheckNouvelles(db, function() {
                     findDataNouvelles(db, function() {
                         client.close();
-                        response.render('pages/trends', {id: request.session.user.id, img: imageBinaire, titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
+                        response.render('pages/trends', {id: request.session.user.id, img: imageBinaire,
+                            titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
                             description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
                             auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
                             URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4});
