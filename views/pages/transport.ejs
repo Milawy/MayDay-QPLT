@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div>
+<div id="transport">
 
     <div class="side-bar">
         <div class="tabs">
@@ -42,23 +42,27 @@
 
     <div id="container-1">
 
-        <div>
+        <div id="transportDiv">
             <h2>Application V'Lille</h2>
             <div>
-                Voici les informations recueillies sur les stations <strong>Vlilles</strong>
-                <% if (typeof(locals.stationFav) != "undefined" || locals.stationFav != "" || locals.stationFav != null) { %>
-                    <h3> Votre station favorite :</h3>
-                    <div id="stationFav">
+                <h3> Votre station favorite :</h3>
+                <div>
+                    <span>
+                        Voici les informations recueillies sur les stations <strong>Vlilles</strong>
+                        <% if (typeof(locals.stationFav) != "undefined" && locals.stationFav != null) { %>
+                    </span>
+                    <span id="stationFav">
                         <p>
                             <%= stationFav %> <br>
                             Cette station est <%= locals.etatStationFav %> <br>
                             Il y a <%= locals.nbVeloDispoFav %>  vélos disponible(s) <br>
                             Il y a <%= locals.nbPlaceDispoFav %> places disponible(s) <br>
                         </p>
-                    </div>
-                <% } else { %>
-                    <div> Vous n'avez pas de station favorite enregistrée, vous pouvez en ajouter une sur la page de modification du profil </div>
-                <% } %>
+                    </span>
+                    <% } else { %>
+                        <span> Vous n'avez pas de station favorite enregistrée, vous pouvez en ajouter une sur la page de modification du profil </span>
+                    <% } %>
+                </div>
             </div>
         </div>
 
@@ -66,282 +70,296 @@
 
     <div id="container-3">
 
-        <form method="post">
-            <label>
-                <input id="input_nomStation" type="text" name="input_nomStation" list="Vlille" placeholder="Station Ville" autocomplete="off">
-            </label>
-            <datalist id="Vlille">
-                <option value="METROPOLE EUROPEENNE DE LILLE">METROPOLE EUROPEENNE DE LILLE</option>
-                <option value="UNIVERSITE CATHOLIQUE">UNIVERSITE CATHOLIQUE</option>
-                <option value="JARDIN VAUBAN">JARDIN VAUBAN</option>
-                <option value="MAISON FOLIE WAZEMMES">MAISON FOLIE WAZEMMES</option>
-                <option value="MASSENA">MASSENA</option>
-                <option value="REPUBLIQUE BEAUX ARTS">REPUBLIQUE BEAUX ARTS</option>
-                <option value="PLACE DE STRASBOURG">PLACE DE STRASBOURG</option>
-                <option value="PLACE RICHEBE">PLACE RICHEBE</option>
-                <option value="RUE DE TOUL">RUE DE TOUL</option>
-                <option value="RIHOUR">RIHOUR</option>
-                <option value="NOUVEAU SIECLE">NOUVEAU SIECLE</option>
-                <option value="OPERA">OPERA</option>
-                <option value="QUAI DU WAULT">QUAI DU WAULT</option>
-                <option value="CHAMP DE MARS">CHAMP DE MARS</option>
-                <option value="ESPLANADE">ESPLANADE</option>
-                <option value="MAGASIN">MAGASIN</option>
-                <option value="HALLE AUX SUCRES">HALLE AUX SUCRES</option>
-                <option value="VOLTAIRE">VOLTAIRE</option>
-                <option value="RUE ROYALE">RUE ROYALE</option>
-                <option value="N.D. DE LA TREILLE">N.D. DE LA TREILLE</option>
-                <option value="PLACE DU CONCERT">PLACE DU CONCERT</option>
-                <option value="LOUISE DE BETTIGNIES">LOUISE DE BETTIGNIES</option>
-                <option value="RUE DES ARTS">RUE DES ARTS</option>
-                <option value="FLANDRES EURALILLE">FLANDRES EURALILLE</option>
-                <option value="GARE LILLE FLANDRES">GARE LILLE FLANDRES</option>
-                <option value="MOLINEL">MOLINEL</option>
-                <option value="TANNEURS">TANNEURS</option>
-                <option value="PALAIS RAMEAU">PALAIS RAMEAU</option>
-                <option value="ST SEBASTIEN">ST SEBASTIEN</option>
-                <option value="RUE DE GAND">RUE DE GAND</option>
-                <option value="PONT NEUF">PONT NEUF</option>
-                <option value="PLACE AUX BLEUETS">PLACE AUX BLEUETS</option>
-                <option value="PORT DE LILLE">PORT DE LILLE</option>
-                <option value="PLACE CATINAT">PLACE CATINAT</option>
-                <option value="LECLERC">LECLERC</option>
-                <option value="CORMONTAIGNE">CORMONTAIGNE</option>
-                <option value="FULTON">FULTON</option>
-                <option value="PLACE CASQUETTE">PLACE CASQUETTE</option>
-                <option value="MARCHE DE WAZEMMES">MARCHE DE WAZEMMES</option>
-                <option value="METRO GAMBETTA">METRO GAMBETTA</option>
-                <option value="BUISSON">BUISSON</option>
-                <option value="PLACE PHILIPPE LEBON">PLACE PHILIPPE LEBON</option>
-                <option value="THEATRE SEBASTOPOL">THEATRE SEBASTOPOL</option>
-                <option value="GAMBETTA UTRECHT">GAMBETTA UTRECHT</option>
-                <option value="BRULE MAISON">BRULE MAISON</option>
-                <option value="ARTOIS">ARTOIS</option>
-                <option value="BOULEVARD LOUIS XIV">BOULEVARD LOUIS XIV</option>
-                <option value="PORTE DE DOUAI">PORTE DE DOUAI</option>
-                <option value="PLACE DELIOT">PLACE DELIOT</option>
-                <option value="RUE D'ARRAS">RUE D'ARRAS</option>
-                <option value="JB LEBAS">JB LEBAS</option>
-                <option value="PLACE COLETTE BESSON">PLACE COLETTE BESSON</option>
-                <option value="PORTE DES POSTES">PORTE DES POSTES</option>
-                <option value="METRO WAZEMMES">METRO WAZEMMES</option>
-                <option value="PORTE D'ARRAS">PORTE D'ARRAS</option>
-                <option value="BD VICTOR HUGO">BD VICTOR HUGO</option>
-                <option value="BARTHELEMY DELESPAUL">BARTHELEMY DELESPAUL</option>
-                <option value="PORTE DE VALENCIENNES">PORTE DE VALENCIENNES</option>
-                <option value="BELFORT">BELFORT</option>
-                <option value="TREVISE">TREVISE</option>
-                <option value="LILLE GRAND PALAIS">LILLE GRAND PALAIS</option>
-                <option value="ZENITH">ZENITH</option>
-                <option value="HOTEL DE REGION">HOTEL DE REGION</option>
-                <option value="MAIRIE DE LILLE">MAIRIE DE LILLE</option>
-                <option value="PLACE TACQ">PLACE TACQ</option>
-                <option value="DELESALLE MEDIATHEQUE">DELESALLE MEDIATHEQUE</option>
-                <option value="MONTEBELLO">MONTEBELLO</option>
-                <option value="NATIONALE RUE DU PORT">NATIONALE RUE DU PORT</option>
-                <option value="CHASSEURS DE DRIANT">CHASSEURS DE DRIANT</option>
-                <option value="CITE ADMINISTRATIVE">CITE ADMINISTRATIVE</option>
-                <option value="BOIS BLANCS">BOIS BLANCS</option>
-                <option value="CANTELEU">CANTELEU</option>
-                <option value="ST MAURICE PELLEVOISIN">ST MAURICE PELLEVOISIN</option>
-                <option value="FAUBOURG DE ROUBAIX">FAUBOURG DE ROUBAIX</option>
-                <option value="EUGENE JACQUET">EUGENE JACQUET</option>
-                <option value="FIVES">FIVES</option>
-                <option value="MONT DE TERRE">MONT DE TERRE</option>
-                <option value="HOTEL DE POLICE">HOTEL DE POLICE</option>
-                <option value="CIMETIERE DU SUD">CIMETIERE DU SUD</option>
-                <option value="PETIT MAROC">PETIT MAROC</option>
-                <option value="GUINGUETTE">GUINGUETTE</option>
-                <option value="GARE LILLE EUROPE">GARE LILLE EUROPE</option>
-                <option value="EURATECHNOLOGIES">EURATECHNOLOGIES</option>
-                <option value="MAIRIE D'HELLEMMES">MAIRIE D'HELLEMMES</option>
-                <option value="CHANZY">CHANZY</option>
-                <option value="ROGER SALENGRO">ROGER SALENGRO</option>
-                <option value="JULES GUESDE">JULES GUESDE</option>
-                <option value="RUE NATIONALE">RUE NATIONALE</option>
-                <option value="BOULEVARD DE METZ">BOULEVARD DE METZ</option>
-                <option value="LOUVIERE">LOUVIERE</option>
-                <option value="SQUARE DES MERES">SQUARE DES MERES</option>
-                <option value="RUE DE LA GAITE">RUE DE LA GAITE</option>
-                <option value="STADE BALLET">STADE BALLET</option>
-                <option value="MARX DORMOY">MARX DORMOY</option>
-                <option value="MARBRERIE">MARBRERIE</option>
-                <option value="ROMARIN">ROMARIN</option>
-                <option value="LA MADELEINE GARE">LA MADELEINE GARE</option>
-                <option value="PLACE DU MARCHE">PLACE DU MARCHE</option>
-                <option value="PLACE DU MARCHE">PLACE DU MARCHE</option>
-                <option value="LA MADELEINE MAIRIE">LA MADELEINE MAIRIE</option>
-                <option value="SAINT MAUR">SAINT MAUR</option>
-                <option value="MONS SARTS">MONS SARTS</option>
-                <option value="MAIRIE DE MONS">MAIRIE DE MONS</option>
-                <option value="LACORDAIRE">LACORDAIRE</option>
-                <option value="MENDES FRANCE">MENDES FRANCE</option>
-                <option value="VERDUN">VERDUN</option>
-                <option value="CONCORDE">CONCORDE</option>
-                <option value="LAVOISIER">LAVOISIER</option>
-                <option value="GENERAL DE GAULLE">GENERAL DE GAULLE</option>
-                <option value="SQUARE DU PORTUGAL">SQUARE DU PORTUGAL</option>
-                <option value="RUE BONTE-POLLET">RUE BONTE-POLLET</option>
-                <option value="HELLEMMES CIMETIERE">HELLEMMES CIMETIERE</option>
-                <option value="SQUARE CHARLES DE GAULLE">SQUARE CHARLES DE GAULLE</option>
-                <option value="AVENUE DE MORMAL">AVENUE DE MORMAL</option>
-                <option value="BOIS HABITE">BOIS HABITE</option>
-                <option value="DE GAULLE">DE GAULLE</option>
-                <option value="BOTANIQUE">BOTANIQUE</option>
-                <option value="HIPPODROME">HIPPODROME</option>
-                <option value="COLLEGE LAVOISIER">COLLEGE LAVOISIER</option>
-                <option value="LOMME-LAMBERSART">LOMME-LAMBERSART</option>
-                <option value="LOMME MAIRIE">LOMME MAIRIE</option>
-                <option value="PONT SUPERIEUR">PONT SUPERIEUR</option>
-                <option value="PISCINE DE MARCQ">PISCINE DE MARCQ</option>
-                <option value="RUE DE L'EGLISE">RUE DE L'EGLISE</option>
-                <option value="CLEMENCEAU HIPPODROME">CLEMENCEAU HIPPODROME</option>
-                <option value="FORT DE MONS">FORT DE MONS</option>
-                <option value="LE POLYEDRE">LE POLYEDRE</option>
-                <option value="FLERS MAIRIE">FLERS MAIRIE</option>
-                <option value="RUE LOUISE MICHEL">RUE LOUISE MICHEL</option>
-                <option value="FLERS CHATEAU">FLERS CHATEAU</option>
-                <option value="PONT DE BOIS">PONT DE BOIS</option>
-                <option value="V.ASCQ HOTEL DE VILLE">V.ASCQ HOTEL DE VILLE</option>
-                <option value="CENTRE COMMERCIAL V2">CENTRE COMMERCIAL V2</option>
-                <option value="BOULEVARD DE VALMY">BOULEVARD DE VALMY</option>
-                <option value="RUE DES VICTOIRES">RUE DES VICTOIRES</option>
-                <option value="FLERS MASQUELIER">FLERS MASQUELIER</option>
-                <option value="RUE CHAMBORD">RUE CHAMBORD</option>
-                <option value="HERON PARC">HERON PARC</option>
-                <option value="LADRIERE">LADRIERE</option>
-                <option value="RUE DE LILLE">RUE DE LILLE</option>
-                <option value="RUE CORNEILLE">RUE CORNEILLE</option>
-                <option value="METRO TRIOLO">METRO TRIOLO</option>
-                <option value="TREMIERE">TREMIERE</option>
-                <option value="ROND POINT DE TOURNAI">ROND POINT DE TOURNAI</option>
-                <option value="ANNAPPES REPUBLIQUE">ANNAPPES REPUBLIQUE</option>
-                <option value="RESIDENCE">RESIDENCE</option>
-                <option value="SOLFERINO NATIONALE">SOLFERINO NATIONALE</option>
-                <option value="FAUBOURG D'ARRAS">FAUBOURG D'ARRAS</option>
-                <option value="P.I. DE DOUAI">P.I. DE DOUAI</option>
-                <option value="JEAN JAURES">JEAN JAURES</option>
-                <option value="RONCHIN MAIRIE">RONCHIN MAIRIE</option>
-                <option value="CH. DES MARGUERITOIS">CH. DES MARGUERITOIS</option>
-                <option value="CHEMIN ROUGE">CHEMIN ROUGE</option>
-                <option value="POMPIDOU">POMPIDOU</option>
-                <option value="CHAUFFERIE">CHAUFFERIE</option>
-                <option value="BAILLY">BAILLY</option>
-                <option value="ST ANDRE MAIRIE">ST ANDRE MAIRIE</option>
-                <option value="CANON D'OR">CANON D'OR</option>
-                <option value="DELECAUT">DELECAUT</option>
-                <option value="EURALILLE">EURALILLE</option>
-                <option value="ANGELLIER">ANGELLIER</option>
-                <option value="HOPITAL MILITAIRE">HOPITAL MILITAIRE</option>
-                <option value="JEAN SANS PEUR">JEAN SANS PEUR</option>
-                <option value="CAMPUS ST RAPHAEL">CAMPUS ST RAPHAEL</option>
-                <option value="RIVES DE LA HAUTE DEULE">RIVES DE LA HAUTE DEULE</option>
-                <option value="JEMMAPES">JEMMAPES</option>
-                <option value="GANTOIS">GANTOIS</option>
-                <option value="AUBERGE DE JEUNESSE">AUBERGE DE JEUNESSE</option>
-                <option value="PLACE DE LA GARONNE">PLACE DE LA GARONNE</option>
-                <option value="CHU - CENTRE OSCAR LAMBRET">CHU - CENTRE OSCAR LAMBRET</option>
-                <option value="CHU - EURASANTÉ">CHU - EURASANTÉ</option>
-                <option value="RECHERCHE">RECHERCHE</option>
-                <option value="RUE DE LONDRES">RUE DE LONDRES</option>
-                <option value="LA FILEUSE">LA FILEUSE</option>
-                <option value="SQUARE JEAN MONNET">SQUARE JEAN MONNET</option>
-                <option value="BECQUART">BECQUART</option>
-                <option value="RUE DU PARC">RUE DU PARC</option>
-                <option value="SAINTE HÉLÈNE">SAINTE HÉLÈNE</option>
-                <option value="MARCQ MAIRIE">MARCQ MAIRIE</option>
-                <option value="LOUIS BRAILLE">LOUIS BRAILLE</option>
-                <option value="FERME D'EN HAUT">FERME D'EN HAUT</option>
-                <option value="STADIUM MÉTROPOLE">STADIUM MÉTROPOLE</option>
-                <option value="MAIRIE DE CROIX">MAIRIE DE CROIX</option>
-                <option value="EDHEC">EDHEC</option>
-                <option value="PARC BARBIEUX">PARC BARBIEUX</option>
-                <option value="VICTOR PROVO">VICTOR PROVO</option>
-                <option value="JEAN MOULIN">JEAN MOULIN</option>
-                <option value="CONDITION PUBLIQUE">CONDITION PUBLIQUE</option>
-                <option value="ALFRED MONGY">ALFRED MONGY</option>
-                <option value="EUROTELEPORT">EUROTELEPORT</option>
-                <option value="DE FOURMIES">DE FOURMIES</option>
-                <option value="USINE">USINE</option>
-                <option value="LINNE">LINNE</option>
-                <option value="GUSTAVE DELORY">GUSTAVE DELORY</option>
-                <option value="DANIELLE LESAFFRE">DANIELLE LESAFFRE</option>
-                <option value="LANNOY">LANNOY</option>
-                <option value="SAINT JEAN-BAPTISTE">SAINT JEAN-BAPTISTE</option>
-                <option value="TROIS PONTS">TROIS PONTS</option>
-                <option value="FRATERNITE">FRATERNITE</option>
-                <option value="HOPITAL VICTOR PROVO">HOPITAL VICTOR PROVO</option>
-                <option value="PLACE SPRIET">PLACE SPRIET</option>
-                <option value="GARE JEAN LEBAS">GARE JEAN LEBAS</option>
-                <option value="MUSEE ART ET INDUSTRIE">MUSEE ART ET INDUSTRIE</option>
-                <option value="ROUBAIX MAIRIE">ROUBAIX MAIRIE</option>
-                <option value="LES GOBELINS">LES GOBELINS</option>
-                <option value="PLACE TRICHON">PLACE TRICHON</option>
-                <option value="CENTRE NAUTIQUE">CENTRE NAUTIQUE</option>
-                <option value="EPEULE MONTESQUIEU">EPEULE MONTESQUIEU</option>
-                <option value="CHARLES DE GAULLE">CHARLES DE GAULLE</option>
-                <option value="BVRD ARMENTIERES">BVRD ARMENTIERES</option>
-                <option value="PELLART">PELLART</option>
-                <option value="NATIONS UNIES">NATIONS UNIES</option>
-                <option value="DE LA VIGNE">DE LA VIGNE</option>
-                <option value="MOTTE BOSSUT">MOTTE BOSSUT</option>
-                <option value="FOSSE AUX CHENES">FOSSE AUX CHENES</option>
-                <option value="RUE DE TOURCOING">RUE DE TOURCOING</option>
-                <option value="ALSACE">ALSACE</option>
-                <option value="BLANCHEMAILLE">BLANCHEMAILLE</option>
-                <option value="CHAPTAL">CHAPTAL</option>
-                <option value="RUE DES ANGES">RUE DES ANGES</option>
-                <option value="THEATRE TOURCOING">THEATRE TOURCOING</option>
-                <option value="BVRD DE L EGALITE">BVRD DE L EGALITE</option>
-                <option value="POSTE">POSTE</option>
-                <option value="LE CORBUSIER">LE CORBUSIER</option>
-                <option value="TOURCOING GARE">TOURCOING GARE</option>
-                <option value="VICTOIRE">VICTOIRE</option>
-                <option value="F ROOSEVELT">F ROOSEVELT</option>
-                <option value="JARDIN BOTANIQUE">JARDIN BOTANIQUE</option>
-                <option value="CAVELL">CAVELL</option>
-                <option value="ROUGET DE L ISLE">ROUGET DE L ISLE</option>
-                <option value="RUE SAINT BLAISE">RUE SAINT BLAISE</option>
-                <option value="RUE DE MENIN">RUE DE MENIN</option>
-                <option value="TOURCOING MAIRIE">TOURCOING MAIRIE</option>
-                <option value="COLBERT">COLBERT</option>
-                <option value="RUE DES POUTRAINS">RUE DES POUTRAINS</option>
-                <option value="AVENUE MILLET">AVENUE MILLET</option>
-                <option value="SEBASTOPOL">SEBASTOPOL</option>
-                <option value="RUE DE ROUBAIX">RUE DE ROUBAIX</option>
-                <option value="PONT DE NEUVILLE">PONT DE NEUVILLE</option>
-                <option value="CHARLES WATTINNE">CHARLES WATTINNE</option>
-                <option value="CARLIERS">CARLIERS</option>
-                <option value="MERCURE">MERCURE</option>
-                <option value="PLACE ROUSSEL">PLACE ROUSSEL</option>
-                <option value="PHALEMPINS">PHALEMPINS</option>
-                <option value="WATTRELOS PLACE">WATTRELOS PLACE</option>
-                <option value="STALINGRAD">STALINGRAD</option>
-                <option value="REPUBLIQUE">REPUBLIQUE</option>
-                <option value="CROIX CENTRE">CROIX CENTRE</option>
-                <option value="MAIRIE DE QUARTIER OUEST">MAIRIE DE QUARTIER OUEST</option>
-                <option value="BLANCHEMAILLE">BLANCHEMAILLE</option>
-            </datalist>
-            <input type="submit" value="Valider">
-        </form>
+        <div id="transportDiv">
 
-        <% if (locals.nomStation) { %>
-
-            <div id="station">
-                <div>
-                    <%= nomStation %> <br>
-                    Cette station est <%= etatStation %> <br>
-                    Il y a <%= nbVeloDispo %>  vélos disponible(s) <br>
-                    Il y a <%= nbPlaceDispo %> places disponible(s) <br>
+            <form method="post">
+                <div class="form-input">
+                    <label>
+                        <input id="input_nomStation" type="text" name="input_nomStation" list="Vlille" placeholder="Station V'Lille" autocomplete="off">
+                    </label>
+                    <datalist id="Vlille">
+                        <option value="METROPOLE EUROPEENNE DE LILLE">METROPOLE EUROPEENNE DE LILLE</option>
+                        <option value="UNIVERSITE CATHOLIQUE">UNIVERSITE CATHOLIQUE</option>
+                        <option value="JARDIN VAUBAN">JARDIN VAUBAN</option>
+                        <option value="MAISON FOLIE WAZEMMES">MAISON FOLIE WAZEMMES</option>
+                        <option value="MASSENA">MASSENA</option>
+                        <option value="REPUBLIQUE BEAUX ARTS">REPUBLIQUE BEAUX ARTS</option>
+                        <option value="PLACE DE STRASBOURG">PLACE DE STRASBOURG</option>
+                        <option value="PLACE RICHEBE">PLACE RICHEBE</option>
+                        <option value="RUE DE TOUL">RUE DE TOUL</option>
+                        <option value="RIHOUR">RIHOUR</option>
+                        <option value="NOUVEAU SIECLE">NOUVEAU SIECLE</option>
+                        <option value="OPERA">OPERA</option>
+                        <option value="QUAI DU WAULT">QUAI DU WAULT</option>
+                        <option value="CHAMP DE MARS">CHAMP DE MARS</option>
+                        <option value="ESPLANADE">ESPLANADE</option>
+                        <option value="MAGASIN">MAGASIN</option>
+                        <option value="HALLE AUX SUCRES">HALLE AUX SUCRES</option>
+                        <option value="VOLTAIRE">VOLTAIRE</option>
+                        <option value="RUE ROYALE">RUE ROYALE</option>
+                        <option value="N.D. DE LA TREILLE">N.D. DE LA TREILLE</option>
+                        <option value="PLACE DU CONCERT">PLACE DU CONCERT</option>
+                        <option value="LOUISE DE BETTIGNIES">LOUISE DE BETTIGNIES</option>
+                        <option value="RUE DES ARTS">RUE DES ARTS</option>
+                        <option value="FLANDRES EURALILLE">FLANDRES EURALILLE</option>
+                        <option value="GARE LILLE FLANDRES">GARE LILLE FLANDRES</option>
+                        <option value="MOLINEL">MOLINEL</option>
+                        <option value="TANNEURS">TANNEURS</option>
+                        <option value="PALAIS RAMEAU">PALAIS RAMEAU</option>
+                        <option value="ST SEBASTIEN">ST SEBASTIEN</option>
+                        <option value="RUE DE GAND">RUE DE GAND</option>
+                        <option value="PONT NEUF">PONT NEUF</option>
+                        <option value="PLACE AUX BLEUETS">PLACE AUX BLEUETS</option>
+                        <option value="PORT DE LILLE">PORT DE LILLE</option>
+                        <option value="PLACE CATINAT">PLACE CATINAT</option>
+                        <option value="LECLERC">LECLERC</option>
+                        <option value="CORMONTAIGNE">CORMONTAIGNE</option>
+                        <option value="FULTON">FULTON</option>
+                        <option value="PLACE CASQUETTE">PLACE CASQUETTE</option>
+                        <option value="MARCHE DE WAZEMMES">MARCHE DE WAZEMMES</option>
+                        <option value="METRO GAMBETTA">METRO GAMBETTA</option>
+                        <option value="BUISSON">BUISSON</option>
+                        <option value="PLACE PHILIPPE LEBON">PLACE PHILIPPE LEBON</option>
+                        <option value="THEATRE SEBASTOPOL">THEATRE SEBASTOPOL</option>
+                        <option value="GAMBETTA UTRECHT">GAMBETTA UTRECHT</option>
+                        <option value="BRULE MAISON">BRULE MAISON</option>
+                        <option value="ARTOIS">ARTOIS</option>
+                        <option value="BOULEVARD LOUIS XIV">BOULEVARD LOUIS XIV</option>
+                        <option value="PORTE DE DOUAI">PORTE DE DOUAI</option>
+                        <option value="PLACE DELIOT">PLACE DELIOT</option>
+                        <option value="RUE D'ARRAS">RUE D'ARRAS</option>
+                        <option value="JB LEBAS">JB LEBAS</option>
+                        <option value="PLACE COLETTE BESSON">PLACE COLETTE BESSON</option>
+                        <option value="PORTE DES POSTES">PORTE DES POSTES</option>
+                        <option value="METRO WAZEMMES">METRO WAZEMMES</option>
+                        <option value="PORTE D'ARRAS">PORTE D'ARRAS</option>
+                        <option value="BD VICTOR HUGO">BD VICTOR HUGO</option>
+                        <option value="BARTHELEMY DELESPAUL">BARTHELEMY DELESPAUL</option>
+                        <option value="PORTE DE VALENCIENNES">PORTE DE VALENCIENNES</option>
+                        <option value="BELFORT">BELFORT</option>
+                        <option value="TREVISE">TREVISE</option>
+                        <option value="LILLE GRAND PALAIS">LILLE GRAND PALAIS</option>
+                        <option value="ZENITH">ZENITH</option>
+                        <option value="HOTEL DE REGION">HOTEL DE REGION</option>
+                        <option value="MAIRIE DE LILLE">MAIRIE DE LILLE</option>
+                        <option value="PLACE TACQ">PLACE TACQ</option>
+                        <option value="DELESALLE MEDIATHEQUE">DELESALLE MEDIATHEQUE</option>
+                        <option value="MONTEBELLO">MONTEBELLO</option>
+                        <option value="NATIONALE RUE DU PORT">NATIONALE RUE DU PORT</option>
+                        <option value="CHASSEURS DE DRIANT">CHASSEURS DE DRIANT</option>
+                        <option value="CITE ADMINISTRATIVE">CITE ADMINISTRATIVE</option>
+                        <option value="BOIS BLANCS">BOIS BLANCS</option>
+                        <option value="CANTELEU">CANTELEU</option>
+                        <option value="ST MAURICE PELLEVOISIN">ST MAURICE PELLEVOISIN</option>
+                        <option value="FAUBOURG DE ROUBAIX">FAUBOURG DE ROUBAIX</option>
+                        <option value="EUGENE JACQUET">EUGENE JACQUET</option>
+                        <option value="FIVES">FIVES</option>
+                        <option value="MONT DE TERRE">MONT DE TERRE</option>
+                        <option value="HOTEL DE POLICE">HOTEL DE POLICE</option>
+                        <option value="CIMETIERE DU SUD">CIMETIERE DU SUD</option>
+                        <option value="PETIT MAROC">PETIT MAROC</option>
+                        <option value="GUINGUETTE">GUINGUETTE</option>
+                        <option value="GARE LILLE EUROPE">GARE LILLE EUROPE</option>
+                        <option value="EURATECHNOLOGIES">EURATECHNOLOGIES</option>
+                        <option value="MAIRIE D'HELLEMMES">MAIRIE D'HELLEMMES</option>
+                        <option value="CHANZY">CHANZY</option>
+                        <option value="ROGER SALENGRO">ROGER SALENGRO</option>
+                        <option value="JULES GUESDE">JULES GUESDE</option>
+                        <option value="RUE NATIONALE">RUE NATIONALE</option>
+                        <option value="BOULEVARD DE METZ">BOULEVARD DE METZ</option>
+                        <option value="LOUVIERE">LOUVIERE</option>
+                        <option value="SQUARE DES MERES">SQUARE DES MERES</option>
+                        <option value="RUE DE LA GAITE">RUE DE LA GAITE</option>
+                        <option value="STADE BALLET">STADE BALLET</option>
+                        <option value="MARX DORMOY">MARX DORMOY</option>
+                        <option value="MARBRERIE">MARBRERIE</option>
+                        <option value="ROMARIN">ROMARIN</option>
+                        <option value="LA MADELEINE GARE">LA MADELEINE GARE</option>
+                        <option value="PLACE DU MARCHE">PLACE DU MARCHE</option>
+                        <option value="PLACE DU MARCHE">PLACE DU MARCHE</option>
+                        <option value="LA MADELEINE MAIRIE">LA MADELEINE MAIRIE</option>
+                        <option value="SAINT MAUR">SAINT MAUR</option>
+                        <option value="MONS SARTS">MONS SARTS</option>
+                        <option value="MAIRIE DE MONS">MAIRIE DE MONS</option>
+                        <option value="LACORDAIRE">LACORDAIRE</option>
+                        <option value="MENDES FRANCE">MENDES FRANCE</option>
+                        <option value="VERDUN">VERDUN</option>
+                        <option value="CONCORDE">CONCORDE</option>
+                        <option value="LAVOISIER">LAVOISIER</option>
+                        <option value="GENERAL DE GAULLE">GENERAL DE GAULLE</option>
+                        <option value="SQUARE DU PORTUGAL">SQUARE DU PORTUGAL</option>
+                        <option value="RUE BONTE-POLLET">RUE BONTE-POLLET</option>
+                        <option value="HELLEMMES CIMETIERE">HELLEMMES CIMETIERE</option>
+                        <option value="SQUARE CHARLES DE GAULLE">SQUARE CHARLES DE GAULLE</option>
+                        <option value="AVENUE DE MORMAL">AVENUE DE MORMAL</option>
+                        <option value="BOIS HABITE">BOIS HABITE</option>
+                        <option value="DE GAULLE">DE GAULLE</option>
+                        <option value="BOTANIQUE">BOTANIQUE</option>
+                        <option value="HIPPODROME">HIPPODROME</option>
+                        <option value="COLLEGE LAVOISIER">COLLEGE LAVOISIER</option>
+                        <option value="LOMME-LAMBERSART">LOMME-LAMBERSART</option>
+                        <option value="LOMME MAIRIE">LOMME MAIRIE</option>
+                        <option value="PONT SUPERIEUR">PONT SUPERIEUR</option>
+                        <option value="PISCINE DE MARCQ">PISCINE DE MARCQ</option>
+                        <option value="RUE DE L'EGLISE">RUE DE L'EGLISE</option>
+                        <option value="CLEMENCEAU HIPPODROME">CLEMENCEAU HIPPODROME</option>
+                        <option value="FORT DE MONS">FORT DE MONS</option>
+                        <option value="LE POLYEDRE">LE POLYEDRE</option>
+                        <option value="FLERS MAIRIE">FLERS MAIRIE</option>
+                        <option value="RUE LOUISE MICHEL">RUE LOUISE MICHEL</option>
+                        <option value="FLERS CHATEAU">FLERS CHATEAU</option>
+                        <option value="PONT DE BOIS">PONT DE BOIS</option>
+                        <option value="V.ASCQ HOTEL DE VILLE">V.ASCQ HOTEL DE VILLE</option>
+                        <option value="CENTRE COMMERCIAL V2">CENTRE COMMERCIAL V2</option>
+                        <option value="BOULEVARD DE VALMY">BOULEVARD DE VALMY</option>
+                        <option value="RUE DES VICTOIRES">RUE DES VICTOIRES</option>
+                        <option value="FLERS MASQUELIER">FLERS MASQUELIER</option>
+                        <option value="RUE CHAMBORD">RUE CHAMBORD</option>
+                        <option value="HERON PARC">HERON PARC</option>
+                        <option value="LADRIERE">LADRIERE</option>
+                        <option value="RUE DE LILLE">RUE DE LILLE</option>
+                        <option value="RUE CORNEILLE">RUE CORNEILLE</option>
+                        <option value="METRO TRIOLO">METRO TRIOLO</option>
+                        <option value="TREMIERE">TREMIERE</option>
+                        <option value="ROND POINT DE TOURNAI">ROND POINT DE TOURNAI</option>
+                        <option value="ANNAPPES REPUBLIQUE">ANNAPPES REPUBLIQUE</option>
+                        <option value="RESIDENCE">RESIDENCE</option>
+                        <option value="SOLFERINO NATIONALE">SOLFERINO NATIONALE</option>
+                        <option value="FAUBOURG D'ARRAS">FAUBOURG D'ARRAS</option>
+                        <option value="P.I. DE DOUAI">P.I. DE DOUAI</option>
+                        <option value="JEAN JAURES">JEAN JAURES</option>
+                        <option value="RONCHIN MAIRIE">RONCHIN MAIRIE</option>
+                        <option value="CH. DES MARGUERITOIS">CH. DES MARGUERITOIS</option>
+                        <option value="CHEMIN ROUGE">CHEMIN ROUGE</option>
+                        <option value="POMPIDOU">POMPIDOU</option>
+                        <option value="CHAUFFERIE">CHAUFFERIE</option>
+                        <option value="BAILLY">BAILLY</option>
+                        <option value="ST ANDRE MAIRIE">ST ANDRE MAIRIE</option>
+                        <option value="CANON D'OR">CANON D'OR</option>
+                        <option value="DELECAUT">DELECAUT</option>
+                        <option value="EURALILLE">EURALILLE</option>
+                        <option value="ANGELLIER">ANGELLIER</option>
+                        <option value="HOPITAL MILITAIRE">HOPITAL MILITAIRE</option>
+                        <option value="JEAN SANS PEUR">JEAN SANS PEUR</option>
+                        <option value="CAMPUS ST RAPHAEL">CAMPUS ST RAPHAEL</option>
+                        <option value="RIVES DE LA HAUTE DEULE">RIVES DE LA HAUTE DEULE</option>
+                        <option value="JEMMAPES">JEMMAPES</option>
+                        <option value="GANTOIS">GANTOIS</option>
+                        <option value="AUBERGE DE JEUNESSE">AUBERGE DE JEUNESSE</option>
+                        <option value="PLACE DE LA GARONNE">PLACE DE LA GARONNE</option>
+                        <option value="CHU - CENTRE OSCAR LAMBRET">CHU - CENTRE OSCAR LAMBRET</option>
+                        <option value="CHU - EURASANTÉ">CHU - EURASANTÉ</option>
+                        <option value="RECHERCHE">RECHERCHE</option>
+                        <option value="RUE DE LONDRES">RUE DE LONDRES</option>
+                        <option value="LA FILEUSE">LA FILEUSE</option>
+                        <option value="SQUARE JEAN MONNET">SQUARE JEAN MONNET</option>
+                        <option value="BECQUART">BECQUART</option>
+                        <option value="RUE DU PARC">RUE DU PARC</option>
+                        <option value="SAINTE HÉLÈNE">SAINTE HÉLÈNE</option>
+                        <option value="MARCQ MAIRIE">MARCQ MAIRIE</option>
+                        <option value="LOUIS BRAILLE">LOUIS BRAILLE</option>
+                        <option value="FERME D'EN HAUT">FERME D'EN HAUT</option>
+                        <option value="STADIUM MÉTROPOLE">STADIUM MÉTROPOLE</option>
+                        <option value="MAIRIE DE CROIX">MAIRIE DE CROIX</option>
+                        <option value="EDHEC">EDHEC</option>
+                        <option value="PARC BARBIEUX">PARC BARBIEUX</option>
+                        <option value="VICTOR PROVO">VICTOR PROVO</option>
+                        <option value="JEAN MOULIN">JEAN MOULIN</option>
+                        <option value="CONDITION PUBLIQUE">CONDITION PUBLIQUE</option>
+                        <option value="ALFRED MONGY">ALFRED MONGY</option>
+                        <option value="EUROTELEPORT">EUROTELEPORT</option>
+                        <option value="DE FOURMIES">DE FOURMIES</option>
+                        <option value="USINE">USINE</option>
+                        <option value="LINNE">LINNE</option>
+                        <option value="GUSTAVE DELORY">GUSTAVE DELORY</option>
+                        <option value="DANIELLE LESAFFRE">DANIELLE LESAFFRE</option>
+                        <option value="LANNOY">LANNOY</option>
+                        <option value="SAINT JEAN-BAPTISTE">SAINT JEAN-BAPTISTE</option>
+                        <option value="TROIS PONTS">TROIS PONTS</option>
+                        <option value="FRATERNITE">FRATERNITE</option>
+                        <option value="HOPITAL VICTOR PROVO">HOPITAL VICTOR PROVO</option>
+                        <option value="PLACE SPRIET">PLACE SPRIET</option>
+                        <option value="GARE JEAN LEBAS">GARE JEAN LEBAS</option>
+                        <option value="MUSEE ART ET INDUSTRIE">MUSEE ART ET INDUSTRIE</option>
+                        <option value="ROUBAIX MAIRIE">ROUBAIX MAIRIE</option>
+                        <option value="LES GOBELINS">LES GOBELINS</option>
+                        <option value="PLACE TRICHON">PLACE TRICHON</option>
+                        <option value="CENTRE NAUTIQUE">CENTRE NAUTIQUE</option>
+                        <option value="EPEULE MONTESQUIEU">EPEULE MONTESQUIEU</option>
+                        <option value="CHARLES DE GAULLE">CHARLES DE GAULLE</option>
+                        <option value="BVRD ARMENTIERES">BVRD ARMENTIERES</option>
+                        <option value="PELLART">PELLART</option>
+                        <option value="NATIONS UNIES">NATIONS UNIES</option>
+                        <option value="DE LA VIGNE">DE LA VIGNE</option>
+                        <option value="MOTTE BOSSUT">MOTTE BOSSUT</option>
+                        <option value="FOSSE AUX CHENES">FOSSE AUX CHENES</option>
+                        <option value="RUE DE TOURCOING">RUE DE TOURCOING</option>
+                        <option value="ALSACE">ALSACE</option>
+                        <option value="BLANCHEMAILLE">BLANCHEMAILLE</option>
+                        <option value="CHAPTAL">CHAPTAL</option>
+                        <option value="RUE DES ANGES">RUE DES ANGES</option>
+                        <option value="THEATRE TOURCOING">THEATRE TOURCOING</option>
+                        <option value="BVRD DE L EGALITE">BVRD DE L EGALITE</option>
+                        <option value="POSTE">POSTE</option>
+                        <option value="LE CORBUSIER">LE CORBUSIER</option>
+                        <option value="TOURCOING GARE">TOURCOING GARE</option>
+                        <option value="VICTOIRE">VICTOIRE</option>
+                        <option value="F ROOSEVELT">F ROOSEVELT</option>
+                        <option value="JARDIN BOTANIQUE">JARDIN BOTANIQUE</option>
+                        <option value="CAVELL">CAVELL</option>
+                        <option value="ROUGET DE L ISLE">ROUGET DE L ISLE</option>
+                        <option value="RUE SAINT BLAISE">RUE SAINT BLAISE</option>
+                        <option value="RUE DE MENIN">RUE DE MENIN</option>
+                        <option value="TOURCOING MAIRIE">TOURCOING MAIRIE</option>
+                        <option value="COLBERT">COLBERT</option>
+                        <option value="RUE DES POUTRAINS">RUE DES POUTRAINS</option>
+                        <option value="AVENUE MILLET">AVENUE MILLET</option>
+                        <option value="SEBASTOPOL">SEBASTOPOL</option>
+                        <option value="RUE DE ROUBAIX">RUE DE ROUBAIX</option>
+                        <option value="PONT DE NEUVILLE">PONT DE NEUVILLE</option>
+                        <option value="CHARLES WATTINNE">CHARLES WATTINNE</option>
+                        <option value="CARLIERS">CARLIERS</option>
+                        <option value="MERCURE">MERCURE</option>
+                        <option value="PLACE ROUSSEL">PLACE ROUSSEL</option>
+                        <option value="PHALEMPINS">PHALEMPINS</option>
+                        <option value="WATTRELOS PLACE">WATTRELOS PLACE</option>
+                        <option value="STALINGRAD">STALINGRAD</option>
+                        <option value="REPUBLIQUE">REPUBLIQUE</option>
+                        <option value="CROIX CENTRE">CROIX CENTRE</option>
+                        <option value="MAIRIE DE QUARTIER OUEST">MAIRIE DE QUARTIER OUEST</option>
+                        <option value="BLANCHEMAILLE">BLANCHEMAILLE</option>
+                    </datalist>
+                    <input type="submit" value="Valider">
                 </div>
-            </div>
-        <% } %>
+            </form>
 
-        <% if (locals.erreurNomStation) { %>
-            <div id="erreurNomStation">
-                <%= erreurNomStation %>
-            </div>
-        <% } %>
+            <% if (locals.nomStation) { %>
+
+                <div id="station">
+                    <div>
+                        <span>
+                            <%= nomStation %>
+                        </span>
+                        <span>
+                            Cette station est <%= etatStation %>
+                        </span>
+                        <span>
+                            Il y a <%= nbVeloDispo %>  vélos disponible(s)
+                        </span>
+                        <span>
+                           Il y a <%= nbPlaceDispo %> places disponible(s)
+                        </span>
+                    </div>
+                </div>
+            <% } %>
+
+            <% if (locals.erreurNomStation) { %>
+                <div id="erreurNomStation">
+                    <%= erreurNomStation %>
+                </div>
+            <% } %>
+
+        </div>
 
     </div>
 

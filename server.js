@@ -73,6 +73,7 @@ app.get('/sign-up', (request,response) => {
 });
 
 app.get('/home', verifSignIn, (request,response) => {
+
     var imageBinaire;
     var signe = "";
     var messageVlille = "";
@@ -105,6 +106,8 @@ app.get('/home', verifSignIn, (request,response) => {
     var URL2 = "";
     var URL3 = "";
     var URL4 = "";
+    var apodData;
+    var calendarImg;
 
     MongoClient.connect(url, function(err, client) {
         assert.equal(null, err);
@@ -113,19 +116,21 @@ app.get('/home', verifSignIn, (request,response) => {
         const db = client.db(dbName);
 
         findVar(db, function() {
-            checkUpdateHoroscope(db, function() {
-                resultatCheckHoroscope(db, function() {
-                    findDataHoroscope(db, function() {
-                        checkUpdateNouvelles(db, function() {
-                            resultatCheckNouvelles(db, function() {
-                                findDataNouvelles(db, function() {
-                                    client.close();
-                                    response.render('pages/home', {id: request.session.user.id, img: imageBinaire,
-                                        astro: astro, texteAstro: texteAstro, message: messageVlille, stationFav: stationFav,
-                                        titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
-                                        description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
-                                        auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
-                                        URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4});
+            apodAPI(db, function() {
+                checkUpdateHoroscope(db, function() {
+                    resultatCheckHoroscope(db, function() {
+                        findDataHoroscope(db, function() {
+                            checkUpdateNouvelles(db, function() {
+                                resultatCheckNouvelles(db, function() {
+                                    findDataNouvelles(db, function() {
+                                        client.close();
+                                        response.render('pages/home', {id: request.session.user.id, img: imageBinaire,
+                                            astro: astro, texteAstro: texteAstro, message: messageVlille, stationFav: stationFav,
+                                            titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
+                                            description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
+                                            auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
+                                            URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4});
+                                    });
                                 });
                             });
                         });
@@ -150,6 +155,32 @@ app.get('/home', verifSignIn, (request,response) => {
             callback();
         });
     };
+
+    const apodAPI = function(db, callback){
+        https.get("https://api.nasa.gov/planetary/apod?api_key=Dcz3JCi3yoyaHayLIOg56qOhbgIPhCYLq6K0ridz", (response) => {
+            response.on("data", (chunk) => {
+                apodData += chunk;
+            });
+
+            response.on("end", () => {
+               console.log("APOD Response received");
+               console.log(apodData);
+
+                const collection = db.collection('APOD');
+                collection.insertMany([
+                    { "calendarPic" : calendarImg }], function(err, result) {
+                    assert.equal(err, null);
+                    assert.equal(1, result.result.n);
+                    assert.equal(1, result.ops.length);
+                    console.log("Inserted 1 document into the collection Utilisateurs");
+                    callback(result);
+                });
+
+            });
+        }).on("error", (err) => {
+            console.log("Error : " + err.message);
+        });
+    }
 
     const checkUpdateHoroscope = function(db, callback) {
         console.log("Je suis dans checkUpdateHoroscope");
@@ -457,7 +488,7 @@ app.get('/weather', verifSignIn, (request, response) => {
                     index_UV = meteo_data.current.uv_index;
                     visibilite = meteo_data.current.visibility;
                     infos_date = meteo_data.location.localtime;
-                    console.log("Inserted 1 documents into the collection");
+                    console.log("Inserted 1 document into the collection");
                     ajoutMeteo = true;
                     callback(result);
                 });
@@ -524,6 +555,7 @@ app.get('/weather', verifSignIn, (request, response) => {
 //var user_country="france";
 
 app.get('/covid', verifSignIn,(request,response) => {
+
     let imageBinaire;
     let country = "";
     let cases = "";
@@ -598,7 +630,6 @@ app.get('/covid', verifSignIn,(request,response) => {
         });
     }
 });
-
 
 app.get('/trends', verifSignIn, (request, response) => {
     var imageBinaire;
@@ -844,7 +875,6 @@ app.get('/transport', verifSignIn, (request, response) => {
                 callback(majVLille);
             }
         }
-
     }
 
     const insertVLille= function(db, callback) {
@@ -859,13 +889,11 @@ app.get('/transport', verifSignIn, (request, response) => {
             response2.on('end',() => {
                 console.log("J'ai reçu la réponse, plus qu'a la print");
                 VLilleData = JSON.parse(VLilleData);
-                //console.log(VLilleData);
-                for (var i=0; i<VLilleData.parameters.rows; i++) {
+                for (var i = 0; i < VLilleData.parameters.rows; i++) {
                     if (VLilleData.records[i].fields.nom === stationFav)	{
                         etatStationFav = VLilleData.records[i].fields.etat.toLowerCase()
                         nbVeloDispoFav = VLilleData.records[i].fields.nbvelosdispo
                         nbPlaceDispoFav = VLilleData.records[i].fields.nbplacesdispo
-                        //response1.render('pages/index', {nomStation: vLille_data.records[i].fields.nom.toLowerCase(), etatStation: vLille_data.records[i].fields.etat.toLowerCase(), nbVeloDispo: vLille_data.records[i].fields.nbvelosdispo, nbPlaceDispo: vLille_data.records[i].fields.nbplacesdispo });
                     }
                 }
 
@@ -875,7 +903,7 @@ app.get('/transport', verifSignIn, (request, response) => {
                     assert.equal(err, null);
                     assert.equal(1, result.result.n);
                     assert.equal(1, result.ops.length);
-                    console.log("Inserted 1 documents into the collection VLille");
+                    console.log("Inserted 1 document into the collection VLille");
                     ajoutVLille = true;
                     callback(result);
                 });
@@ -897,7 +925,7 @@ app.get('/transport', verifSignIn, (request, response) => {
                 console.log("J'ai reçu la réponse, plus qu'a la print");
                 VLilleData = JSON.parse(VLilleData);
                 //console.log(VLilleData);
-                for (var i=0; i<VLilleData.parameters.rows; i++) {
+                for (var i = 0; i < VLilleData.parameters.rows; i++) {
                     if (VLilleData.records[i].fields.nom === stationFav)	{
                         etatStationFav = VLilleData.records[i].fields.etat.toLowerCase()
                         nbVeloDispoFav = VLilleData.records[i].fields.nbvelosdispo
@@ -918,7 +946,7 @@ app.get('/transport', verifSignIn, (request, response) => {
             });
 
         }).on("error", (err) => {
-            console.log("Error: " + err.message);
+            console.log("Error : " + err.message);
         });
     }
 
@@ -937,12 +965,11 @@ app.get('/transport', verifSignIn, (request, response) => {
                 callback(docs);
             });
         }
-
     }
-
 });
 
 app.get('/profile', verifSignIn, (request, response) => {
+
     let imageBinaire;
     let lastname;
     let firstname;
@@ -1042,9 +1069,12 @@ app.post('/sign-up', (request, response) => {
 
     Users.filter(function(user) {
         if (user.id === request.body.input_id){
-            response.render('pages/sign-up', {message: "Cette identifiant existe déjà ! Connectez-vous ou choisissez un autre identifiant."});
+            response.render('pages/sign-up', {
+                message: "Cette identifiant existe déjà ! Connectez-vous ou choisissez un autre identifiant"
+            });
         }
     });
+
     var newUser = {id: request.body.input_id, mdp: request.body.input_mdp};
     Users.push(newUser);
     request.session.user = newUser;
@@ -1228,7 +1258,6 @@ app.post('/modifier_compte', (request, response, next) => {
     let change_CP;
     let change_station
 
-
     const Cherche = function(db, callback) {
         // Get the documents collection
         const collection = db.collection('Utilisateurs');
@@ -1395,43 +1424,7 @@ app.post('/modifier_image', (request, response, next) => {
             });
     }
 })
-/*
-app.post('/nomStation', (request, response) => {
 
-    var user_actuel = "";
-
-    Users.filter(function(user) {
-        user_actuel = user.id;
-    });
-
-    MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        const db = client.db(dbName);
-
-        updateDocument(db, function() {
-            client.close();
-        });
-    });
-
-    //Modifier un document
-    const updateDocument = function(db, callback) {
-        // Get the documents collection
-        const collection = db.collection('Utilisateurs');
-        // Modifie le compte de l'utilisateur
-        collection.updateOne({ id : user_actuel }
-            , { $set: { station_fav : request.body.input_nomStation.toUpperCase() } }, function(err, result) {
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                console.log("Station favorite mise à jour");
-                callback(result);
-                response.render('pages/modifier_compte', {result10: "Votre station favorite a bien été mise à jour"});
-            });
-    }
-
-});
-*/
 app.post('/transport', (request,response) => {
     let imageBinaire;
     VLilleData = "";

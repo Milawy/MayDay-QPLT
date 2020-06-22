@@ -628,3 +628,63 @@ button:focus {
     background-attachment: scroll, local;
     height: 100vh;
 }
+
+/* TRANSPORT */
+
+#transport{
+    background-image: url("/images/weatherBg2.png");
+    background-size: cover;
+    background-attachment: scroll, local;
+    height: 100vh;
+}
+
+#transport #transportDiv,
+#transport #transportDiv div{
+    background-color: rgba(49, 51, 53,.7);
+}
+
+#transportDiv div{
+    display: flex;
+    margin: auto 10px;
+}
+
+#transportDiv div div{
+    flex-direction: column;
+    align-items: center;
+}
+
+#transportDiv .form-input{
+    display: flex;
+    position: relative;
+    margin: 20px 0;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#transportDiv .form-input input{
+    background-color: rgba(50,50,50,.8);
+    color: white;
+    outline: none;
+    height: 40px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid white;
+    font-size: 18px;
+}
+
+#transportDiv .form-input input::-webkit-calendar-picker-indicator{
+    display: none;
+}
+
+#transportDiv #station{
+    width: fit-content;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#transportDiv #station span{
+    padding: 10px;
+    width: 100%;
+}
