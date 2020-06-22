@@ -43,182 +43,160 @@
 
     <div id="container-1">
 
-        <div id="covidDiv">
-
-            <h2>Covid</h2>
-
-            <div id="description1">
-
-                <h2><%=country%></h2>
-
-                <div id="covidStats">
-                    <span id="nbr-case">
-                        Nombre de cas <span class="fa">&#xf0c0;</span>
-                    </span>
-                    <span><%= cases %></span>
-                    <br>
-                    <span id="nbr-dead">
-                        Nombre de morts <span class="fa">&#xf567;</span>
-                    </span>
-                    <span><%=deaths%></span>
-                    <br>
-                    <span id="nbr-saved">
-                        Nombre de soignés <span class="fa">&#xf48e;</span>
-                    </span>
-                    <span><%=recovered%></span>
-                    <br>
-                    <span id="nbr-active-case">
-                        Nombre de cas actifs <span class="fa">&#xf974;</span>
-                    </span>
-                    <span><%=active%></span>
+        <div id="covidDivStats">
+            <h2>Covid : Statistiques</h2>
+            <h2>en <%=country %></h2>
+            <div>
+                <div>
+                    <span class="fa fa-covid">&#xf0c0;</span>
+                    <span id="nbr-case">Nombre de cas</span>
+                    <span><%=cases %></span>
                 </div>
-
+                <div>
+                    <span class="fa fa-covid">&#xf567;</span>
+                    <span id="nbr-dead">Nombre de morts</span>
+                    <span><%=deaths %></span>
+                </div>
+                <div>
+                    <span class="fa fa-covid">&#xf48e;</span>
+                    <span id="nbr-saved">Nombre de soignés</span>
+                    <span><%=recovered %></span>
+                </div>
+                <div>
+                    <span class="fa fa-covid">&#xf974;</span>
+                    <span id="nbr-active-case">Nombre de cas actifs</span>
+                    <span><%=active %></span>
+                </div>
             </div>
-
-            <div id="graphique1">
-                <div style="width:75%" >
-                    <canvas id="myChart"></canvas>
-                </div>
-
-                <script>
-                    var ctx = document.getElementById('myChart');
-                    var myChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['J-5', 'J-4', 'J-3', 'J-2', 'J-1'],
-                            datasets: [{
-                                label: 'Nombre de cas',
-                                data: [<%=j_5_cases%>, <%=j_4_cases%>, <%=j_3_cases%>, <%=j_2_cases%>, <%=j_1_cases%>],
-                                backgroundColor: [
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(54, 162, 235, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            }
-                        }
-                    });
-                </script>
-
-            </div>
-
-        </div>
-        <div>
-            <div id="container-1">
-                <div id="graphique1">
-                    <div style="width:75%" >
-                        <canvas id="myChart2"></canvas>
-                    </div>
-
-                    <script>
-                        var ctx = document.getElementById('myChart2');
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: ['J-5', 'J-4', 'J-3', 'J-2', 'J-1'],
-                                datasets: [{
-                                    label: 'Nombre de mort',
-                                    data: [<%=j_5_deaths%>, <%=j_4_deaths%>, <%=j_3_deaths%>, <%=j_2_deaths%>, <%=j_1_deaths%>],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(255, 99, 132, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(255, 99, 132, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
-
-                </div>
-
-                <div id="graphique1">
-                    <div style="width:75%" >
-                        <canvas id="myChart3"></canvas>
-                    </div>
-
-                    <script>
-                        var ctx = document.getElementById('myChart3');
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: ['J-5', 'J-4', 'J-3', 'J-2', 'J-1'],
-                                datasets: [{
-                                    label: 'Nombre de soigné',
-                                    data: [<%=j_5_recovered%>, <%=j_4_recovered%>, <%=j_3_recovered%>, <%=j_2_recovered%>, <%=j_1_recovered%>],
-                                    backgroundColor: [
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(75, 192, 192, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
-                </div>
-
-            </div>
-
         </div>
 
     </div>
+
+    <div id="container-3">
+
+        <div id="covidDivGraphs">
+            <h2>Covid : Graphes</h2>
+            <h2>Évolution des derniers jours</h2>
+                <div> <canvas id="myChart"></canvas> </div>
+                <div> <canvas id="myChart2"></canvas> </div>
+                <div> <canvas id="myChart3"></canvas> </div>
+        </div>
+
+    </div>
+
 </div>
 
+<script>
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['J-5', 'J-4', 'J-3', 'J-2', 'J-1'],
+            datasets: [{
+                label: 'Nombre de cas',
+                data: [<%=j_5_cases%>, <%=j_4_cases%>, <%=j_3_cases%>, <%=j_2_cases%>, <%=j_1_cases%>],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+<script>
+    var ctx = document.getElementById('myChart2');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['J-5', 'J-4', 'J-3', 'J-2', 'J-1'],
+            datasets: [{
+                label: 'Nombre de mort',
+                data: [<%=j_5_deaths%>, <%=j_4_deaths%>, <%=j_3_deaths%>, <%=j_2_deaths%>, <%=j_1_deaths%>],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+<script>
+    var ctx = document.getElementById('myChart3');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['J-5', 'J-4', 'J-3', 'J-2', 'J-1'],
+            datasets: [{
+                label: 'Nombre de soigné',
+                data: [<%=j_5_recovered%>, <%=j_4_recovered%>, <%=j_3_recovered%>, <%=j_2_recovered%>, <%=j_1_recovered%>],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
 <script src="https://kit.fontawesome.com/30f9fd1eba.js" crossorigin="anonymous"></script>
 <script src="javascripts/app.js"></script>
 </body>

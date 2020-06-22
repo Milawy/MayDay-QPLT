@@ -89,10 +89,6 @@ body{
     color: #3c3f41;
 }
 
-.light-body .fa-weather{
-    /*background: rgba(180,180,180,.7);*/
-}
-
 .light-body #clock #time div span{
     color: black;
 }
@@ -148,13 +144,26 @@ body{
 .light-body #favoriteStation #stationFav span:nth-child(1),
 .light-body #formStations #station span:nth-child(1){
     color: #125688;
-    font-size: 1.2em;
+}
+
+.light-body #covid #covidDivStats,
+.light-body #covid #covidDivStats div{
+    background-color: rgba(213, 213, 213 ,.7);
+}
+
+.light-body #covidDivStats span:nth-child(3){
+    color: #125688;
+}
+
+.light-body #covid #covidDivGraphs,
+.light-body #covid #covidDivGraphs div{
+    background-color: rgba(213, 213, 213 ,.7);
 }
 
 /* PROFILE */
 
 #profile{
-    background-image: url("/images/profileBg.png");
+    background-image: url("../images/profileBg.png");
     background-size: cover;
     background-attachment: scroll, local;
     height: 100vh;
@@ -487,10 +496,15 @@ button:focus {
     font-size: 3em;
 }
 
+.fa.fa-covid{
+    opacity: 1;
+    font-size: 3em;
+}
+
 /* HOME */
 
 #home{
-    background-image: url("/images/homeBg.png");
+    background-image: url("../images/homeBg.png");
     background-size: cover;
     background-attachment: scroll, local;
 }
@@ -606,7 +620,7 @@ button:focus {
 /* WEATHER */
 
 #weather{
-    background-image: url("/images/weatherBg.png");
+    background-image: url("../images/weatherBg.png");
     background-size: cover;
     background-attachment: scroll, local;
     height: 100vh;
@@ -639,7 +653,7 @@ button:focus {
 /* TRENDS */
 
 #trends{
-    background-image: url("/images/trendsBg.png");
+    background-image: url("../images/trendsBg.png");
     background-size: cover;
     background-attachment: scroll, local;
     height: 100vh;
@@ -650,19 +664,10 @@ button:focus {
     background-color: rgba(49, 51, 53,.7);
 }
 
-/* COVID */
-
-#covid{
-    background-image: url("/images/covidBg.png");
-    background-size: cover;
-    background-attachment: scroll, local;
-    height: 100vh;
-}
-
 /* TRANSPORT */
 
 #transport{
-    background-image: url("/images/transportBg.png");
+    background-image: url("../images/transportBg.png");
     background-size: cover;
     background-attachment: scroll, local;
     height: 100vh;
@@ -753,4 +758,52 @@ button:focus {
 #formStations #station span:nth-child(1){
     color: #55ACEE;
     font-size: 1.2em;
+}
+
+/* COVID */
+
+#covid{
+    background-image: url("../images/covidBg.png");
+    background-size: cover;
+    background-attachment: scroll, local;
+    background-repeat: repeat-y;
+}
+
+#covid #covidDivStats,
+#covid #covidDivStats div{
+    background-color: rgba(49, 51, 53,.7);
+}
+
+#covidDivStats div{
+    display: flex;
+    margin: auto 10px;
+}
+
+#covidDivStats div div{
+    flex-direction: column;
+    align-items: center;
+}
+
+#covidDivStats span:nth-child(2){
+    margin-top: 10px;
+}
+
+#covidDivStats span:nth-child(3){
+    color: #55ACEE;
+    margin-top: 10px;
+}
+
+#covid #covidDivGraphs,
+#covid #covidDivGraphs div{
+    background-color: rgba(49, 51, 53,.7);
+}
+
+#covidDivGraphs div{
+    display: flex;
+    margin: 10px;
+    width: 95%;
+}
+
+#covidDivGraphs div div{
+    flex-direction: column;
 }

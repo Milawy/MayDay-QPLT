@@ -106,8 +106,6 @@ app.get('/home', verifSignIn, (request,response) => {
     var URL2 = "";
     var URL3 = "";
     var URL4 = "";
-    var apodData;
-    var calendarImg;
 
     MongoClient.connect(url, function(err, client) {
         assert.equal(null, err);
@@ -116,21 +114,19 @@ app.get('/home', verifSignIn, (request,response) => {
         const db = client.db(dbName);
 
         findVar(db, function() {
-            apodAPI(db, function() {
-                checkUpdateHoroscope(db, function() {
-                    resultatCheckHoroscope(db, function() {
-                        findDataHoroscope(db, function() {
-                            checkUpdateNouvelles(db, function() {
-                                resultatCheckNouvelles(db, function() {
-                                    findDataNouvelles(db, function() {
-                                        client.close();
-                                        response.render('pages/home', {id: request.session.user.id, img: imageBinaire,
-                                            astro: astro, texteAstro: texteAstro, message: messageVlille, stationFav: stationFav,
-                                            titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
-                                            description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
-                                            auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
-                                            URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4});
-                                    });
+            checkUpdateHoroscope(db, function() {
+                resultatCheckHoroscope(db, function() {
+                    findDataHoroscope(db, function() {
+                        checkUpdateNouvelles(db, function() {
+                            resultatCheckNouvelles(db, function() {
+                                findDataNouvelles(db, function() {
+                                    client.close();
+                                    response.render('pages/home', {id: request.session.user.id, img: imageBinaire,
+                                        astro: astro, texteAstro: texteAstro, message: messageVlille, stationFav: stationFav,
+                                        titre0: titre0, titre1: titre1, titre2: titre2, titre3: titre3, titre4 : titre4,
+                                        description0: description0, description1: description1, description2: description2, description3: description3, description4: description4,
+                                        auteur0: auteur0, auteur1: auteur1, auteur2: auteur2, auteur3: auteur3, auteur4: auteur4,
+                                        URL0: URL0, URL1: URL1, URL2: URL2, URL3: URL3, URL4: URL4});
                                 });
                             });
                         });
@@ -155,32 +151,6 @@ app.get('/home', verifSignIn, (request,response) => {
             callback();
         });
     };
-
-    const apodAPI = function(db, callback){
-        https.get("https://api.nasa.gov/planetary/apod?api_key=Dcz3JCi3yoyaHayLIOg56qOhbgIPhCYLq6K0ridz", (response) => {
-            response.on("data", (chunk) => {
-                apodData += chunk;
-            });
-
-            response.on("end", () => {
-               console.log("APOD Response received");
-               console.log(apodData);
-
-                const collection = db.collection('APOD');
-                collection.insertMany([
-                    { "calendarPic" : calendarImg }], function(err, result) {
-                    assert.equal(err, null);
-                    assert.equal(1, result.result.n);
-                    assert.equal(1, result.ops.length);
-                    console.log("Inserted 1 document into the collection Utilisateurs");
-                    callback(result);
-                });
-
-            });
-        }).on("error", (err) => {
-            console.log("Error : " + err.message);
-        });
-    }
 
     const checkUpdateHoroscope = function(db, callback) {
         console.log("Je suis dans checkUpdateHoroscope");
