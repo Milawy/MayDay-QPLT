@@ -90,8 +90,7 @@ body{
 }
 
 .light-body .fa-weather{
-    background: rgba(180,180,180,.7);
-    color: white;
+    /*background: rgba(180,180,180,.7);*/
 }
 
 .light-body #clock #time div span{
@@ -104,18 +103,21 @@ body{
 
 .light-body .calendar .date .days .day:nth-child(7),
 .light-body .calendar .date .days .number:nth-child(7n){
-    color: #55ACEE;
-    font-weight: 600;
+    color: #ff5700;
 }
 
 .light-body .calendar .date .days .number.active{
-    color: #ff5700;
-    border: #ff5700 solid 1px;
+    color: #125688;
+    border: #125688 solid 1px;
 }
 
 .light-body #weather #weatherDiv,
 .light-body #weather #weatherDiv div {
     background-color: rgba(213, 213, 213 ,.7);
+}
+
+.light-body #weatherDiv span:nth-child(3){
+    color: #125688;
 }
 
 .light-body #trends #trendsDiv,
@@ -630,7 +632,7 @@ button:focus {
 }
 
 #weatherDiv span:nth-child(3){
-    color: #ff5700;
+    color: #55ACEE;
     margin-top: 10px;
 }
 
@@ -654,6 +656,7 @@ button:focus {
     background-image: url("/images/covidBg.png");
     background-size: cover;
     background-attachment: scroll, local;
+    height: 100vh;
 }
 
 /* TRANSPORT */
