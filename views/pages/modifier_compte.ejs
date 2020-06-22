@@ -522,10 +522,6 @@
         </div>
     </form>
 
-    <% if (locals.result1) { %>
-        <p><%= result1 %></p>
-    <% } %>
-
     <hr>
 
     <form action="/modifier_image" method="post" enctype="multipart/form-data">
@@ -539,6 +535,10 @@
             <input type="submit" value="Changer">
         </div>
     </form>
+
+    <% if (locals.result1) { %>
+        <p><%= result1 %></p>
+    <% } %>
 
     <hr>
 

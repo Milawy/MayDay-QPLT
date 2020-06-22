@@ -27,6 +27,11 @@
         <span class="fa" id="password-eye" onclick="showHide()">&#xf06e;</span>
         <span class="maj"></span>
     </div>
+
+    <% if (locals.erreur) { %>
+        <p><%= erreur %></p>
+    <% } %>
+
     <div class="form-input">
         <input type="submit" name="" value="Connexion">
     </div>
@@ -36,10 +41,6 @@
         <input type="button" name="" value="Créer un compte" onclick="window.location.href='/sign-up';">
     </div>
 </form>
-
-<% if (locals.erreur) { %>
-    <%= erreur %>
-<% } %>
 
 <script>
     const inpPassword = document.getElementById("input_mdp")

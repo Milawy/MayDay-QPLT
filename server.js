@@ -521,7 +521,7 @@ app.get('/weather', verifSignIn, (request, response) => {
     }
 });
 
-var user_country="france";
+//var user_country="france";
 
 app.get('/covid', verifSignIn,(request,response) => {
     let imageBinaire;
@@ -1011,60 +1011,6 @@ app.get('/modifier_compte', verifSignIn, (request, response) => {
 
 });
 
-app.get('/modifier_nom', verifSignIn, (request, response) =>{
-
-    response.render('pages/modifer_compte');
-
-});
-
-app.get('/modifier_prenom', verifSignIn, (request, response) =>{
-
-    response.render('pages/modifer_compte');
-
-});
-
-app.get('/modifier_id', verifSignIn, (request, response) =>{
-
-    response.render('pages/login');
-
-});
-
-app.get('/modifier_email', verifSignIn, (request, response) =>{
-
-    response.render('pages/modifer_compte');
-
-});
-
-app.get('/modifier_ville', verifSignIn, (request, response) =>{
-
-    response.render('pages/modifer_compte');
-
-});
-
-app.get('/modifier_pays', verifSignIn, (request, response) =>{
-
-    response.render('pages/modifer_compte');
-
-});
-
-app.get('/modifier_CP', verifSignIn, (request, response) =>{
-
-    response.render('pages/modifer_compte');
-
-});
-
-app.get('/modifier_MDP', verifSignIn, (request, response) =>{
-
-    response.render('pages/login');
-
-});
-
-app.get('/modifier_date', verifSignIn, (request, response) =>{
-
-    response.render('pages/modifier_compte');
-
-});
-
 app.get('/modifier_image', verifSignIn, (request, response) => {
 
     response.render('pages/modifier_compte');
@@ -1260,8 +1206,6 @@ app.post('/connexion1', (request, response) => {
 // Modification du profil
 app.post('/modifier_compte', (request, response, next) => {
 
-    //tout mettre au début de ton app.post
-
     let nom;
     let prenom;
     let pseudo;
@@ -1391,21 +1335,21 @@ app.post('/modifier_compte', (request, response, next) => {
         }
 
         collection.updateOne({ id : user_actuel }
-            , { $set: { /*photo_profil : file,*/
+            , { $set: {
                     "nom" : change_nom,
                     "prenom" : change_prenom,
                     "id" : change_pseudo,
                     "mdp" : change_mdp,
                     "email" : change_email,
                     "localisation.Ville" : change_ville,
-                    "localisation.pays" : change_pays,
+                    "localisation.Pays" : change_pays,
                     "localisation.CP" : change_CP,
                     "Date_Naissance" : change_date,
                     "station_fav" : change_station }
             }, function(err, result) {
                 assert.equal(err, null);
                 assert.equal(1, result.result.n);
-                console.log("profil mise à jour");
+                console.log("profil mis à jour");
                 callback(result);
                 response.render('pages/login');
             });
@@ -1444,14 +1388,14 @@ app.post('/modifier_image', (request, response, next) => {
                 assert.equal(1, result.result.n);
                 console.log("Photo mise à jour");
                 callback(result);
-                response.render('pages/modifier_compte', {result1: "Votre photo de profil a bien été mis à jour"});
+                response.render('pages/modifier_compte', {result1: "Votre photo de profil a bien été mise à jour"});
                 if (err) {
                     response.render('pages/modifier_compte', {result1: "Erreur lors de l'insertion de votre image"});
                 }
             });
     }
 })
-
+/*
 app.post('/nomStation', (request, response) => {
 
     var user_actuel = "";
@@ -1486,8 +1430,8 @@ app.post('/nomStation', (request, response) => {
             });
     }
 
-})
-
+});
+*/
 app.post('/transport', (request,response) => {
     let imageBinaire;
     VLilleData = "";
@@ -1560,59 +1504,17 @@ app.post('/transport', (request,response) => {
             });
 
         }).on("error", (err) => {
-            console.log("Error: " + err.message);
+            console.log("Error : " + err.message);
         });
     }
-});
-
-app.post('/', (request,response1) => {
-
-    let input_nomStation = request.body.input_nomStation;
-    input_nomStation = input_nomStation.toUpperCase();
-    console.log(input_nomStation);
-
-    if (input_nomStation === ' '){
-
-        response.render('pages/index', {erreur_nomStation: 'Veuillez entrer un nom de station'});
-
-    }
-    else {
-
-        https.get("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=108&facet=libelle&facet=nom&facet=commune&facet=etat&refine.commune=LILLE", (response2) => {
-
-            let vLille_data = '';
-            // A chunk of data has been received.
-                response2.on('data', (chunk) => {
-                    vLille_data += chunk;
-                });
-
-                // The whole response has been received. Print out the result.
-                response2.on('end',() => {
-
-                    vLille_data = JSON.parse(vLille_data)
-                    for (let i = 0; i < vLille_data.parameters.rows; i++) {
-                        if (vLille_data.records[i].fields.nom === input_nomStation)	{
-                    	    response1.render('pages/index', {nomStation: vLille_data.records[i].fields.nom.toLowerCase(), etatStation: vLille_data.records[i].fields.etat.toLowerCase(), nbVeloDispo: vLille_data.records[i].fields.nbvelosdispo, nbPlaceDispo: vLille_data.records[i].fields.nbplacesdispo });
-                    	}
-                    }
-
-                });
-
-            }).on("error", (err) => {
-                console.log("Error: " + err.message);
-            });
-
-    }
-
 });
 
 function verifSignIn(request,response,next) {
 
     if(request.session.user){ next(); }         //Si la session existe on change la page
     else {
-        var erreur = new Error("Vous n'êtes pas connecté");
-        console.log(request.session.user);
-        next(erreur);                           //Sinon, on met une erreur, accès non autorisé
+        console.log("Vous n'êtes pas connecté");
+        response.redirect("/login");            //Sinon, on met une erreur, accès non autorisé
     }
 }
 

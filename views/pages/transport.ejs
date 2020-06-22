@@ -46,18 +46,18 @@
             <h2>Application V'Lille</h2>
             <div>
                 Voici les informations recueillies sur les stations <strong>Vlilles</strong>
-                <% if (typeof(locals.stationFav) != 'undefined') { %>
+                <% if (typeof(locals.stationFav) != "undefined" || locals.stationFav != "" || locals.stationFav != null) { %>
                     <h3> Votre station favorite :</h3>
                     <div id="stationFav">
                         <p>
-                            <%= stationFav %><br>
-                            Cette station est <%= locals.etatStationFav %> . <br>
-                            Il y a <%= locals.nbVeloDispoFav %>  vélos disponible(s) . <br>
-                            Il y a <%= locals.nbPlaceDispoFav %> places disponible(s) . <br>
+                            <%= stationFav %> <br>
+                            Cette station est <%= locals.etatStationFav %> <br>
+                            Il y a <%= locals.nbVeloDispoFav %>  vélos disponible(s) <br>
+                            Il y a <%= locals.nbPlaceDispoFav %> places disponible(s) <br>
                         </p>
                     </div>
-                <% }else { %>
-                    <div> Vous n'avez pas de station favorite enregistrée, vous pouvez l'ajouter sur la page de modification et personnalisation du compte </div>
+                <% } else { %>
+                    <div> Vous n'avez pas de station favorite enregistrée, vous pouvez en ajouter une sur la page de modification du profil </div>
                 <% } %>
             </div>
         </div>
@@ -329,10 +329,10 @@
 
             <div id="station">
                 <div>
-                    <%= nomStation %><br>
-                    Cette station est <%= etatStation %> . <br>
-                    Il y a <%= nbVeloDispo %>  vélos disponible(s) . <br>
-                    Il y a <%= nbPlaceDispo %> places disponible(s) . <br>
+                    <%= nomStation %> <br>
+                    Cette station est <%= etatStation %> <br>
+                    Il y a <%= nbVeloDispo %>  vélos disponible(s) <br>
+                    Il y a <%= nbPlaceDispo %> places disponible(s) <br>
                 </div>
             </div>
         <% } %>

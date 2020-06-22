@@ -245,9 +245,47 @@ function changeWeatherIcons(){
 function birthdayParse(){
     let longBirthday = document.getElementById('hideValueGetter3').value;
     let birthdaySpan = document.getElementById('birthdaySpan');
-
     let smallerBirthday = longBirthday.split(' ');
-    birthdaySpan.innerHTML = smallerBirthday[2] + " " + smallerBirthday[1] + " " + smallerBirthday[3];
+    let monthName;
+
+    if(smallerBirthday[1] === "Jan"){
+        monthName = "janvier";
+    }
+    else if(smallerBirthday[1] === "Feb"){
+        monthName = "février";
+    }
+    else if(smallerBirthday[1] === "Mar"){
+        monthName = "mars";
+    }
+    else if(smallerBirthday[1] === "Apr"){
+        monthName = "avril";
+    }
+    else if(smallerBirthday[1] === "May"){
+        monthName = "mai";
+    }
+    else if(smallerBirthday[1] === "Jun"){
+        monthName = "juin";
+    }
+    else if(smallerBirthday[1] === "Jul"){
+        monthName = "juillet";
+    }
+    else if(smallerBirthday[1] === "Aug"){
+        monthName = "août";
+    }
+    else if(smallerBirthday[1] === "Sep"){
+        monthName = "septembre";
+    }
+    else if(smallerBirthday[1] === "Oct"){
+        monthName = "octobre";
+    }
+    else if(smallerBirthday[1] === "Nov"){
+        monthName = "novembre";
+    }
+    else if(smallerBirthday[1] === "Dec"){
+        monthName = "décembre";
+    }
+
+    birthdaySpan.innerHTML = smallerBirthday[2] + " " + monthName + " " + smallerBirthday[3];
 }
 
 /// LIGHT/DARK MODE ///

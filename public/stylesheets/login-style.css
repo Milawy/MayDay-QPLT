@@ -378,8 +378,16 @@ body{
     width: 95%;
 }
 
-/* CANCEL BUTTON */
+/* BACK BUTTON */
 
 #cancel{
     margin: 0 0 20px 0;
+}
+
+/* ERRORS */
+
+p{
+    background-color: #3c3f41;
+    color: #CC8800;
+    text-align: center;
 }
