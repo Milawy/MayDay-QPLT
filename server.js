@@ -1016,12 +1016,6 @@ app.get('/profile', verifSignIn, (request, response) => {
 
 });
 
-app.get('/profileChange', verifSignIn, (request, response) => {
-
-    response.render('pages/profileChange');
-
-});
-
 app.get('/modifier_compte', verifSignIn, (request, response) => {
 
     response.render('pages/modifier_compte');
@@ -1044,6 +1038,12 @@ app.get('/deconnexion', (request,response) => {
     });
 
     response.redirect('/login');
+
+});
+
+app.get('/forget-password', (request, response) => {
+
+    response.render('pages/forget-password');
 
 });
 
@@ -1411,6 +1411,63 @@ app.post('/modifier_image', (request, response, next) => {
                 if (err) {
                     response.render('pages/modifier_compte', {result1: "Erreur lors de l'insertion de votre image"});
                 }
+            });
+    }
+});
+
+//Forget password
+app.post('/forget-password',(request, response, next) => {
+
+    var user_actuel = "";
+    let pseudo;
+
+    MongoClient.connect(url, function(err, client) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+
+        const db = client.db(dbName);
+
+        Cherche(db,function() {
+            updateDocument(db,function(){
+                client.close();
+            });
+        });
+    });
+
+    const Cherche = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Find some documents
+        collection.find({id : request.body.input_id}).toArray(function(err, docs) {
+            assert.equal(err, null);
+            console.log("Found the following records for findVar Utilisateurs");
+            console.log(docs[0]);
+            pseudo = docs[0].id;
+            callback(docs[0]);
+
+            if(docs[0]){
+                if(docs[0].id === request.body.input_id){
+                    var User = {id: request.body.input_id};
+                    Users.push(User);
+                    request.session.user = User;
+                }
+            }
+        });
+    };
+
+    //Modifier un document
+    const updateDocument = function(db, callback) {
+        // Get the documents collection
+        const collection = db.collection('Utilisateurs');
+        // Modifie le compte de l'utilisateur
+        collection.updateOne({ id : pseudo }
+            , { $set: { "mdp" : request.body.new_mdp } },
+            function(err, result) {
+                assert.equal(err, null);
+                assert.equal(1, result.result.n);
+                console.log("mdp mise à jour");
+                callback(result);
+                response.render('pages/login', {result1: "Votre mdp a bien été mise à jour"});
             });
     }
 })

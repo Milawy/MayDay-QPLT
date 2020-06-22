@@ -394,3 +394,71 @@ p{
     color: #CC8800;
     text-align: center;
 }
+
+/* ------------------------------------------------------------------------------- */
+
+/* PASSWORD FORGET FORM */
+
+#recoverInfos{
+    background-color: rgba(50,50,50,.5);
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 40%;
+    margin: 150px 0 0 560px;
+}
+
+#recoverInfos form {
+    width: 700px;
+    padding-bottom: 20px;
+}
+
+#recoverInfos h2{
+    margin: 0 0 20px;
+    padding: 20px;
+    text-align: center;
+    font-size: 3em;
+}
+
+#recoverInfos .form-input{
+    position: relative;
+    margin: 20px 0;
+    text-align: center;
+}
+
+#recoverInfos .form-input input{
+    background-color: rgba(50,50,50,.8);
+    color: white;
+    outline: none;
+    width: 60%;
+    height: 40px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid white;
+    font-size: 18px;
+}
+
+/* PASSWORD FORGET SUBMIT INPUT */
+
+#recoverInfos .form-input input[type="submit"]{
+    color: white;
+    border: solid 1px white;
+    cursor: pointer;
+}
+
+#recoverInfos .form-input input[type="button"]{
+    color: white;
+    border: solid 1px white;
+    cursor: pointer;
+}
+
+#recoverInfos .form-input input[type="submit"]:hover,
+#recoverInfos .form-input input[type="button"]:hover{
+    transition-duration: 250ms;
+    background-color: #313335;
+    color: #d5d5d5;
+    cursor: pointer;
+}
