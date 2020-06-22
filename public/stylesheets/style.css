@@ -123,6 +123,32 @@ body{
     background-color: rgba(213, 213, 213 ,.7);
 }
 
+.light-body #transport #fakeTransportDiv,
+.light-body #transport #fakeTransportDiv div{
+    background-color: rgba(213, 213, 213 ,.7);
+}
+
+.light-body #formStations .form-input input{
+    background-color: rgba(213, 213, 213 ,.8);
+    color: black;
+    border: 1px solid black;
+}
+
+.light-body #formStations .form-input input[type="submit"]{
+    color: black;
+    border: solid 1px black;
+}
+
+.light-body #formStations .form-input input[type="submit"]:hover{
+    background-color: #e5e5e5;
+}
+
+.light-body #favoriteStation #stationFav span:nth-child(1),
+.light-body #formStations #station span:nth-child(1){
+    color: #125688;
+    font-size: 1.2em;
+}
+
 /* PROFILE */
 
 #profile{
@@ -661,7 +687,6 @@ button:focus {
 }
 
 #transportDiv h3{
-    color: white;
     text-align: center;
     margin: 10px 0;
     font-weight: 700;
@@ -673,11 +698,6 @@ button:focus {
 #favoriteStation #stationFav span{
     display: block;
     padding: 10px;
-}
-
-#favoriteStation #stationFav span:nth-child(1){
-    color: #55ACEE;
-    font-size: 1.2em;
 }
 
 #formStations form{
@@ -713,8 +733,7 @@ button:focus {
 
 #formStations .form-input input[type="submit"]:hover{
     transition-duration: 250ms;
-    background-color: #313335;
-    color: #d5d5d5;
+    background-color: #3c3f41;
     cursor: pointer;
 }
 
@@ -727,8 +746,8 @@ button:focus {
     padding: 10px;
 }
 
+#favoriteStation #stationFav span:nth-child(1),
 #formStations #station span:nth-child(1){
     color: #55ACEE;
     font-size: 1.2em;
 }
-
