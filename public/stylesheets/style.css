@@ -666,10 +666,9 @@ button:focus {
 
 .calendar .image{
     position: absolute;
-    top: 0;
     right: 0;
-    width: 65%;
-    height: 100%;
+    width: 50%;
+    /*height: 100%;*/
 }
 
 .calendar .image img{
