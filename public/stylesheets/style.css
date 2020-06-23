@@ -97,6 +97,10 @@ body{
     border: 15px solid rgba(213, 213, 213,.1);
 }
 
+.light-body .calendar .date .days .day:nth-child(1n){
+    color: #125688;
+}
+
 .light-body .calendar .date .days .day:nth-child(7),
 .light-body .calendar .date .days .number:nth-child(7n){
     color: #ff5700;
@@ -672,6 +676,10 @@ button:focus {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.calendar .date .days .day:nth-child(1n){
+    color: #55ACEE;
 }
 
 .calendar .date .days .day:nth-child(7),
