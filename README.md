@@ -10,10 +10,15 @@ Notre projet c'est pas encore hébergé en ligne, pour le lancer et l'utiliser i
   -> Utilisateurs
   
   -> VLille
+  
   -> covid
+  
   -> horoscope
+  
   -> mesSessions
+  
   -> meteo
+  
   -> nouvelles
   
 4) Importer les collections du fichier mesCollections.rar dans votre BDD dans le collections associées en utilisant "import file".
