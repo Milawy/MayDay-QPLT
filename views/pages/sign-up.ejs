@@ -16,22 +16,22 @@
         <div id="first-column">
             <div class="form-input">
                 <label>
-                    <input id="input_nom" type="text" name="input_nom" placeholder="Nom" autocomplete="off" required>
+                    <input id="input_nom" type="text" name="input_nom" placeholder="Nom" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
                 </label>
             </div>
             <div class="form-input">
                 <label>
-                    <input id="input_prenom" type="text" name="input_prenom" placeholder="Prénom" autocomplete="off" required>
+                    <input id="input_prenom" type="text" name="input_prenom" placeholder="Prénom" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
                 </label>
             </div>
             <div class="form-input">
                 <label>
-                    <input id="input_id" type="text" name="input_id" placeholder="Pseudo" autocomplete="off" required>
+                    <input id="input_id" type="text" name="input_id" placeholder="Pseudo" pattern="[A-Za-z0-9\-]+" title="Veuillez entrer des lettres ou des chiffres uniquement" autocomplete="off" required>
                 </label>
             </div>
             <div class="form-input">
                 <label>
-                    <input id="input_mdp" type="password" name="input_mdp" placeholder="Mot de passe" autocomplete="off" required>
+                    <input id="input_mdp" type="password" name="input_mdp" placeholder="Mot de passe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Veuillez entrer un mot de passe contenant un moins une majuscule, une minuscule, un chiffre et comprenant au moins 8 caractères" autocomplete="off" required>
                 </label>
                 <span class="fa" id="password-eye" onclick="showHide()">&#xf06e;</span>
                 <span class="maj"></span>
@@ -52,10 +52,9 @@
             </div>
             <div class="form-input" id="countryInput">
                 <label>
-                    <input id="input_pays" type="text" name="input_pays" list="pays" placeholder="Pays" autocomplete="off" required>
+                    <input id="input_pays" type="text" name="input_pays" list="pays" placeholder="Pays" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
                 </label>
                 <datalist id="pays">
-                    <option value="afganistan">Afghanistan</option>
                     <option value="south-africa">Afrique du Sud</option>
                     <option value="albania">Albanie</option>
                     <option value="algeria">Algérie</option>
@@ -250,12 +249,12 @@
             </div>
             <div class="form-input">
                 <label>
-                    <input id="input_commune" type="text" name="input_commune" placeholder="Ville" autocomplete="off" required>
+                    <input id="input_commune" type="text" name="input_commune" placeholder="Ville" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
                 </label>
             </div>
             <div class="form-input">
                 <label>
-                    <input id="input_CP" type="text" name="input_CP" placeholder="Code Postal" autocomplete="off" required>
+                    <input id="input_CP" type="text" name="input_CP" placeholder="Code Postal" pattern="[0-9]{5}" title="Veuillez entrer un code postal (5 chiffres)" autocomplete="off" required>
                 </label>
             </div>
 

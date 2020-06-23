@@ -17,24 +17,24 @@
             <div id="first-column">
                 <div class="form-input">
                     <label>
-                        <input id="input_id" type="text" name="input_id" placeholder="Pseudo" autocomplete="off">
+                        <input id="input_id" type="text" name="input_id" placeholder="Pseudo" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
                     </label>
                 </div>
                 <div class="form-input">
                     <label>
-                        <input id="input_mdp" type="password" name="input_mdp" placeholder="Mot de passe" autocomplete="off">
+                        <input id="input_mdp" type="password" name="input_mdp" placeholder="Mot de passe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Veuillez entrer un mot de passe contenant un moins une majuscule, une minuscule, un chiffre et comprenant au moins 8 caractères" autocomplete="off">
                     </label>
                     <span class="fa" id="password-eye" onclick="showHide()">&#xf06e;</span>
                     <span class="maj"></span>
                 </div>
                 <div class="form-input">
                     <label>
-                        <input id="input_nom" type="text" name="input_nom" placeholder="Nom" autocomplete="off">
+                        <input id="input_nom" type="text" name="input_nom" placeholder="Nom" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
                     </label>
                 </div>
                 <div class="form-input">
                     <label>
-                        <input id="input_prenom" type="text" name="input_prenom" placeholder="Prénom" autocomplete="off">
+                        <input id="input_prenom" type="text" name="input_prenom" placeholder="Prénom" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
                     </label>
                 </div>
                 <div class="form-input">
@@ -48,10 +48,9 @@
 
                 <div class="form-input" id="listInput">
                     <label>
-                        <input id="input_pays" type="text" name="input_pays" list="pays" placeholder="Pays" autocomplete="off">
+                        <input id="input_pays" type="text" name="input_pays" list="pays" placeholder="Pays" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
                     </label>
                     <datalist id="pays">
-                        <option value="afghanistan">Afghanistan</option>
                         <option value="south-africa">Afrique du Sud</option>
                         <option value="albania">Albanie</option>
                         <option value="algeria">Algérie</option>
@@ -246,17 +245,17 @@
                 </div>
                 <div class="form-input">
                     <label>
-                        <input id="input_commune" type="text" name="input_commune" placeholder="Ville" autocomplete="off">
+                        <input id="input_commune" type="text" name="input_commune" placeholder="Ville" pattern="[A-Za-z\- ]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
                     </label>
                 </div>
                 <div class="form-input">
                     <label>
-                        <input id="input_CP" type="text" name="input_CP" placeholder="Code Postal" autocomplete="off">
+                        <input id="input_CP" type="text" name="input_CP" placeholder="Code Postal" pattern="[0-9]{5}" title="Veuillez entrer un code postal (5 chiffres)" autocomplete="off">
                     </label>
                 </div>
                 <div class="form-input" id="listInput">
                     <label>
-                        <input id="input_nomStation" type="text" name="input_nomStation" list="Vlille" placeholder="Station Ville" autocomplete="off">
+                        <input id="input_nomStation" type="text" name="input_nomStation" list="Vlille" placeholder="Station Ville" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
                     </label>
                     <datalist id="Vlille">
                         <option value="METROPOLE EUROPEENNE DE LILLE">METROPOLE EUROPEENNE DE LILLE</option>
