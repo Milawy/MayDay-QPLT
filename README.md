@@ -5,7 +5,7 @@ Notre projet c'est pas encore hébergé en ligne, pour le lancer et l'utiliser i
 
 1) Télécharger "MongoDBCompassCommunity"
 2) Créer le connexion "mongodb://localhost:27017" puis créer la BDD "QPLT"
-3) Creer les collections suivantes dans la BDD (bien respecter l'orthographe et la casse) :
+3) Créer les collections suivantes dans la BDD (bien respecter l'orthographe et la casse) :
   
   -> Utilisateurs
   
