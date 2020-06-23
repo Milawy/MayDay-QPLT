@@ -29,12 +29,12 @@
                 </div>
                 <div class="form-input">
                     <label>
-                        <input id="input_nom" type="text" name="input_nom" placeholder="Nom" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
+                        <input id="input_nom" type="text" name="input_nom" placeholder="Nom" pattern="[A-Za-z\- ]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
                     </label>
                 </div>
                 <div class="form-input">
                     <label>
-                        <input id="input_prenom" type="text" name="input_prenom" placeholder="Prénom" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
+                        <input id="input_prenom" type="text" name="input_prenom" placeholder="Prénom" pattern="[A-Za-z\- ]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
                     </label>
                 </div>
                 <div class="form-input">
@@ -48,7 +48,7 @@
 
                 <div class="form-input" id="listInput">
                     <label>
-                        <input id="input_pays" type="text" name="input_pays" list="pays" placeholder="Pays" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
+                        <input id="input_pays" type="text" name="input_pays" list="pays" placeholder="Pays" pattern="[A-Za-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\- ]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
                     </label>
                     <datalist id="pays">
                         <option value="south-africa">Afrique du Sud</option>
@@ -245,7 +245,7 @@
                 </div>
                 <div class="form-input">
                     <label>
-                        <input id="input_commune" type="text" name="input_commune" placeholder="Ville" pattern="[A-Za-z\- ]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
+                        <input id="input_commune" type="text" name="input_commune" placeholder="Ville" pattern="[A-Za-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\- ]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
                     </label>
                 </div>
                 <div class="form-input">
@@ -255,7 +255,7 @@
                 </div>
                 <div class="form-input" id="listInput">
                     <label>
-                        <input id="input_nomStation" type="text" name="input_nomStation" list="Vlille" placeholder="Station Ville" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
+                        <input id="input_nomStation" type="text" name="input_nomStation" list="Vlille" placeholder="Station V'Lille favorite" pattern="[A-Za-z\- ]+" title="Veuillez entrer des lettres uniquement" autocomplete="off">
                     </label>
                     <datalist id="Vlille">
                         <option value="METROPOLE EUROPEENNE DE LILLE">METROPOLE EUROPEENNE DE LILLE</option>
@@ -531,6 +531,8 @@
         </div>
     </form>
 
+    <hr>
+
     <% if (locals.result1) { %>
         <p><%= result1 %></p>
     <% } %>
@@ -539,8 +541,6 @@
     <% if (locals.result2) { %>
         <p><%= result2 %></p>
     <% } %>
-
-    <hr>
 
     <div class="form-input">
         <input id="cancel" type="button" name="" value="Retour" onclick="openProfile()">

@@ -16,16 +16,6 @@
         <div id="first-column">
             <div class="form-input">
                 <label>
-                    <input id="input_nom" type="text" name="input_nom" placeholder="Nom" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
-                </label>
-            </div>
-            <div class="form-input">
-                <label>
-                    <input id="input_prenom" type="text" name="input_prenom" placeholder="Prénom" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
-                </label>
-            </div>
-            <div class="form-input">
-                <label>
                     <input id="input_id" type="text" name="input_id" placeholder="Pseudo" pattern="[A-Za-z0-9\-]+" title="Veuillez entrer des lettres ou des chiffres uniquement" autocomplete="off" required>
                 </label>
             </div>
@@ -35,6 +25,16 @@
                 </label>
                 <span class="fa" id="password-eye" onclick="showHide()">&#xf06e;</span>
                 <span class="maj"></span>
+            </div>
+            <div class="form-input">
+                <label>
+                    <input id="input_nom" type="text" name="input_nom" placeholder="Nom" pattern="[A-Za-z\- ]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
+                </label>
+            </div>
+            <div class="form-input">
+                <label>
+                    <input id="input_prenom" type="text" name="input_prenom" placeholder="Prénom" pattern="[A-Za-z\- ]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
+                </label>
             </div>
             <div class="form-input">
                 <label>
@@ -52,7 +52,7 @@
             </div>
             <div class="form-input" id="countryInput">
                 <label>
-                    <input id="input_pays" type="text" name="input_pays" list="pays" placeholder="Pays" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
+                    <input id="input_pays" type="text" name="input_pays" list="pays" placeholder="Pays" pattern="[A-Za-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\- ]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
                 </label>
                 <datalist id="pays">
                     <option value="south-africa">Afrique du Sud</option>
@@ -249,7 +249,7 @@
             </div>
             <div class="form-input">
                 <label>
-                    <input id="input_commune" type="text" name="input_commune" placeholder="Ville" pattern="[A-Za-z\-]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
+                    <input id="input_commune" type="text" name="input_commune" placeholder="Ville" pattern="[A-Za-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\- ]+" title="Veuillez entrer des lettres uniquement" autocomplete="off" required>
                 </label>
             </div>
             <div class="form-input">

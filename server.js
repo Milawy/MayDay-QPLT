@@ -1485,7 +1485,7 @@ app.post('/modifier_compte', (request, response, next) => {
                     response.render('pages/login');
                 }
                 else{
-                    response.render('pages/modifier_compte', {result2 : "Votre compte à bien été modifié"})
+                    response.render('pages/modifier_compte', {result2 : "Votre compte a bien été modifié"})
                 }
             });
         });
