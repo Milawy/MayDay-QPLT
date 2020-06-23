@@ -8,6 +8,7 @@ Notre projet c'est pas encore hébergé en ligne, pour le lancer et l'utiliser i
 3) Creer les collections suivantes dans la BDD (bien respecter l'orthographe et la casse) :
   
   -> Utilisateurs
+  
   -> VLille
   -> covid
   -> horoscope
