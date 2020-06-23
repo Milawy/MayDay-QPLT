@@ -9,6 +9,13 @@ body{
     font-family: sans-serif;
 }
 
+@media (max-width: 1600px){
+    body{
+        height: 100vh;
+        padding-bottom: 5px;
+    }
+}
+
 /* LOGIN FORM */
 
 #login-form{
@@ -272,7 +279,7 @@ body{
     color: white;
     border: solid 1px white;
     cursor: pointer;
-    width: 60%;
+    width: 40%;
     margin: 0 20%;
 }
 
@@ -289,7 +296,7 @@ body{
     color: white;
     border: solid 1px white;
     cursor: pointer;
-    width: 60%;
+    width: 40%;
     margin: 0 20%;
 }
 
@@ -298,17 +305,6 @@ body{
     background-color: #313335;
     color: #d5d5d5;
     cursor: pointer;
-}
-
-/* FORGET PASSWORD ? */
-
-#signup-form .forget-password{
-    display: block;
-    color: white;
-    margin-top: 30px;
-    padding-left: 10px;
-    font-weight: bold;
-    width: fit-content;
 }
 
 #signup-form hr{
@@ -358,14 +354,14 @@ body{
 
 #changeProfile{
     background-color: rgba(50,50,50,.5);
-    display: flex;
-    flex-direction: column;
+    color: white;
     opacity: 1;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 40%;
-    margin: 20px 0 0 570px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    width: 700px;
+    padding: 20px 20px;
 }
 
 #changeProfile form {
@@ -377,6 +373,15 @@ body{
     padding: 20px;
     text-align: center;
     font-size: 3em;
+}
+
+@media (max-width: 1600px){
+    #changeProfile h2{
+        margin: 0;
+        padding: 10px;
+        text-align: center;
+        font-size: 3em;
+    }
 }
 
 #changeProfile #container-form{
@@ -455,7 +460,7 @@ body{
 #changeProfile .form-input input[type="button"]{
     color: white;
     border: solid 1px white;
-    width: 100%;
+    width: 25%;
     cursor: pointer;
 }
 
@@ -543,12 +548,6 @@ body{
     width: 95%;
 }
 
-/* BACK BUTTON */
-
-#cancel{
-    margin: 0 0 20px 0;
-}
-
 /* ERRORS */
 
 p{
@@ -563,19 +562,14 @@ p{
 
 #recoverInfos{
     background-color: rgba(50,50,50,.5);
-    display: flex;
-    flex-direction: column;
+    color: white;
     opacity: 1;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 30%;
-    margin: 150px 0 0 660px;
-}
-
-#recoverInfos form {
-    width: 700px;
-    padding-bottom: 20px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    padding: 20px 20px;
 }
 
 #recoverInfos h2{
@@ -595,7 +589,7 @@ p{
     background-color: rgba(50,50,50,.8);
     color: white;
     outline: none;
-    width: 60%;
+    width: 82%;
     height: 40px;
     padding: 10px;
     box-sizing: border-box;
@@ -628,4 +622,8 @@ p{
 #recoverInfos hr{
     margin: 50px 0 50px 85px;
     width: 75%;
+}
+
+::-webkit-scrollbar{
+    width: 0;
 }

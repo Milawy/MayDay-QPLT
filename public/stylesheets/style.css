@@ -166,7 +166,6 @@ body{
     background-image: url("../images/profileBg.png");
     background-size: cover;
     background-attachment: scroll, local;
-    height: 100vh;
 }
 
 #profileDiv{
@@ -174,11 +173,25 @@ body{
     flex-direction: column;
     background-color: #313335;
     padding: 0 100px;
-    height: 100vh;
-    width: 70%;
     margin-left: 300px;
-    margin-right: 110px;
+    margin-right: 0;
     box-shadow: 0 15px 35px rgba(0,0,0,.5);
+    height: 100vh;
+    text-align: center;
+}
+
+@media (min-width: 1600px){
+    #profileDiv{
+        display: flex;
+        flex-direction: column;
+        background-color: #313335;
+        padding: 0 100px;
+        width: 70%;
+        margin-left: 300px;
+        margin-right: 110px;
+        box-shadow: 0 15px 35px rgba(0,0,0,.5);
+        height: 100vh;
+    }
 }
 
 #profileDiv > div{
@@ -252,9 +265,15 @@ body{
     float: left;
     text-align: center;
     height: 100%;
-    width: 15%;
+    width: 20%;
     margin-right: 15px;
     opacity: 0.9;
+}
+
+@media (min-width: 1600px){
+    .side-bar{
+        width: 15%;
+    }
 }
 
 .tabs img{
@@ -501,6 +520,12 @@ button:focus {
     font-size: 3em;
 }
 
+@media (max-width: 1600px){
+    .fa.fa-weather{
+        font-size: 2em;
+    }
+}
+
 /* HOME */
 
 #home{
@@ -668,7 +693,13 @@ button:focus {
     position: absolute;
     right: 0;
     width: 50%;
-    /*height: 100%;*/
+}
+
+@media (min-width: 1600px){
+    .calendar .image{
+        width: 65%;
+        height: 100%;
+    }
 }
 
 .calendar .image img{
@@ -691,9 +722,22 @@ button:focus {
     background-color: rgba(49, 51, 53,.7);
 }
 
+@media (max-width: 1600px){
+    #weatherDiv{
+        padding-right: 20px;
+    }
+}
+
 #weatherDiv div{
     display: flex;
+    text-align: center;
     margin: auto 10px;
+}
+
+@media (max-width: 1600px){
+    #weatherDiv div{
+        margin: 0;
+    }
 }
 
 #weatherDiv div div{
@@ -716,7 +760,13 @@ button:focus {
     background-image: url("../images/trendsBg.png");
     background-size: cover;
     background-attachment: scroll, local;
-    height: 100vh;
+
+}
+
+@media (min-width: 1600px){
+    #trends{
+        height: 100vh;
+    }
 }
 
 #trends #trendsDiv,

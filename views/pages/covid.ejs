@@ -45,7 +45,7 @@
 
         <div id="covidDivStats">
             <h2>Covid : Statistiques</h2>
-            <h2>en <%=country %></h2>
+            <h2><%=country %></h2>
             <div>
                 <div>
                     <span class="fa fa-covid">&#xf0c0;</span>
@@ -91,7 +91,7 @@
 
 <script>
     let progress = document.getElementById('progressBar');
-    let totalHeigth = document.body.scrollHeight - window.innerHeight + 1600;
+    let totalHeigth = document.body.scrollHeight - window.innerHeight + 600;
     window.onscroll = function(){
         let progressHeight = (window.pageYOffset / totalHeigth) * 100;
         progress.style.height = progressHeight + "%";
