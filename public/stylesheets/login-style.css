@@ -1,6 +1,6 @@
 body{
     background-color: #3c3f41;
-    background-image: url("/images/formBg.jpg");
+    background-image: url("../images/formBg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     color: white;
