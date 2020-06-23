@@ -522,12 +522,15 @@ app.get('/weather', verifSignIn, (request, response) => {
     }
 });
 
-/* COVID */
-var user_country="france";
+//var user_country="france";
 
 app.get('/covid', verifSignIn,(request,response) => {
 
+    var covid_data='';
     var imageBinaire;
+    ajouterCovid = false;
+    majCovid = false;
+    ajoutCovid = false;
     let country = "";
     let cases = "";
     let deaths = "";
@@ -554,97 +557,23 @@ app.get('/covid', verifSignIn,(request,response) => {
         console.log("Bien connecté au serveur");
         const db = client.db(dbName);
         findVar(db, function() {
-            findDocuments1(db, function() {
-                client.close();
-                response.render('pages/covid',{ id: request.session.user.id, img: imageBinaire,
-                    country:country, cases:cases, deaths:deaths,
-                    recovered:recovered, active:active,
-                    j_1_cases:j_1_cases, j_1_deaths:j_1_deaths, j_1_recovered:j_1_recovered,
-                    j_2_cases:j_2_cases, j_2_deaths:j_2_deaths, j_2_recovered:j_2_recovered,
-                    j_3_cases:j_3_cases, j_3_deaths:j_3_deaths, j_3_recovered:j_3_recovered,
-                    j_4_cases:j_4_cases, j_4_deaths:j_4_deaths, j_4_recovered:j_4_recovered,
-                    j_5_cases:j_5_cases, j_5_deaths:j_5_deaths, j_5_recovered:j_5_recovered});
+            checkUpdateCovid(db, function() {
+                resultatCheckCovid(db, function() {
+                    findDataCovid(db, function() {
+                        client.close();
+                        response.render('pages/covid',{ id: request.session.user.id, img: imageBinaire,
+                            country:country, cases:cases, deaths:deaths,
+                            recovered:recovered, active:active,
+                            j_1_cases:j_1_cases, j_1_deaths:j_1_deaths, j_1_recovered:j_1_recovered,
+                            j_2_cases:j_2_cases, j_2_deaths:j_2_deaths, j_2_recovered:j_2_recovered,
+                            j_3_cases:j_3_cases, j_3_deaths:j_3_deaths, j_3_recovered:j_3_recovered,
+                            j_4_cases:j_4_cases, j_4_deaths:j_4_deaths, j_4_recovered:j_4_recovered,
+                            j_5_cases:j_5_cases, j_5_deaths:j_5_deaths, j_5_recovered:j_5_recovered});
+
+                    });
+                });
             });
         });
-    });
-
-    https.get("https://api.covid19api.com/total/dayone/country/" + user_country, (response2) => {
-        var covid_data='';
-
-        // A chunk of data has been received.
-        response2.on('data', (chunk) => {
-            covid_data += chunk;
-        });
-
-        // The whole response has been received. Print out the result.
-        response2.on('end',() => {
-
-            covid_data = JSON.parse(covid_data)
-            //affichage des résultats dans la console :
-            /*for (var i=covid_data.length-5; i<covid_data.length; i++) {
-                //afficher sur la page du début les résultats
-                console.log('Nom pays : '+covid_data[i].Country);
-                console.log('Nouveaux cas : '+(parseInt(covid_data[i].Confirmed,10)-parseInt(covid_data[i-1].Confirmed,10)));
-                console.log('Nouveaux décès : '+(parseInt(covid_data[i].Deaths,10)-parseInt(covid_data[i-1].Deaths,10)));
-                console.log('Nouveaux rétablissement : '+(parseInt(covid_data[i].Recovered,10)-parseInt(covid_data[i-1].Recovered,10)));
-                console.log('Date : '+covid_data[i].Date);
-                console.log();
-                //response1.render('pages/index', {nomPays: covid_data[i].Country, nmbreCas: covid_data[i].Cases, status: covid_data[i].Status, date: covid_data[i].Date });
-
-            }
-            console.log('Etat actuel : ');
-            console.log('Nombre de cas actif : '+covid_data[covid_data.length-1].Active);
-            console.log('Nombre de cas confirmés : '+covid_data[covid_data.length-1].Confirmed);
-            console.log('Nombre de morts : '+covid_data[covid_data.length-1].Deaths);
-            console.log('Nombre de rémissions : '+covid_data[covid_data.length-1].Recovered);*/
-
-            var len = covid_data.length;
-            var dbo = db.db('QPLT');
-            var myquery = { type: 'covid'};
-            var newvalues = { $set: {country:user_country,
-                    j_5:{
-                        cases:parseInt(covid_data[len-5].Confirmed,10)-parseInt(covid_data[len-6].Confirmed,10),
-                        deaths:parseInt(covid_data[len-5].Deaths,10)-parseInt(covid_data[len-6].Deaths,10),
-                        recovered:parseInt(covid_data[len-5].Recovered,10)-parseInt(covid_data[len-6].Recovered,10)
-                    },
-                    j_4:{
-                        cases:parseInt(covid_data[len-4].Confirmed,10)-parseInt(covid_data[len-5].Confirmed,10),
-                        deaths:parseInt(covid_data[len-4].Deaths,10)-parseInt(covid_data[len-5].Deaths,10),
-                        recovered:parseInt(covid_data[len-4].Recovered,10)-parseInt(covid_data[len-5].Recovered,10)
-                    },
-                    j_3:{
-                        cases:parseInt(covid_data[len-3].Confirmed,10)-parseInt(covid_data[len-4].Confirmed,10),
-                        deaths:parseInt(covid_data[len-3].Deaths,10)-parseInt(covid_data[len-4].Deaths,10),
-                        recovered:parseInt(covid_data[len-3].Recovered,10)-parseInt(covid_data[len-4].Recovered,10)
-                    },
-                    j_2:{
-                        cases:parseInt(covid_data[len-2].Confirmed,10)-parseInt(covid_data[len-3].Confirmed,10),
-                        deaths:parseInt(covid_data[len-2].Deaths,10)-parseInt(covid_data[len-3].Deaths,10),
-                        recovered:parseInt(covid_data[len-2].Recovered,10)-parseInt(covid_data[len-3].Recovered,10)
-                    },
-                    j_1:{
-                        cases:parseInt(covid_data[len-1].Confirmed,10)-parseInt(covid_data[len-2].Confirmed,10),
-                        deaths:parseInt(covid_data[len-1].Deaths,10)-parseInt(covid_data[len-2].Deaths,10),
-                        recovered:parseInt(covid_data[len-1].Recovered,10)-parseInt(covid_data[len-2].Recovered,10)
-                    },
-                    current:{
-                        cases:parseInt(covid_data[len-1].Confirmed,10),
-                        deaths:parseInt(covid_data[len-1].Deaths,10),
-                        recovered:parseInt(covid_data[len-1].Recovered,10),
-                        active:parseInt(covid_data[len-1].Active,10),
-                        date:parseInt(covid_data[len-1].Date[0]+covid_data[len-1].Date[1]+covid_data[len-1].Date[2]+covid_data[len-1].Date[3]
-                            +covid_data[len-1].Date[5]+covid_data[len-1].Date[6]+covid_data[len-1].Date[8]+covid_data[len-1].Date[9],10)
-                    },
-                    last_update:parseInt(covid_data[len-1].Date[0]+covid_data[len-1].Date[1]+covid_data[len-1].Date[2]+covid_data[len-1].Date[3]
-                        +covid_data[len-1].Date[5]+covid_data[len-1].Date[6]+covid_data[len-1].Date[8]+covid_data[len-1].Date[9],10)+1
-                }};
-            dbo.collection('covid').updateOne(myquery, newvalues,function(err, res) {
-                if (err) throw err;
-                console.log("1 document updated");
-                db.close();
-            });
-        });
-
     });
 
     const findVar = function(db, callback) {
@@ -655,7 +584,7 @@ app.get('/covid', verifSignIn,(request,response) => {
             assert.equal(err, null);
             console.log("Found the following records for findVar Utilisateurs");
             console.log(docs[0].localisation.Ville)
-            ville = docs[0].localisation.Ville
+            country = docs[0].localisation.Pays;
             if (typeof(docs[0].photo_profil) != 'undefined'){
                 imageBinaire = new Buffer(docs[0].photo_profil.file.buffer).toString('base64');
                 console.log(docs[0].photo_profil.file);
@@ -664,39 +593,235 @@ app.get('/covid', verifSignIn,(request,response) => {
         });
     };
 
-    const findDocuments1 = function(db, callback) {
-        // Get the documents collection
+     const checkUpdateCovid = function(db, callback) {
         const collection = db.collection('covid');
-        // Find some documents
-        collection.find({}).toArray(function(err, docs) {
-            assert.equal(err, null);
-            console.log("Found the following records");
-            console.log(docs)
-            country = docs[0].country;
-            console.log(country)
-            cases = docs[0].current.cases;
-            console.log(cases);
-            deaths = docs[0].current.deaths;
-            recovered = docs[0].current.recovered;
-            active = docs[0].current.active;
-            j_1_cases= docs[0].j_1.cases;
-            j_1_deaths= docs[0].j_1.deaths ;
-            j_1_recovered= docs[0].j_1.recovered;
-            j_2_cases= docs[0].j_2.cases;
-            j_2_deaths= docs[0].j_2.deaths;
-            j_2_recovered= docs[0].j_2.recovered;
-            j_3_cases= docs[0].j_3.cases ;
-            j_3_deaths= docs[0].j_3.deaths;
-            j_3_recovered= docs[0].j_3.recovered;
-            j_4_cases= docs[0].j_4.cases  ;
-            j_4_deaths= docs[0].j_4.deaths;
-            j_4_recovered= docs[0].j_4.recovered;
-            j_5_cases= docs[0].j_5.cases ;
-            j_5_deaths= docs[0].j_5.deaths;
-            j_5_recovered= docs[0].j_5.recovered ;
-            callback(docs);
-        });
+        collection.find({country : country}).toArray(function(err,docs) {
+            assert.equal(err,null);
+            console.log("Found the following records for checkUpdateCovid");
+            console.log(docs[0]);
+            if (typeof(docs[0]) == 'undefined'){
+                ajouterCovid = true;
+                callback(ajouterCovid);
+            }
+            else{
+                var dateAjd = new Date();
+                var date_a_comparer = docs[0].date_mise_a_jour;
+                console.log(dateAjd);
+                console.log(date_a_comparer);
+                if ( dateAjd - date_a_comparer > 1000 * 60 * 60 * 12) {      //12 heures
+                    majCovid = true;
+                    callback(majCovid);
+                }
+                else{
+                    majCovid = false;
+                    callback(majCovid);
+                }
+            }
+        })
+
+     };
+
+     const resultatCheckCovid = function(db,callback) {
+         if (ajouterCovid === true){
+             insertCovid(db,function() {
+                 callback(ajouterCovid);
+             });
+         }
+         else {
+             if (majCovid === true){
+                 updateCovid(db, function() {
+                     callback(majCovid);
+                 });
+             }
+             else{
+                 callback(majCovid);
+             }
+         }
+
+     }
+
+     const insertCovid = function(db, callback) {
+         https.get("https://api.covid19api.com/total/dayone/country/"+ country, (response2) => {
+
+             // A chunk of data has been received.
+             response2.on('data', (chunk) => {
+                 covid_data += chunk;
+             });
+
+             // The whole response has been received. Print out the result.
+             response2.on('end',() => {
+
+                 covid_data = JSON.parse(covid_data)
+                 var len = covid_data.length;
+                 const collection = db.collection('covid');
+                 collection.insertMany([
+                     {"country": country,
+                     "j_5":{
+                       "cases":parseInt(covid_data[len-5].Confirmed,10)-parseInt(covid_data[len-6].Confirmed,10),
+                       "deaths":parseInt(covid_data[len-5].Deaths,10)-parseInt(covid_data[len-6].Deaths,10),
+                       "recovered":parseInt(covid_data[len-5].Recovered,10)-parseInt(covid_data[len-6].Recovered,10)
+                     },
+                     "j_4":{
+                       "cases":parseInt(covid_data[len-4].Confirmed,10)-parseInt(covid_data[len-5].Confirmed,10),
+                       "deaths":parseInt(covid_data[len-4].Deaths,10)-parseInt(covid_data[len-5].Deaths,10),
+                       "recovered":parseInt(covid_data[len-4].Recovered,10)-parseInt(covid_data[len-5].Recovered,10)
+                     },
+                     "j_3":{
+                       "cases":parseInt(covid_data[len-3].Confirmed,10)-parseInt(covid_data[len-4].Confirmed,10),
+                       "deaths":parseInt(covid_data[len-3].Deaths,10)-parseInt(covid_data[len-4].Deaths,10),
+                       "recovered":parseInt(covid_data[len-3].Recovered,10)-parseInt(covid_data[len-4].Recovered,10)
+                     },
+                     "j_2":{
+                       "cases":parseInt(covid_data[len-2].Confirmed,10)-parseInt(covid_data[len-3].Confirmed,10),
+                       "deaths":parseInt(covid_data[len-2].Deaths,10)-parseInt(covid_data[len-3].Deaths,10),
+                       "recovered":parseInt(covid_data[len-2].Recovered,10)-parseInt(covid_data[len-3].Recovered,10)
+                     },
+                     "j_1":{
+                       "cases":parseInt(covid_data[len-1].Confirmed,10)-parseInt(covid_data[len-2].Confirmed,10),
+                       "deaths":parseInt(covid_data[len-1].Deaths,10)-parseInt(covid_data[len-2].Deaths,10),
+                       "recovered":parseInt(covid_data[len-1].Recovered,10)-parseInt(covid_data[len-2].Recovered,10)
+                     },
+                     "current":{
+                       "cases":parseInt(covid_data[len-1].Confirmed,10),
+                       "deaths":parseInt(covid_data[len-1].Deaths,10),
+                       "recovered":parseInt(covid_data[len-1].Recovered,10),
+                       "active":parseInt(covid_data[len-1].Active,10),
+                       "date":parseInt(covid_data[len-1].Date[0]+covid_data[len-1].Date[1]+covid_data[len-1].Date[2]+covid_data[len-1].Date[3]
+                       +covid_data[len-1].Date[5]+covid_data[len-1].Date[6]+covid_data[len-1].Date[8]+covid_data[len-1].Date[9],10)
+                     },
+                     "date_mise_a_jour": new Date()}], function(err, result) {
+                     assert.equal(err, null);
+                     assert.equal(1, result.result.n);
+                     assert.equal(1, result.ops.length);
+                     cases = parseInt(covid_data[len-1].Confirmed,10);
+                     deaths = parseInt(covid_data[len-1].Deaths,10);
+                     recovered = parseInt(covid_data[len-1].Recovered,10);
+                     active = parseInt(covid_data[len-1].Active,10);
+                     j_1_cases= parseInt(covid_data[len-1].Confirmed,10)-parseInt(covid_data[len-2].Confirmed,10);
+                     j_1_deaths= parseInt(covid_data[len-1].Deaths,10)-parseInt(covid_data[len-2].Deaths,10);
+                     j_1_recovered= parseInt(covid_data[len-1].Recovered,10)-parseInt(covid_data[len-2].Recovered,10);
+                     j_2_cases= parseInt(covid_data[len-2].Confirmed,10)-parseInt(covid_data[len-3].Confirmed,10);
+                     j_2_deaths= parseInt(covid_data[len-2].Deaths,10)-parseInt(covid_data[len-3].Deaths,10);
+                     j_2_recovered= parseInt(covid_data[len-2].Recovered,10)-parseInt(covid_data[len-3].Recovered,10);
+                     j_3_cases= parseInt(covid_data[len-3].Confirmed,10)-parseInt(covid_data[len-4].Confirmed,10);
+                     j_3_deaths= parseInt(covid_data[len-3].Deaths,10)-parseInt(covid_data[len-4].Deaths,10);
+                     j_3_recovered= parseInt(covid_data[len-3].Recovered,10)-parseInt(covid_data[len-4].Recovered,10);
+                     j_4_cases= parseInt(covid_data[len-4].Confirmed,10)-parseInt(covid_data[len-5].Confirmed,10);
+                     j_4_deaths= parseInt(covid_data[len-4].Deaths,10)-parseInt(covid_data[len-5].Deaths,10);
+                     j_4_recovered= parseInt(covid_data[len-4].Recovered,10)-parseInt(covid_data[len-5].Recovered,10);
+                     j_5_cases= parseInt(covid_data[len-5].Confirmed,10)-parseInt(covid_data[len-6].Confirmed,10);
+                     j_5_deaths= parseInt(covid_data[len-5].Deaths,10)-parseInt(covid_data[len-6].Deaths,10);
+                     j_5_recovered= parseInt(covid_data[len-5].Recovered,10)-parseInt(covid_data[len-6].Recovered,10);
+                     console.log("Inserted 1 document into the collection");
+                     ajoutCovid = true;
+                     callback(result);
+                 });
+
+             });
+
+         });
+     }
+
+     const updateCovid = function(db, callback) {
+         https.get("https://api.covid19api.com/total/dayone/country/"+ country, (response2) => {
+
+                      // A chunk of data has been received.
+                      response2.on('data', (chunk) => {
+                          covid_data += chunk;
+                      });
+
+                      // The whole response has been received. Print out the result.
+                      response2.on('end',() => {
+
+                          covid_data = JSON.parse(covid_data)
+
+                          const collection = db.collection('covid');
+                          collection.updateOne({ country : country }
+                             , { $set: {
+                                            "j_5":{
+                                              "cases":parseInt(covid_data[len-5].Confirmed,10)-parseInt(covid_data[len-6].Confirmed,10),
+                                              "deaths":parseInt(covid_data[len-5].Deaths,10)-parseInt(covid_data[len-6].Deaths,10),
+                                              "recovered":parseInt(covid_data[len-5].Recovered,10)-parseInt(covid_data[len-6].Recovered,10)
+                                            },
+                                            "j_4":{
+                                              "cases":parseInt(covid_data[len-4].Confirmed,10)-parseInt(covid_data[len-5].Confirmed,10),
+                                              "deaths":parseInt(covid_data[len-4].Deaths,10)-parseInt(covid_data[len-5].Deaths,10),
+                                              "recovered":parseInt(covid_data[len-4].Recovered,10)-parseInt(covid_data[len-5].Recovered,10)
+                                            },
+                                            "j_3":{
+                                              "cases":parseInt(covid_data[len-3].Confirmed,10)-parseInt(covid_data[len-4].Confirmed,10),
+                                              "deaths":parseInt(covid_data[len-3].Deaths,10)-parseInt(covid_data[len-4].Deaths,10),
+                                              "recovered":parseInt(covid_data[len-3].Recovered,10)-parseInt(covid_data[len-4].Recovered,10)
+                                            },
+                                            "j_2":{
+                                              "cases":parseInt(covid_data[len-2].Confirmed,10)-parseInt(covid_data[len-3].Confirmed,10),
+                                              "deaths":parseInt(covid_data[len-2].Deaths,10)-parseInt(covid_data[len-3].Deaths,10),
+                                              "recovered":parseInt(covid_data[len-2].Recovered,10)-parseInt(covid_data[len-3].Recovered,10)
+                                            },
+                                            "j_1":{
+                                              "cases":parseInt(covid_data[len-1].Confirmed,10)-parseInt(covid_data[len-2].Confirmed,10),
+                                              "deaths":parseInt(covid_data[len-1].Deaths,10)-parseInt(covid_data[len-2].Deaths,10),
+                                              "recovered":parseInt(covid_data[len-1].Recovered,10)-parseInt(covid_data[len-2].Recovered,10)
+                                            },
+                                            "current":{
+                                              "cases":parseInt(covid_data[len-1].Confirmed,10),
+                                              "deaths":parseInt(covid_data[len-1].Deaths,10),
+                                              "recovered":parseInt(covid_data[len-1].Recovered,10),
+                                              "active":parseInt(covid_data[len-1].Active,10),
+                                              "date":parseInt(covid_data[len-1].Date[0]+covid_data[len-1].Date[1]+covid_data[len-1].Date[2]+covid_data[len-1].Date[3]
+                                              +covid_data[len-1].Date[5]+covid_data[len-1].Date[6]+covid_data[len-1].Date[8]+covid_data[len-1].Date[9],10)
+                                            },
+                                            "date_mise_a_jour": new Date()} }, function(err, result) {
+                                assert.equal(err, null);
+                                assert.equal(1, result.result.n);
+                                console.log("Document covid mis à jour");
+                                callback(result);
+                          })
+
+
+                      });
+
+         }).on("error", (err) => {
+            console.log("Error: " + err.message);
+         });
+     }
+
+    const findDataCovid = function(db,callback) {
+        if(ajoutCovid === true){
+            callback();
+        }
+        else{
+            const collection = db.collection('covid');
+            collection.find({country : country}).toArray(function(err, docs) {
+                assert.equal(err, null);
+                console.log("Voici les informations trouvées par findDataCovid");
+                console.log(docs[0]);
+                country = docs[0].country;
+                cases = docs[0].current.cases;
+                console.log(cases);
+                deaths = docs[0].current.deaths;
+                recovered = docs[0].current.recovered;
+                active = docs[0].current.active;
+                j_1_cases= docs[0].j_1.cases;
+                j_1_deaths= docs[0].j_1.deaths ;
+                j_1_recovered= docs[0].j_1.recovered;
+                j_2_cases= docs[0].j_2.cases;
+                j_2_deaths= docs[0].j_2.deaths;
+                j_2_recovered= docs[0].j_2.recovered;
+                j_3_cases= docs[0].j_3.cases ;
+                j_3_deaths= docs[0].j_3.deaths;
+                j_3_recovered= docs[0].j_3.recovered;
+                j_4_cases= docs[0].j_4.cases  ;
+                j_4_deaths= docs[0].j_4.deaths;
+                j_4_recovered= docs[0].j_4.recovered;
+                j_5_cases= docs[0].j_5.cases ;
+                j_5_deaths= docs[0].j_5.deaths;
+                j_5_recovered= docs[0].j_5.recovered ;
+                callback(docs);
+            });
+        }
     }
+
 });
 
 app.get('/trends', verifSignIn, (request, response) => {
@@ -949,7 +1074,7 @@ app.get('/transport', verifSignIn, (request, response) => {
 
     const insertVLille= function(db, callback) {
 
-        https.get("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=108&facet=libelle&facet=nom&facet=commune&facet=etat&refine.commune=LILLE", (response2) => {
+        https.get("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=249&facet=libelle&facet=nom&facet=commune&facet=etat&facet=etatconnexion", (response2) => {
             // A chunk of data has been received.
             response2.on('data', (chunk) => {
                 VLilleData += chunk;
@@ -984,7 +1109,7 @@ app.get('/transport', verifSignIn, (request, response) => {
     }
 
     const updateVLille = function(db, callback) {
-        https.get("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=108&facet=libelle&facet=nom&facet=commune&facet=etat&refine.commune=LILLE", (response2) => {
+        https.get("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=249&facet=libelle&facet=nom&facet=commune&facet=etat&facet=etatconnexion", (response2) => {
             // A chunk of data has been received.
             response2.on('data', (chunk) => {
                 VLilleData += chunk;
@@ -1313,7 +1438,6 @@ app.post('/modifier_compte', (request, response, next) => {
     let ville;
     let codePostal;
     let pays;
-    //let dateNaissance;
     let email;
     let stationFavorite;
 
@@ -1322,11 +1446,12 @@ app.post('/modifier_compte', (request, response, next) => {
     let change_pseudo;
     let change_email;
     let change_mdp;
-    //let change_date;
     let change_pays;
     let change_ville;
     let change_CP;
     let change_station
+
+    let ilFautSeReconnecterLa = false;
 
     const Cherche = function(db, callback) {
         // Get the documents collection
@@ -1342,7 +1467,6 @@ app.post('/modifier_compte', (request, response, next) => {
             ville = docs[0].localisation.Ville;
             codePostal = docs[0].localisation.CP;
             pays = docs[0].localisation.Pays;
-            //dateNaissance = docs[0].Date_Naissance;
             email = docs[0].email;
             stationFavorite = docs[0].station_fav;
             callback();
@@ -1357,6 +1481,12 @@ app.post('/modifier_compte', (request, response, next) => {
         Cherche(db, function() {
             updateDocument(db,function(){
                 client.close();
+                if (ilFautSeReconnecterLa == true){
+                    response.render('pages/login');
+                }
+                else{
+                    response.render('pages/modifier_compte', {result2 : "Votre compte à bien été modifié"})
+                }
             });
         });
     });
@@ -1389,6 +1519,7 @@ app.post('/modifier_compte', (request, response, next) => {
         }
         else{
             change_pseudo = request.body.input_id;
+            ilFautSeReconnecterLa = true;
         }
         if (request.body.email === ""){
             change_email = email;
@@ -1401,13 +1532,8 @@ app.post('/modifier_compte', (request, response, next) => {
         }
         else{
             change_mdp = request.body.input_mdp;
+            ilFautSeReconnecterLa = true;
         }
-        /*if (request.body.input_date_naissance === ""){
-            change_date = dateNaissance;
-        }
-        else{
-            change_date = request.body.input_date_naissance;
-        }*/
         if (request.body.input_pays === ""){
             change_pays = pays;
         }
@@ -1433,52 +1559,25 @@ app.post('/modifier_compte', (request, response, next) => {
             change_station = request.body.input_nomStation;
         }
 
-        if (request.body.input_id === "" && request.body.input_mdp === ""){
-            collection.updateOne({ id : user_actuel }
-                , { $set: {
-                        "nom" : change_nom,
-                        "prenom" : change_prenom,
-                        "id" : change_pseudo,
-                        "mdp" : change_mdp,
-                        "email" : change_email,
-                        "localisation.Ville" : change_ville,
-                        "localisation.Pays" : change_pays,
-                        "localisation.CP" : change_CP,
-                        //"Date_Naissance" : change_date,
-                        "station_fav" : change_station }
-                }, function(err, result) {
-                    assert.equal(err, null);
-                    assert.equal(1, result.result.n);
-                    console.log("profil mis à jour");
-                    callback(result);
-                    response.render('pages/modifier_compte', {result1: "Votre profil a bien été mise à jour"});
-                });
-        }
-        else {
-
-            collection.updateOne({ id : user_actuel }
-                , { $set: {
-                        "nom" : change_nom,
-                        "prenom" : change_prenom,
-                        "id" : change_pseudo,
-                        "mdp" : change_mdp,
-                        "email" : change_email,
-                        "localisation.Ville" : change_ville,
-                        "localisation.Pays" : change_pays,
-                        "localisation.CP" : change_CP,
-                        //"Date_Naissance" : change_date,
-                        "station_fav" : change_station }
-                }, function(err, result) {
-                    assert.equal(err, null);
-                    assert.equal(1, result.result.n);
-                    console.log("profil mis à jour");
-                    callback(result);
-                    response.render('pages/login');
-                });
-        }
+        collection.updateOne({ id : user_actuel }
+            , { $set: {
+                    "nom" : change_nom,
+                    "prenom" : change_prenom,
+                    "id" : change_pseudo,
+                    "mdp" : change_mdp,
+                    "email" : change_email,
+                    "localisation.Ville" : change_ville,
+                    "localisation.Pays" : change_pays,
+                    "localisation.CP" : change_CP,
+                    "station_fav" : change_station }
+            }, function(err, result) {
+                assert.equal(err, null);
+                assert.equal(1, result.result.n);
+                console.log("profil mis à jour");
+                callback(result);
+            });
     }
 });
-
 
 //Photo
 app.post('/modifier_image', (request, response, next) => {
@@ -1621,7 +1720,7 @@ app.post('/transport', (request,response) => {
                 erreurNomStation: 'Veuillez entrer un nom de station'});
     }
     else {
-        https.get("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=108&facet=libelle&facet=nom&facet=commune&facet=etat&refine.commune=LILLE", (response2) => {
+        https.get("https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=249&facet=libelle&facet=nom&facet=commune&facet=etat&facet=etatconnexion", (response2) => {
 
             let VLilleData = '';
             // A chunk of data has been received.
