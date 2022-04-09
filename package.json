@@ -21,7 +21,7 @@
     "formidable": "^1.2.2",
     "fs": "0.0.1-security",
     "html": "^1.0.0",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "mongodb": "^3.5.8",
     "mustache": "^4.0.1",
     "newsapi": "^2.4.0"
